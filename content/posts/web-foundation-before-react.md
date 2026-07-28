@@ -2,7 +2,7 @@
 title: "React 전에 HTML·CSS·JavaScript를 공부한 이유"
 description: "정적 문서, 레이아웃, DOM 이벤트와 비동기 처리까지 웹의 기본 흐름을 익힌 과정이 React 개발에 어떻게 이어졌는지 정리했습니다."
 date: "2026-07-29"
-category: "Web"
+category: "Frontend"
 tags:
   - HTML
   - CSS
