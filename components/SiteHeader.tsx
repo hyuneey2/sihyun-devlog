@@ -12,9 +12,9 @@ export function SiteHeader() {
         </Link>
 
         <nav className="site-nav" aria-label="주요 메뉴">
-          <Link href="/">홈</Link>
-          <Link href="/posts">기록</Link>
-          <Link href="/about">소개</Link>
+          <Link href="/">Home</Link>
+          <Link href="/posts">Posts</Link>
+          <Link href="/about">About me</Link>
         </nav>
       </div>
     </header>
