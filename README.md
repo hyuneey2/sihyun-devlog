@@ -1,21 +1,21 @@
-# 박시현 개발 블로그
+## 개발 블로그
 
 프로젝트에서 고민하고 해결한 과정을 기록하는 개인 개발 블로그입니다.
 
-## 기술 구성
+### 기술 구성
 
 - Vinext / React / TypeScript
 - Markdown 기반 게시글
 - Tailwind CSS 4
 
-## 로컬 실행
+###로컬 실행
 
 ```bash
 npm install
 npm run dev
 ```
 
-## 글 추가하기
+### 글 추가하기
 
 `content/posts` 폴더에 `글-주소.md` 파일을 추가합니다.
 
@@ -36,7 +36,7 @@ tags:
 파일명이 글 주소가 됩니다. 예를 들어
 `content/posts/my-first-post.md`는 `/posts/my-first-post`에서 열립니다.
 
-## 주요 폴더
+### 주요 폴더
 
 ```text
 app/
