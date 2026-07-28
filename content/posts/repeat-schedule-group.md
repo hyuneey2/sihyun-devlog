@@ -2,7 +2,7 @@
 title: "반복 일정은 왜 별도 그룹 테이블이 필요했을까"
 description: "첫 일정 ID를 그룹 ID로 쓰려던 구조에서 시작해, 반복 일정 그룹 테이블을 분리하기까지의 판단을 정리했습니다."
 date: "2026-07-28"
-category: "Dailog"
+category: "Backend"
 tags:
   - NestJS
   - TypeORM
