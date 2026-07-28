@@ -10,42 +10,14 @@ export default function Home() {
     <main>
       <section className="hero shell">
         <div className="hero-copy">
-          <p className="eyebrow">Frontend · Backend · Project Notes</p>
           <h1>
-            배운 것을
-            <br />
-            기록으로 남깁니다.
+            더 나은 화면과 구조를 고민하는 프론트엔드/백엔드 개발자
+            박시현입니다.
           </h1>
-          <p className="hero-description">
-            사용자와 가까운 화면부터 데이터 흐름까지, 직접 고민하고
-            구현하며 배운 내용을 정리하는 박시현의 개발 블로그입니다.
-          </p>
-          <div className="hero-actions">
-            <Link className="button button-primary" href="#recent">
-              최근 글 보기
-            </Link>
-            <Link className="button button-secondary" href="/about">
-              소개 보기
-            </Link>
-          </div>
         </div>
-
-        <aside className="now-card" aria-label="현재 관심 분야">
-          <p className="now-label">Currently exploring</p>
-          <p className="now-title">좋은 화면 뒤의 구조</p>
-          <p className="now-description">
-            React로 사용자 경험을 만들고, NestJS와 API 설계로 서비스의
-            흐름을 이해하고 있습니다.
-          </p>
-          <div className="now-tags" aria-label="기술 태그">
-            <span>React</span>
-            <span>TypeScript</span>
-            <span>NestJS</span>
-          </div>
-        </aside>
       </section>
 
-      <section className="section shell" id="recent">
+      <section className="section recent-section shell" id="recent">
         <div className="section-heading">
           <div>
             <p className="section-kicker">Recent posts</p>
