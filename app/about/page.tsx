@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "소개",
-  description: "프론트엔드 개발자 박시현의 관심 분야와 프로젝트",
+  description: "프론트엔드와 백엔드를 함께 이해하는 개발자 박시현의 경험",
 };
 
 export default function AboutPage() {
@@ -22,7 +22,7 @@ export default function AboutPage() {
           <aside>
             <p className="about-label">HUFS Computer Engineering</p>
             <p className="about-name">박시현</p>
-            <p className="about-role">Frontend Developer</p>
+            <p className="about-role">Frontend / Backend Developer</p>
           </aside>
 
           <div className="about-copy">
@@ -54,6 +54,17 @@ export default function AboutPage() {
                   경험했습니다.
                 </li>
               </ul>
+            </section>
+
+            <section>
+              <h2>Learning</h2>
+              <p>
+                HTML·CSS·JavaScript 기초부터 React, Node.js까지 단계적으로
+                공부했습니다. 학회 코딩테스트 스터디에서는 자료구조와
+                알고리즘을 풀이 근거와 시간복잡도 중심으로 정리했습니다.
+                학습 내용을 프로젝트에서 다시 확인하고, 선택한 이유까지
+                설명할 수 있는 기록으로 남기고 있습니다.
+              </p>
             </section>
 
             <section>
