@@ -43,7 +43,8 @@ export default function Home() {
           </div>
           <p>
             Dailog의 반복 일정 설계, HUFS 독서마라톤 프론트엔드 개발,
-            withChurch 운영 과정에서 만난 문제와 해결을 글로 남깁니다.
+            withChurch 운영 과정에서 만난 문제뿐 아니라 알고리즘,
+            React·Node.js를 공부하며 세운 기준도 글로 남깁니다.
           </p>
         </div>
       </section>
