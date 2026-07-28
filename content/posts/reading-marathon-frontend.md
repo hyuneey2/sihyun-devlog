@@ -2,7 +2,7 @@
 title: "첫 단독 프론트엔드 프로젝트, 독서마라톤 웹을 만들며"
 description: "디자인이 완성되지 않은 상태에서 공식 웹서비스의 구조를 잡고, 페이지를 구현하며 세운 기준을 돌아봅니다."
 date: "2026-07-26"
-category: "HUFS 독서마라톤"
+category: "Frontend"
 tags:
   - React
   - TypeScript
