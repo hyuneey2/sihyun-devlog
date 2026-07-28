@@ -198,6 +198,11 @@ textarea {
   line-height: 1.16;
 }
 
+.recent-section .section-heading h2 {
+  font-size: clamp(24px, 2.8vw, 34px);
+  font-weight: 550;
+}
+
 .text-link {
   padding-bottom: 3px;
   border-bottom: 1px solid var(--foreground);
@@ -317,6 +322,38 @@ textarea {
 
 .page-content {
   padding-bottom: 120px;
+}
+
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+
+.category-filter-link {
+  padding: 9px 15px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.category-filter-link:hover {
+  border-color: #aeb5ae;
+  color: var(--foreground);
+}
+
+.category-filter-link[aria-current="page"] {
+  border-color: var(--foreground);
+  background: var(--foreground);
+  color: white;
 }
 
 .about-grid {
@@ -643,6 +680,19 @@ textarea {
     align-items: start;
     flex-direction: column;
     margin-bottom: 34px;
+  }
+
+  .recent-section .section-heading h2 {
+    font-size: 24px;
+  }
+
+  .category-filter {
+    margin-bottom: 28px;
+  }
+
+  .category-filter-link {
+    padding: 8px 13px;
+    font-size: 12px;
   }
 
   .post-card {
