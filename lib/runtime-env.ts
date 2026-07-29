@@ -1,6 +1,7 @@
 export type BlogRuntimeEnv = {
   DB?: D1Database;
   BLOG_ADMIN_EMAIL?: string;
+  BLOG_DEV_ADMIN_EMAIL?: string;
 };
 
 const RUNTIME_ENV_KEY = Symbol.for("sihyun-devlog.runtime-env");

@@ -845,6 +845,21 @@ button {
   border-top: 1px solid #bdc2bd;
 }
 
+.admin-empty {
+  display: grid;
+  min-height: 240px;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  text-align: center;
+}
+
+.admin-empty p {
+  margin: 0;
+}
+
 .admin-post-row {
   display: grid;
   grid-template-columns: 130px minmax(0, 1fr) auto;

@@ -33,29 +33,38 @@ export default async function AdminPage() {
       </section>
 
       <section className="admin-posts" aria-label="관리할 게시글">
-        {posts.map((post) => (
-          <article className="admin-post-row" key={post.id}>
-            <div className="admin-post-state">
-              <span className={`status-badge status-${post.status}`}>
-                {post.status === "published" ? "발행됨" : "임시 저장"}
-              </span>
-              <span>{post.category}</span>
-            </div>
-            <div className="admin-post-copy">
-              <h2>{post.title}</h2>
-              <p>{post.description}</p>
-              <time dateTime={post.updatedAt}>
-                마지막 수정 {formatAdminDate(post.updatedAt)}
-              </time>
-            </div>
-            <div className="admin-post-actions">
-              {post.status === "published" ? (
-                <Link href={`/posts/${post.slug}`}>보기</Link>
-              ) : null}
-              <Link href={`/admin/posts/${post.id}/edit`}>수정</Link>
-            </div>
-          </article>
-        ))}
+        {posts.length ? (
+          posts.map((post) => (
+            <article className="admin-post-row" key={post.id}>
+              <div className="admin-post-state">
+                <span className={`status-badge status-${post.status}`}>
+                  {post.status === "published" ? "발행됨" : "임시 저장"}
+                </span>
+                <span>{post.category}</span>
+              </div>
+              <div className="admin-post-copy">
+                <h2>{post.title}</h2>
+                <p>{post.description}</p>
+                <time dateTime={post.updatedAt}>
+                  마지막 수정 {formatAdminDate(post.updatedAt)}
+                </time>
+              </div>
+              <div className="admin-post-actions">
+                {post.status === "published" ? (
+                  <Link href={`/posts/${post.slug}`}>보기</Link>
+                ) : null}
+                <Link href={`/admin/posts/${post.id}/edit`}>수정</Link>
+              </div>
+            </article>
+          ))
+        ) : (
+          <div className="admin-empty">
+            <p>아직 작성한 글이 없습니다.</p>
+            <Link className="text-link" href="/admin/new">
+              첫 글 작성하기 <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        )}
       </section>
     </main>
   );

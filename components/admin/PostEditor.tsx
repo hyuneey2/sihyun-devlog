@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   type FormEvent,
   useEffect,
@@ -16,6 +15,7 @@ import {
 
 type PostEditorProps = {
   post?: Post;
+  notice?: "draft" | "published";
 };
 
 type ApiPostResponse = {
@@ -35,8 +35,7 @@ function newPostSlug() {
   return `post-${numbers.join("")}`;
 }
 
-export function PostEditor({ post }: PostEditorProps) {
-  const router = useRouter();
+export function PostEditor({ post, notice }: PostEditorProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [title, setTitle] = useState(post?.title ?? "");
   const [slug, setSlug] = useState(post?.slug ?? newPostSlug);
@@ -46,7 +45,13 @@ export function PostEditor({ post }: PostEditorProps) {
   const [content, setContent] = useState(post?.content ?? "");
   const [previewHtml, setPreviewHtml] = useState("");
   const [activeTab, setActiveTab] = useState<"write" | "preview">("write");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(
+    notice === "published"
+      ? "글을 발행했습니다."
+      : notice === "draft"
+        ? "임시 저장했습니다."
+        : "",
+  );
 
   const endpoint = post ? `/api/admin/posts/${post.id}` : "/api/admin/posts";
   const method = post ? "PUT" : "POST";
@@ -117,15 +122,10 @@ export function PostEditor({ post }: PostEditorProps) {
         return;
       }
 
-      if (!post) {
-        router.replace(`/admin/posts/${result.post.id}/edit?saved=1`);
-        return;
-      }
-
-      setMessage(
-        status === "published" ? "글을 발행했습니다." : "임시 저장했습니다.",
+      const saved = status === "published" ? "published" : "draft";
+      window.location.assign(
+        `/admin/posts/${result.post.id}/edit?saved=${saved}`,
       );
-      router.refresh();
     } catch {
       setMessage("네트워크 오류로 글을 저장하지 못했습니다.");
     } finally {
@@ -153,8 +153,7 @@ export function PostEditor({ post }: PostEditorProps) {
         setMessage(result.error ?? "글을 삭제하지 못했습니다.");
         return;
       }
-      router.replace("/admin");
-      router.refresh();
+      window.location.assign("/admin");
     } catch {
       setMessage("네트워크 오류로 글을 삭제하지 못했습니다.");
     } finally {

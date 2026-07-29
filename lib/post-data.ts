@@ -24,6 +24,7 @@ type D1PostRow = {
 };
 
 const INITIAL_SEED_KEY = "initial_markdown_seed_v1";
+let storageReady: Promise<void> | null = null;
 
 function getD1() {
   const binding = getBlogRuntimeEnv().DB;
@@ -36,6 +37,53 @@ function requireD1() {
     throw new Error("게시글 데이터베이스 연결을 사용할 수 없습니다.");
   }
   return binding;
+}
+
+async function ensureBlogStorage() {
+  if (storageReady) return storageReady;
+
+  const d1 = requireD1();
+  storageReady = d1
+    .batch([
+      d1.prepare(`
+        CREATE TABLE IF NOT EXISTS blog_settings (
+          key TEXT PRIMARY KEY NOT NULL,
+          value TEXT NOT NULL,
+          updated_at TEXT NOT NULL
+        )
+      `),
+      d1.prepare(`
+        CREATE TABLE IF NOT EXISTS posts (
+          id TEXT PRIMARY KEY NOT NULL,
+          slug TEXT NOT NULL UNIQUE,
+          title TEXT NOT NULL,
+          description TEXT NOT NULL,
+          content TEXT NOT NULL DEFAULT '',
+          category TEXT NOT NULL,
+          tags TEXT NOT NULL DEFAULT '[]',
+          status TEXT NOT NULL DEFAULT 'draft',
+          published_at TEXT,
+          created_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL,
+          author_email TEXT NOT NULL
+        )
+      `),
+      d1.prepare(`
+        CREATE INDEX IF NOT EXISTS posts_status_published_at_idx
+        ON posts (status, published_at)
+      `),
+      d1.prepare(`
+        CREATE INDEX IF NOT EXISTS posts_category_idx
+        ON posts (category)
+      `),
+    ])
+    .then(() => undefined)
+    .catch((error) => {
+      storageReady = null;
+      throw error;
+    });
+
+  return storageReady;
 }
 
 function parseTags(value: string): string[] {
@@ -79,6 +127,7 @@ function postToSummary(post: Post): PostSummary {
 }
 
 async function ensureInitialPosts() {
+  await ensureBlogStorage();
   const d1 = requireD1();
   const marker = await d1
     .prepare("SELECT value FROM blog_settings WHERE key = ?")

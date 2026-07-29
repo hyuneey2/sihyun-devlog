@@ -6,6 +6,7 @@ import { setBlogRuntimeEnv } from "../lib/runtime-env";
 interface Env {
   ASSETS: Fetcher;
   BLOG_ADMIN_EMAIL?: string;
+  BLOG_DEV_ADMIN_EMAIL?: string;
   DB: D1Database;
   IMAGES: {
     input(stream: ReadableStream): {

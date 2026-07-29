@@ -19,13 +19,33 @@ function matchesAdmin(user: ChatGPTUser | null) {
   );
 }
 
+function getLocalAdmin(): ChatGPTUser | null {
+  const email = (getBlogRuntimeEnv().BLOG_DEV_ADMIN_EMAIL ?? "")
+    .trim()
+    .toLowerCase();
+  if (!email) return null;
+
+  return {
+    displayName: "Local Admin",
+    email,
+    fullName: null,
+  };
+}
+
+async function getBlogUser() {
+  return (await getChatGPTUser()) ?? getLocalAdmin();
+}
+
 export async function getBlogAdmin() {
-  const user = await getChatGPTUser();
+  const user = await getBlogUser();
   return matchesAdmin(user) ? user : null;
 }
 
 export async function requireBlogAdmin(returnTo: string) {
-  const user = await requireChatGPTUser(returnTo);
+  const user = await getBlogUser();
+  if (!user) {
+    return requireChatGPTUser(returnTo);
+  }
   if (!matchesAdmin(user)) {
     notFound();
   }
@@ -33,7 +53,7 @@ export async function requireBlogAdmin(returnTo: string) {
 }
 
 export async function requireBlogAdminApi() {
-  const user = await getChatGPTUser();
+  const user = await getBlogUser();
   if (!user) {
     return {
       user: null,
