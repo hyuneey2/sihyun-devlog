@@ -10,6 +10,7 @@ export function SiteFooter() {
         </div>
         <div className="footer-links">
           <Link href="/posts">기록</Link>
+          <Link href="/projects">프로젝트</Link>
           <Link href="/about">소개</Link>
         </div>
       </div>
