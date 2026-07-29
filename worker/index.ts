@@ -1,9 +1,11 @@
 /** Cloudflare Worker entry point for the vinext-starter template. */
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import { setBlogRuntimeEnv } from "../lib/runtime-env";
 
 interface Env {
   ASSETS: Fetcher;
+  BLOG_ADMIN_EMAIL?: string;
   DB: D1Database;
   IMAGES: {
     input(stream: ReadableStream): {
@@ -27,6 +29,7 @@ interface ExecutionContext {
 
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    setBlogRuntimeEnv(env);
     const url = new URL(request.url);
 
     if (url.pathname === "/_vinext/image") {

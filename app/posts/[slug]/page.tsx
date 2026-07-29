@@ -1,26 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  formatPostDate,
-  getAllPosts,
-  getPostBySlug,
-  renderPostMarkdown,
-} from "@/lib/posts";
+import { getPublishedPostBySlug } from "@/lib/post-data";
+import { renderPostMarkdown } from "@/lib/posts";
+import { formatPostDate } from "@/lib/post-types";
+
+export const dynamic = "force-dynamic";
 
 type PostPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return getAllPosts().map((post) => ({ slug: post.slug }));
-}
-
 export async function generateMetadata({
   params,
 }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPublishedPostBySlug(slug);
 
   if (!post) {
     return {};
@@ -34,7 +29,7 @@ export async function generateMetadata({
 
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPublishedPostBySlug(slug);
 
   if (!post) {
     notFound();

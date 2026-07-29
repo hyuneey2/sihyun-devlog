@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { PostCard } from "@/components/PostCard";
-import { getAllPosts } from "@/lib/posts";
+import { getPublishedPosts } from "@/lib/post-data";
 
-export default function Home() {
-  const posts = getAllPosts();
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const posts = await getPublishedPosts();
   const recentPosts = posts.slice(0, 3);
 
   return (

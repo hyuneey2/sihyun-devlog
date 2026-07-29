@@ -1,6 +1,5 @@
 import Link from "next/link";
-import type { PostSummary } from "@/lib/posts";
-import { formatPostDate } from "@/lib/posts";
+import { formatPostDate, type PostSummary } from "@/lib/post-types";
 
 type PostCardProps = {
   post: PostSummary;

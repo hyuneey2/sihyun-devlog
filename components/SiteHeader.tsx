@@ -1,6 +1,10 @@
 import Link from "next/link";
+import { getBlogAdmin } from "@/lib/admin-auth";
+import { SiteNavigation } from "@/components/SiteNavigation";
 
-export function SiteHeader() {
+export async function SiteHeader() {
+  const admin = await getBlogAdmin();
+
   return (
     <header className="site-header">
       <div className="header-inner shell">
@@ -11,12 +15,7 @@ export function SiteHeader() {
           <span>SIHYUN.LOG</span>
         </Link>
 
-        <nav className="site-nav" aria-label="주요 메뉴">
-          <Link href="/">Home</Link>
-          <Link href="/posts">Posts</Link>
-          <Link href="/projects">Projects</Link>
-          <Link href="/about">About me</Link>
-        </nav>
+        <SiteNavigation isAdmin={Boolean(admin)} />
       </div>
     </header>
   );

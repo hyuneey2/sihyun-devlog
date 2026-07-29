@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PostCard } from "@/components/PostCard";
-import { getAllPosts } from "@/lib/posts";
+import { getPublishedPosts } from "@/lib/post-data";
+import { POST_CATEGORIES, type PostCategory } from "@/lib/post-types";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "기록",
@@ -10,9 +13,7 @@ export const metadata: Metadata = {
 
 const categoryFilters = [
   { value: "all", label: "전체" },
-  { value: "Frontend", label: "프론트엔드" },
-  { value: "Backend", label: "백엔드" },
-  { value: "Algorithm", label: "알고리즘" },
+  ...POST_CATEGORIES,
 ] as const;
 
 type PostsPageProps = {
@@ -22,7 +23,6 @@ type PostsPageProps = {
 };
 
 export default async function PostsPage({ searchParams }: PostsPageProps) {
-  const posts = getAllPosts();
   const params = await searchParams;
   const requestedCategory = Array.isArray(params.category)
     ? params.category[0]
@@ -32,10 +32,9 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
   )
     ? requestedCategory
     : "all";
-  const filteredPosts =
-    activeCategory === "all"
-      ? posts
-      : posts.filter((post) => post.category === activeCategory);
+  const filteredPosts = await getPublishedPosts(
+    activeCategory === "all" ? undefined : (activeCategory as PostCategory),
+  );
 
   return (
     <main>

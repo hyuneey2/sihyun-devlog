@@ -5,19 +5,7 @@ import remarkHtml from "remark-html";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
 import { parse as parseYaml } from "yaml";
-
-export type PostSummary = {
-  slug: string;
-  title: string;
-  description: string;
-  date: string;
-  category: string;
-  tags: string[];
-};
-
-export type Post = PostSummary & {
-  content: string;
-};
+import type { PostCategory, PostInput } from "./post-types";
 
 const postSources = import.meta.glob("../content/posts/*.md", {
   eager: true,
@@ -25,7 +13,12 @@ const postSources = import.meta.glob("../content/posts/*.md", {
   query: "?raw",
 }) as Record<string, string>;
 
-function parsePost(path: string, source: string): Post {
+type BundledPost = PostInput & {
+  id: string;
+  publishedAt: string;
+};
+
+function parsePost(path: string, source: string): BundledPost {
   const frontmatter = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
 
   if (!frontmatter) {
@@ -41,36 +34,22 @@ function parsePost(path: string, source: string): Post {
   }
 
   return {
+    id: `seed-${slug}`,
     slug,
     title: String(data.title),
     description: String(data.description),
-    date: String(data.date),
-    category: String(data.category),
+    category: String(data.category) as PostCategory,
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
     content,
+    status: "published",
+    publishedAt: `${String(data.date)}T00:00:00.000Z`,
   };
 }
 
-export function getAllPosts(): PostSummary[] {
+export function getBundledPosts(): BundledPost[] {
   return Object.entries(postSources)
     .map(([path, source]) => parsePost(path, source))
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .map((post) => ({
-      slug: post.slug,
-      title: post.title,
-      description: post.description,
-      date: post.date,
-      category: post.category,
-      tags: post.tags,
-    }));
-}
-
-export function getPostBySlug(slug: string): Post | undefined {
-  const entry = Object.entries(postSources).find(([path]) =>
-    path.endsWith(`/${slug}.md`),
-  );
-
-  return entry ? parsePost(entry[0], entry[1]) : undefined;
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
 
 export async function renderPostMarkdown(content: string) {
@@ -81,9 +60,4 @@ export async function renderPostMarkdown(content: string) {
     .process(content);
 
   return result.toString();
-}
-
-export function formatPostDate(date: string) {
-  const [year, month, day] = date.split("-");
-  return `${year}.${month}.${day}`;
 }
