@@ -41,11 +41,16 @@ export default function Home() {
             <p className="section-kicker">What I write about</p>
             <h2>완성된 결과보다, 판단한 과정을 기록합니다.</h2>
           </div>
-          <p>
-            Dailog의 반복 일정 설계, HUFS 독서마라톤 프론트엔드 개발,
-            withChurch 운영 과정에서 만난 문제뿐 아니라 알고리즘,
-            React·Node.js를 공부하며 세운 기준도 글로 남깁니다.
-          </p>
+          <div className="project-note-copy">
+            <p>
+              Dailog의 반복 일정 설계, HUFS 독서마라톤 프론트엔드 개발,
+              withChurch 운영 과정에서 만난 문제뿐 아니라 알고리즘,
+              React·Node.js를 공부하며 세운 기준도 글로 남깁니다.
+            </p>
+            <Link className="project-note-link" href="/projects">
+              프로젝트 보기 <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
       </section>
     </main>
