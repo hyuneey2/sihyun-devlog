@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PostCard } from "@/components/PostCard";
 import { getAllPosts } from "@/lib/posts";
 
@@ -7,8 +8,34 @@ export const metadata: Metadata = {
   description: "프로젝트에서 고민하고 해결한 과정을 정리한 개발 기록",
 };
 
-export default function PostsPage() {
+const categoryFilters = [
+  { value: "all", label: "전체" },
+  { value: "Frontend", label: "프론트엔드" },
+  { value: "Backend", label: "백엔드" },
+  { value: "Algorithm", label: "알고리즘" },
+] as const;
+
+type PostsPageProps = {
+  searchParams: Promise<{
+    category?: string | string[];
+  }>;
+};
+
+export default async function PostsPage({ searchParams }: PostsPageProps) {
   const posts = getAllPosts();
+  const params = await searchParams;
+  const requestedCategory = Array.isArray(params.category)
+    ? params.category[0]
+    : params.category;
+  const activeCategory = categoryFilters.some(
+    ({ value }) => value === requestedCategory,
+  )
+    ? requestedCategory
+    : "all";
+  const filteredPosts =
+    activeCategory === "all"
+      ? posts
+      : posts.filter((post) => post.category === activeCategory);
 
   return (
     <main>
@@ -22,8 +49,29 @@ export default function PostsPage() {
       </section>
 
       <section className="page-content shell">
+        <nav className="category-filter" aria-label="게시글 카테고리">
+          {categoryFilters.map(({ value, label }) => {
+            const isActive = activeCategory === value;
+            const href =
+              value === "all"
+                ? "/posts"
+                : `/posts?category=${encodeURIComponent(value)}`;
+
+            return (
+              <Link
+                key={value}
+                className="category-filter-link"
+                href={href}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {label}
+              </Link>
+            );
+          })}
+        </nav>
+
         <div className="post-list">
-          {posts.map((post) => (
+          {filteredPosts.map((post) => (
             <PostCard key={post.slug} post={post} />
           ))}
         </div>
