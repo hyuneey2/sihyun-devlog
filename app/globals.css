@@ -356,6 +356,92 @@ textarea {
   color: white;
 }
 
+.project-timeline {
+  border-top: 1px solid var(--foreground);
+}
+
+.project-entry {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 56px;
+  padding: 54px 0 60px;
+  border-bottom: 1px solid var(--line);
+}
+
+.project-entry-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.project-entry-meta time {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.project-entry-meta span {
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  font-size: 11px;
+  font-weight: 550;
+}
+
+.project-entry-role {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.project-entry-content h2 {
+  margin: 0;
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+}
+
+.project-entry-description {
+  max-width: 720px;
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.85;
+  word-break: keep-all;
+}
+
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-stack li {
+  padding: 7px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: #5c625d;
+  font-size: 12px;
+}
+
+.project-entry-link {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 28px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--foreground);
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .about-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
@@ -629,7 +715,8 @@ textarea {
   }
 
   .project-note,
-  .about-grid {
+  .about-grid,
+  .project-entry {
     grid-template-columns: 1fr;
     gap: 46px;
   }
@@ -654,8 +741,12 @@ textarea {
   }
 
   .site-nav {
-    gap: 16px;
+    gap: 14px;
     font-size: 12px;
+  }
+
+  .brand > span:last-child {
+    display: none;
   }
 
   .hero {
@@ -693,6 +784,20 @@ textarea {
   .category-filter-link {
     padding: 8px 13px;
     font-size: 12px;
+  }
+
+  .project-entry {
+    gap: 24px;
+    padding: 40px 0 44px;
+  }
+
+  .project-entry-meta {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .project-entry-content h2 {
+    font-size: 26px;
   }
 
   .post-card {

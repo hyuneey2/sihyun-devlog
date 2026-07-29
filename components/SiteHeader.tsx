@@ -14,6 +14,7 @@ export function SiteHeader() {
         <nav className="site-nav" aria-label="주요 메뉴">
           <Link href="/">Home</Link>
           <Link href="/posts">Posts</Link>
+          <Link href="/projects">Projects</Link>
           <Link href="/about">About me</Link>
         </nav>
       </div>
