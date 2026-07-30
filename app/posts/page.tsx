@@ -16,17 +16,38 @@ const categoryFilters = [
   ...POST_CATEGORIES,
 ] as const;
 
+const POSTS_PER_PAGE = 6;
+
 type PostsPageProps = {
   searchParams: Promise<{
     category?: string | string[];
+    page?: string | string[];
   }>;
 };
+
+function getPostsHref(category: string, page: number) {
+  const params = new URLSearchParams();
+
+  if (category !== "all") {
+    params.set("category", category);
+  }
+
+  if (page > 1) {
+    params.set("page", String(page));
+  }
+
+  const query = params.toString();
+  return query ? `/posts?${query}` : "/posts";
+}
 
 export default async function PostsPage({ searchParams }: PostsPageProps) {
   const params = await searchParams;
   const requestedCategory = Array.isArray(params.category)
     ? params.category[0]
     : params.category;
+  const requestedPage = Array.isArray(params.page)
+    ? params.page[0]
+    : params.page;
   const activeCategory = categoryFilters.some(
     ({ value }) => value === requestedCategory,
   )
@@ -35,10 +56,24 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
   const filteredPosts = await getPublishedPosts(
     activeCategory === "all" ? undefined : (activeCategory as PostCategory),
   );
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredPosts.length / POSTS_PER_PAGE),
+  );
+  const parsedPage = Number.parseInt(requestedPage ?? "", 10);
+  const currentPage =
+    Number.isInteger(parsedPage) && parsedPage > 0
+      ? Math.min(parsedPage, totalPages)
+      : 1;
+  const pageStart = (currentPage - 1) * POSTS_PER_PAGE;
+  const visiblePosts = filteredPosts.slice(
+    pageStart,
+    pageStart + POSTS_PER_PAGE,
+  );
 
   return (
-    <main>
-      <section className="page-hero shell">
+    <main className="posts-page">
+      <section className="posts-hero shell">
         <p className="eyebrow">All posts</p>
         <h1 className="page-title">개발 기록</h1>
         <p className="page-description">
@@ -47,20 +82,16 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
         </p>
       </section>
 
-      <section className="page-content shell">
+      <section className="posts-content shell">
         <nav className="category-filter" aria-label="게시글 카테고리">
           {categoryFilters.map(({ value, label }) => {
             const isActive = activeCategory === value;
-            const href =
-              value === "all"
-                ? "/posts"
-                : `/posts?category=${encodeURIComponent(value)}`;
 
             return (
               <Link
                 key={value}
                 className="category-filter-link"
-                href={href}
+                href={getPostsHref(value, 1)}
                 aria-current={isActive ? "page" : undefined}
               >
                 {label}
@@ -70,10 +101,29 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
         </nav>
 
         <div className="post-list">
-          {filteredPosts.map((post) => (
+          {visiblePosts.map((post) => (
             <PostCard key={post.slug} post={post} />
           ))}
         </div>
+
+        <nav className="pagination" aria-label="게시글 페이지">
+          {Array.from({ length: totalPages }, (_, index) => {
+            const page = index + 1;
+            const isCurrent = page === currentPage;
+
+            return (
+              <Link
+                key={page}
+                className="pagination-link"
+                href={getPostsHref(activeCategory, page)}
+                aria-current={isCurrent ? "page" : undefined}
+                aria-label={`${page}페이지`}
+              >
+                {page}
+              </Link>
+            );
+          })}
+        </nav>
       </section>
     </main>
   );

@@ -277,15 +277,15 @@ button {
   grid-template-columns: 145px minmax(0, 1fr) auto;
   gap: 32px;
   align-items: start;
-  margin-inline: -18px;
-  padding: 34px 18px;
+  padding: 34px 0;
   border-bottom: 1px solid var(--line);
-  border-radius: 14px;
-  transition: background 160ms ease;
+  transition: color 160ms ease;
 }
 
-.post-card:hover {
-  background: var(--cream);
+.post-card:focus-visible {
+  border-radius: 2px;
+  outline: 1px solid var(--accent);
+  outline-offset: 8px;
 }
 
 .post-meta {
@@ -312,6 +312,7 @@ button {
   font-weight: 540;
   letter-spacing: -0.035em;
   line-height: 1.35;
+  transition: color 160ms ease;
   word-break: keep-all;
 }
 
@@ -325,23 +326,24 @@ button {
 }
 
 .post-arrow {
-  display: grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 50%;
+  padding-top: 1px;
+  color: #a3a8a3;
+  font-size: 20px;
+  line-height: 1;
   transition:
-    border-color 160ms ease,
-    background 160ms ease,
     color 160ms ease,
     transform 160ms ease;
 }
 
-.post-card:hover .post-arrow {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: white;
+.post-card:hover .post-title,
+.post-card:focus-visible .post-title,
+.post-card:hover .post-arrow,
+.post-card:focus-visible .post-arrow {
+  color: var(--accent);
+}
+
+.post-card:hover .post-arrow,
+.post-card:focus-visible .post-arrow {
   transform: translateX(3px);
 }
 
@@ -406,6 +408,25 @@ button {
   padding-bottom: 120px;
 }
 
+.posts-hero {
+  padding-top: clamp(84px, 10vw, 126px);
+  padding-bottom: clamp(42px, 5vw, 60px);
+}
+
+.posts-hero .page-title {
+  margin-top: 14px;
+  font-weight: 540;
+}
+
+.posts-hero .page-description {
+  margin-top: 18px;
+}
+
+.posts-content {
+  padding-top: 12px;
+  padding-bottom: 120px;
+}
+
 .category-filter {
   display: flex;
   flex-wrap: wrap;
@@ -436,6 +457,51 @@ button {
   border-color: var(--accent-dark);
   background: var(--accent-dark);
   color: white;
+}
+
+.pagination {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 52px;
+}
+
+.pagination-link {
+  position: relative;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  color: #929792;
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 160ms ease;
+}
+
+.pagination-link:hover,
+.pagination-link:focus-visible {
+  color: var(--accent);
+}
+
+.pagination-link:focus-visible {
+  border-radius: 2px;
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.pagination-link[aria-current="page"] {
+  color: var(--foreground);
+  font-weight: 650;
+}
+
+.pagination-link[aria-current="page"]::after {
+  position: absolute;
+  right: 8px;
+  bottom: 1px;
+  left: 8px;
+  height: 1px;
+  background: var(--accent);
+  content: "";
 }
 
 .project-timeline {
@@ -1724,8 +1790,7 @@ button {
   .post-card {
     grid-template-columns: 1fr;
     gap: 15px;
-    margin-inline: -10px;
-    padding: 28px 10px;
+    padding: 28px 0;
   }
 
   .post-meta {
@@ -1752,6 +1817,20 @@ button {
     margin-top: 16px;
     padding: 44px 24px;
     border-radius: 20px;
+  }
+
+  .posts-hero {
+    padding-top: 68px;
+    padding-bottom: 38px;
+  }
+
+  .posts-content {
+    padding-top: 8px;
+    padding-bottom: 88px;
+  }
+
+  .pagination {
+    margin-top: 42px;
   }
 
   .article-header {
