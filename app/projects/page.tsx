@@ -41,6 +41,7 @@ const projects = [
     description:
       "실제로 사용하는 교회 웹사이트의 화면을 구현하고 배포했습니다. 운영 과정에서 생기는 수정 요청을 반영하며, 구현 이후의 유지보수와 배포 흐름까지 경험했습니다.",
     stack: ["React", "JavaScript", "Git", "Deployment"],
+    liveHref: "https://withchurch.site/",
   },
 ] as const;
 
@@ -67,7 +68,20 @@ export default function ProjectsPage() {
 
               <div className="project-entry-content">
                 <p className="project-entry-role">{project.role}</p>
-                <h2>{project.title}</h2>
+                <h2>
+                  {"liveHref" in project ? (
+                    <a
+                      className="project-title-link"
+                      href={project.liveHref}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {project.title} <span aria-hidden="true">↗</span>
+                    </a>
+                  ) : (
+                    project.title
+                  )}
+                </h2>
                 <p className="project-entry-description">
                   {project.description}
                 </p>
