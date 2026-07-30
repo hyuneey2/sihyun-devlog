@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PostCard } from "@/components/PostCard";
+import { TypingText } from "@/components/TypingText";
 import { getPublishedPosts } from "@/lib/post-data";
 
 export const dynamic = "force-dynamic";
@@ -13,8 +14,10 @@ export default async function Home() {
       <section className="hero shell">
         <div className="hero-copy">
           <h1>
-            더 나은 화면과 구조를 고민하는 프론트엔드/백엔드 개발자
-            박시현입니다.
+            <span className="hero-lead">
+              더 나은 화면과 구조를 고민하는
+            </span>
+            <TypingText text="프론트엔드/백엔드 개발자 박시현입니다." />
           </h1>
         </div>
       </section>
@@ -37,7 +40,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="section shell">
+      <section className="section home-about-section shell">
         <div className="project-note">
           <div>
             <p className="section-kicker">What I write about</p>
