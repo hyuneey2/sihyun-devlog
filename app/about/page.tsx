@@ -158,7 +158,7 @@ export default function AboutPage() {
         <h1>
           박시현 <span aria-hidden="true">/</span> <em>#개발자</em>
         </h1>
-        <p className="about-hero-intro">안녕하세요, 박시현입니다</p>
+        <p className="about-hero-intro">화면의 경험과 데이터의 흐름을 함께 만듭니다.</p>
       </section>
 
       <div className="about-layout shell">
@@ -279,7 +279,7 @@ export default function AboutPage() {
 
           <div className="profile-identity">
             <h2>박시현</h2>
-            <p>#개발자</p>
+            <p>#프론트엔드 #백엔드</p>
           </div>
 
           <section className="profile-detail">
