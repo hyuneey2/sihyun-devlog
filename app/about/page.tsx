@@ -1,48 +1,55 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { IconType } from "react-icons";
+import { LuBraces, LuNetwork } from "react-icons/lu";
+import {
+  SiCplusplus,
+  SiCss,
+  SiDiscord,
+  SiFigma,
+  SiGit,
+  SiGithub,
+  SiHtml5,
+  SiJavascript,
+  SiNestjs,
+  SiNodedotjs,
+  SiNotion,
+  SiReact,
+  SiTypeorm,
+  SiTypescript,
+} from "react-icons/si";
 
 export const metadata: Metadata = {
   title: "소개",
-  description:
-    "화면에 보이는 경험과 데이터의 흐름을 함께 이해하는 개발자 박시현의 소개와 경험",
+  description: "프론트엔드와 백엔드를 경험한 개발자 박시현의 소개",
 };
 
 const timeline = [
   {
     date: "2024.03",
     title: "한국외국어대학교 컴퓨터공학부 입학",
-    description:
-      "컴퓨터공학의 기초를 쌓으며 웹 개발과 사용자 경험에 관심을 넓혔습니다.",
   },
   {
     date: "재학 중",
     title: "컴퓨터공학부 학회 TAB 활동",
-    description:
-      "HTML·CSS·JavaScript부터 React와 알고리즘까지 함께 학습하고 기록했습니다.",
   },
   {
     date: "UMC 10기",
-    title: "University MakeUs Challenge",
-    description:
-      "Node.js 파트에서 서버 구조와 API 설계를 학습하며 프론트엔드 너머의 데이터 흐름을 익혔습니다.",
+    title: "University MakeUs Challenge · Node.js",
   },
   {
     date: "운영 중",
     title: "withChurch",
-    description:
-      "실제로 운영되는 교회 웹사이트의 프론트엔드 개발과 배포, 유지보수를 경험했습니다.",
+    href: "https://withchurch.site/",
+    external: true,
   },
   {
     date: "2026.06 — 진행 중",
     title: "HUFS 독서마라톤",
-    description:
-      "한국외국어대학교 글로벌캠퍼스 도서관 공식 웹서비스의 프론트엔드를 단독으로 개발하고 있습니다.",
   },
   {
     date: "2026.07",
     title: "Dailog",
-    description:
-      "NestJS와 TypeORM으로 일정 도메인 및 반복 일정 API를 설계·구현했습니다.",
   },
 ] as const;
 
@@ -50,89 +57,109 @@ const projects = [
   {
     name: "HUFS 독서마라톤",
     role: "Frontend · 단독 개발",
-    summary:
-      "사용자·관리자 화면부터 인증 및 API 연동까지 프론트엔드 전반을 담당했습니다.",
+    href: "/posts/reading-marathon-frontend",
   },
   {
     name: "Dailog",
     role: "Backend · 일정 도메인",
-    summary:
-      "반복 일정의 생명주기를 고려해 그룹 구조와 단건·전체 수정 범위를 설계했습니다.",
+    href: "/posts/repeat-schedule-group",
   },
   {
     name: "withChurch",
     role: "Frontend · 개발 및 배포",
-    summary:
-      "운영 중인 서비스의 화면을 구현하고 실제 사용 과정의 수정 요청을 반영했습니다.",
+    href: "https://withchurch.site/",
+    external: true,
   },
 ] as const;
 
-const skillGroups = [
+type Skill = {
+  name: string;
+  level: "상" | "중" | "하";
+  icon: IconType;
+  href?: string;
+};
+
+const technicalSkills: Skill[] = [
+  { name: "React", level: "상", icon: SiReact },
+  { name: "TypeScript", level: "상", icon: SiTypescript },
+  { name: "JavaScript", level: "상", icon: SiJavascript },
+  { name: "HTML", level: "상", icon: SiHtml5 },
+  { name: "CSS", level: "상", icon: SiCss },
+  { name: "Git", level: "상", icon: SiGit },
+  { name: "Node.js", level: "중", icon: SiNodedotjs },
+  { name: "NestJS", level: "중", icon: SiNestjs },
+  { name: "TypeORM", level: "중", icon: SiTypeorm },
+  { name: "C / C++", level: "하", icon: SiCplusplus },
+  { name: "자료구조", level: "하", icon: LuNetwork },
+  { name: "알고리즘", level: "하", icon: LuBraces },
+];
+
+const collaborationTools: Skill[] = [
   {
-    level: "High",
-    levelKo: "상",
-    description: "프로젝트에서 주도적으로 사용",
-    technologies: ["React", "TypeScript", "JavaScript", "HTML/CSS", "Git/GitHub"],
+    name: "GitHub",
+    level: "상",
+    icon: SiGithub,
+    href: "https://github.com/hyuneey2",
   },
-  {
-    level: "Mid",
-    levelKo: "중",
-    description: "구현 경험을 바탕으로 활용",
-    technologies: ["Node.js", "NestJS", "TypeORM", "Figma", "Notion"],
-  },
-  {
-    level: "Basic",
-    levelKo: "하",
-    description: "기초를 학습하고 꾸준히 확장",
-    technologies: ["C/C++", "자료구조/알고리즘"],
-  },
-] as const;
+  { name: "Figma", level: "중", icon: SiFigma },
+  { name: "Notion", level: "중", icon: SiNotion },
+  { name: "Discord", level: "중", icon: SiDiscord },
+];
+
+function SkillIcon({ skill }: { skill: Skill }) {
+  const Icon = skill.icon;
+  const content = (
+    <>
+      <Icon aria-hidden="true" />
+      <span className="skill-tooltip" role="tooltip">
+        <strong>{skill.name}</strong>
+        <span>숙련도 {skill.level}</span>
+      </span>
+    </>
+  );
+
+  if (skill.href) {
+    return (
+      <a
+        className="skill-icon"
+        href={skill.href}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`${skill.name} · 숙련도 ${skill.level} · 새 창에서 열기`}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <span
+      className="skill-icon"
+      tabIndex={0}
+      aria-label={`${skill.name} · 숙련도 ${skill.level}`}
+    >
+      {content}
+    </span>
+  );
+}
 
 export default function AboutPage() {
   return (
     <main className="about-page">
       <section className="about-hero shell">
-        <p className="eyebrow">About me</p>
         <h1>
-          화면에 보이는 경험과
-          <br />
-          그 뒤에서 움직이는 데이터의 흐름을
-          <br />
-          함께 이해하는 개발자
+          박시현 <span aria-hidden="true">/</span> <em>#개발자</em>
         </h1>
-        <p className="about-hero-description">
-          사용자가 마주하는 화면부터 서비스가 동작하는 구조까지,
-          <br />
-          연결된 흐름을 이해하고 더 나은 구현을 고민합니다.
-        </p>
       </section>
 
       <div className="about-layout shell">
         <div className="about-main">
-          <section className="about-section about-intro">
-            <p className="about-section-kicker">Values</p>
-            <h2>경험과 구조를 함께 봅니다.</h2>
-            <div className="about-intro-copy">
-              <p>
-                기능을 빠르게 만드는 데서 끝내지 않고, 왜 이 구조를
-                선택했는지 설명할 수 있는 개발을 지향합니다.
-              </p>
-              <p>
-                프론트엔드와 백엔드를 모두 경험하며 사용자가 자연스럽게
-                이해하는 화면과 팀원이 이어서 작업하기 쉬운 코드를 만들기
-                위해 고민해 왔습니다. 학습한 내용은 프로젝트에 적용하고,
-                선택의 근거와 해결 과정을 기록으로 남깁니다.
-              </p>
-            </div>
-          </section>
-
           <section className="about-section" aria-labelledby="timeline-title">
             <div className="about-section-heading">
               <div>
                 <p className="about-section-kicker">Experience</p>
                 <h2 id="timeline-title">Timeline</h2>
               </div>
-              <p>배움이 프로젝트로 이어진 과정입니다.</p>
             </div>
 
             <ol className="about-timeline">
@@ -140,10 +167,20 @@ export default function AboutPage() {
                 <li key={`${item.date}-${item.title}`}>
                   <div className="timeline-marker" aria-hidden="true" />
                   <time>{item.date}</time>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                  </div>
+                  <h3>
+                    {"href" in item ? (
+                      <a
+                        href={item.href}
+                        target={item.external ? "_blank" : undefined}
+                        rel={item.external ? "noreferrer" : undefined}
+                      >
+                        {item.title}
+                        <span aria-hidden="true"> ↗</span>
+                      </a>
+                    ) : (
+                      item.title
+                    )}
+                  </h3>
                 </li>
               ))}
             </ol>
@@ -156,19 +193,27 @@ export default function AboutPage() {
                 <h2 id="projects-title">Projects</h2>
               </div>
               <Link className="about-section-link" href="/projects">
-                전체 프로젝트 <span aria-hidden="true">↗</span>
+                전체 보기 <span aria-hidden="true">↗</span>
               </Link>
             </div>
 
             <div className="about-projects">
               {projects.map((project, index) => (
                 <article key={project.name}>
-                  <span className="about-project-number" aria-hidden="true">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <p>{project.role}</p>
-                  <h3>{project.name}</h3>
-                  <p className="about-project-summary">{project.summary}</p>
+                  <a
+                    href={project.href}
+                    target={"external" in project ? "_blank" : undefined}
+                    rel={"external" in project ? "noreferrer" : undefined}
+                  >
+                    <span className="about-project-number" aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <p>{project.role}</p>
+                    <h3>{project.name}</h3>
+                    <span className="about-project-arrow" aria-hidden="true">
+                      ↗
+                    </span>
+                  </a>
                 </article>
               ))}
             </div>
@@ -178,29 +223,32 @@ export default function AboutPage() {
             <div className="about-section-heading">
               <div>
                 <p className="about-section-kicker">Capabilities</p>
-                <h2 id="stack-title">Tech Stack</h2>
+                <h2 id="stack-title">Stack &amp; Tools</h2>
               </div>
-              <p>현재 프로젝트 활용 경험을 기준으로 구분했습니다.</p>
             </div>
 
-            <div className="skill-groups">
-              {skillGroups.map((group) => (
-                <section
-                  className={`skill-group skill-group-${group.level.toLowerCase()}`}
-                  key={group.level}
-                >
-                  <div className="skill-level">
-                    <span>{group.level}</span>
-                    <strong>{group.levelKo}</strong>
-                    <p>{group.description}</p>
-                  </div>
-                  <ul aria-label={`${group.level} 숙련도 기술`}>
-                    {group.technologies.map((technology) => (
-                      <li key={technology}>{technology}</li>
-                    ))}
-                  </ul>
-                </section>
-              ))}
+            <div className="skill-categories">
+              <section className="skill-category" aria-labelledby="tech-title">
+                <h3 id="tech-title">기술 스택</h3>
+                <ul>
+                  {technicalSkills.map((skill) => (
+                    <li key={skill.name}>
+                      <SkillIcon skill={skill} />
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              <section className="skill-category" aria-labelledby="tools-title">
+                <h3 id="tools-title">협업 · 공유 도구</h3>
+                <ul>
+                  {collaborationTools.map((skill) => (
+                    <li key={skill.name}>
+                      <SkillIcon skill={skill} />
+                    </li>
+                  ))}
+                </ul>
+              </section>
             </div>
           </section>
         </div>
@@ -221,23 +269,19 @@ export default function AboutPage() {
           </div>
 
           <div className="profile-identity">
-            <p className="profile-overline">Profile</p>
             <h2>박시현</h2>
-            <p>Frontend / Backend Developer</p>
+            <p>#개발자</p>
           </div>
 
           <section className="profile-detail">
             <h3>Academic</h3>
             <ul>
               <li>
+                한국외국어대학교 컴퓨터공학부 재학
                 <span>2024 — 현재</span>
-                한국외국어대학교
-                <br />
-                컴퓨터공학부 재학
               </li>
               <li>
-                <span>졸업</span>
-                창원대산고등학교
+                창원대산고등학교 졸업
               </li>
             </ul>
           </section>
