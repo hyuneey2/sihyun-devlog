@@ -15,19 +15,19 @@ const timeline = [
       "컴퓨터공학의 기초를 쌓으며 웹 개발과 사용자 경험에 관심을 넓혔습니다.",
   },
   {
-    date: "2025",
+    date: "재학 중",
     title: "컴퓨터공학부 학회 TAB 활동",
     description:
       "HTML·CSS·JavaScript부터 React와 알고리즘까지 함께 학습하고 기록했습니다.",
   },
   {
-    date: "2026 · 10기",
+    date: "UMC 10기",
     title: "University MakeUs Challenge",
     description:
       "Node.js 파트에서 서버 구조와 API 설계를 학습하며 프론트엔드 너머의 데이터 흐름을 익혔습니다.",
   },
   {
-    date: "2026 · 운영 중",
+    date: "운영 중",
     title: "withChurch",
     description:
       "실제로 운영되는 교회 웹사이트의 프론트엔드 개발과 배포, 유지보수를 경험했습니다.",
