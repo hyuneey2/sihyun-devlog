@@ -150,6 +150,7 @@ export default function AboutPage() {
         <h1>
           박시현 <span aria-hidden="true">/</span> <em>#개발자</em>
         </h1>
+        <p className="about-hero-intro">안녕하세요, 박시현입니다</p>
       </section>
 
       <div className="about-layout shell">
