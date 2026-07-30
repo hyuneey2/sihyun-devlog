@@ -17,6 +17,7 @@ const projects = [
     description:
       "NestJS와 TypeORM으로 일정 등록·조회·수정·삭제 API를 구현했습니다. 반복 일정의 생명주기를 명확히 관리하기 위해 별도 그룹 테이블을 설계하고, 단건과 전체 수정 범위를 나누어 처리했습니다.",
     stack: ["NestJS", "TypeScript", "TypeORM", "PostgreSQL", "Swagger"],
+    projectHref: "https://github.com/TEAM-DAILOG/BE",
     postHref: "/posts/repeat-schedule-group",
     postLabel: "반복 일정 설계 기록",
   },
@@ -29,6 +30,7 @@ const projects = [
     description:
       "한국외국어대학교 글로벌캠퍼스 도서관의 독서마라톤 웹서비스를 개발하고 있습니다. 디자인 기준 수립부터 사용자·관리자 화면 구현, 인증과 API 연동까지 프론트엔드 전반을 맡았습니다.",
     stack: ["React", "TypeScript", "Vite", "React Router"],
+    projectHref: "https://github.com/HUFS-Reading-Marathon/pagepace-fe",
     postHref: "/posts/reading-marathon-frontend",
     postLabel: "단독 개발 회고",
   },
@@ -41,6 +43,7 @@ const projects = [
     description:
       "실제로 사용하는 교회 웹사이트의 화면을 구현하고 배포했습니다. 운영 과정에서 생기는 수정 요청을 반영하며, 구현 이후의 유지보수와 배포 흐름까지 경험했습니다.",
     stack: ["React", "JavaScript", "Git", "Deployment"],
+    projectHref: "https://withchurch.site/",
   },
 ] as const;
 
@@ -67,7 +70,20 @@ export default function ProjectsPage() {
 
               <div className="project-entry-content">
                 <p className="project-entry-role">{project.role}</p>
-                <h2>{project.title}</h2>
+                <h2>
+                  {"projectHref" in project ? (
+                    <a
+                      className="project-title-link"
+                      href={project.projectHref}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {project.title} <span aria-hidden="true">↗</span>
+                    </a>
+                  ) : (
+                    project.title
+                  )}
+                </h2>
                 <p className="project-entry-description">
                   {project.description}
                 </p>
