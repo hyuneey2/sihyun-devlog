@@ -571,6 +571,14 @@ button {
   letter-spacing: -0.035em;
 }
 
+.about-hero-intro {
+  margin: 14px 0 0;
+  color: #777c77;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
 .about-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 292px;
@@ -863,8 +871,7 @@ button {
 }
 
 .profile-sidebar {
-  position: sticky;
-  top: 92px;
+  position: static;
 }
 
 .profile-photo-wrap {
