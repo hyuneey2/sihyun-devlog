@@ -11,6 +11,7 @@ import {
   SiGithub,
   SiHtml5,
   SiJavascript,
+  SiMysql,
   SiNestjs,
   SiNodedotjs,
   SiNotion,
@@ -46,10 +47,14 @@ const timeline = [
   {
     date: "2026.06 — 진행 중",
     title: "HUFS 독서마라톤",
+    href: "https://github.com/HUFS-Reading-Marathon/pagepace-fe",
+    external: true,
   },
   {
     date: "2026.07",
     title: "Dailog",
+    href: "https://github.com/TEAM-DAILOG/BE",
+    external: true,
   },
 ] as const;
 
@@ -57,12 +62,14 @@ const projects = [
   {
     name: "HUFS 독서마라톤",
     role: "Frontend · 단독 개발",
-    href: "/posts/reading-marathon-frontend",
+    href: "https://github.com/HUFS-Reading-Marathon/pagepace-fe",
+    external: true,
   },
   {
     name: "Dailog",
     role: "Backend · 일정 도메인",
-    href: "/posts/repeat-schedule-group",
+    href: "https://github.com/TEAM-DAILOG/BE",
+    external: true,
   },
   {
     name: "withChurch",
@@ -89,6 +96,7 @@ const technicalSkills: Skill[] = [
   { name: "Node.js", level: "중", icon: SiNodedotjs },
   { name: "NestJS", level: "중", icon: SiNestjs },
   { name: "TypeORM", level: "중", icon: SiTypeorm },
+  { name: "MySQL", level: "중", icon: SiMysql },
   { name: "C / C++", level: "하", icon: SiCplusplus },
   { name: "자료구조", level: "하", icon: LuNetwork },
   { name: "알고리즘", level: "하", icon: LuBraces },
@@ -102,8 +110,8 @@ const collaborationTools: Skill[] = [
     href: "https://github.com/hyuneey2",
   },
   { name: "Figma", level: "중", icon: SiFigma },
-  { name: "Notion", level: "중", icon: SiNotion },
-  { name: "Discord", level: "중", icon: SiDiscord },
+  { name: "Notion", level: "상", icon: SiNotion },
+  { name: "Discord", level: "상", icon: SiDiscord },
 ];
 
 function SkillIcon({ skill }: { skill: Skill }) {
