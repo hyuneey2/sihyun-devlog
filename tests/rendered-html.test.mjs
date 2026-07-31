@@ -37,6 +37,28 @@ test("renders development preview metadata", async () => {
   assert.match(await response.text(), developmentPreviewMeta);
 });
 
+test("renders the breathing hero aurora without the home avatar", async () => {
+  const response = await renderPage("/");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /class="hero-aurora-layer/);
+  assert.match(html, /from-emerald-300/);
+  assert.doesNotMatch(html, /class="home-avatar"/);
+});
+
+test("renders three accessible glowing project cards", async () => {
+  const response = await renderPage("/projects");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.equal(html.match(/class="project-row glowing-card/g)?.length, 3);
+  assert.equal(html.match(/from-emerald-400/g)?.length, 3);
+  assert.match(html, /aria-label="HUFS 독서마라톤 프로젝트 보기"/);
+  assert.match(html, /aria-label="Dailog 프로젝트 보기"/);
+  assert.match(html, /aria-label="withChurch 프로젝트 보기"/);
+});
+
 test("groups a series in the public posts list", async () => {
   const response = await renderPage("/posts");
   const html = await response.text();

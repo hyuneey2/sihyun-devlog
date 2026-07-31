@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { GlowingCard } from "@/components/GlowingCard";
 import { projects } from "@/lib/projects";
 
 export const metadata: Metadata = {
@@ -19,30 +19,31 @@ export default function ProjectsPage() {
       <section className="projects-index shell" aria-label="프로젝트 목록">
         <div className="projects-list">
           {projects.map((project) => (
-            <article className="project-row" key={project.slug}>
-              <Link href={`/projects/${project.slug}`}>
-                <span className="project-row-mark" aria-hidden="true">
-                  {project.title.slice(0, 2)}
-                </span>
-                <div className="project-row-meta">
-                  <time dateTime={project.dateTime}>{project.date}</time>
-                  <span>{project.status}</span>
-                </div>
+            <GlowingCard
+              href={`/projects/${project.slug}`}
+              ariaLabel={`${project.title} 프로젝트 보기`}
+              key={project.slug}
+            >
+              <span className="project-row-mark" aria-hidden="true">
+                {project.title.slice(0, 2)}
+              </span>
+              <div className="project-row-meta">
+                <time dateTime={project.dateTime}>{project.date}</time>
+                <span>{project.status}</span>
+              </div>
 
-                <div className="project-row-content">
-                  <p className="project-row-role">{project.role}</p>
-                  <h2>{project.title}</h2>
-                  <p className="project-row-summary">{project.summary}</p>
-                  <p
-                    className="project-row-stack"
-                    aria-label={`${project.title} 기술 스택`}
-                  >
-                    {project.stack.join(" · ")}
-                  </p>
-                </div>
-
-              </Link>
-            </article>
+              <div className="project-row-content">
+                <p className="project-row-role">{project.role}</p>
+                <h2>{project.title}</h2>
+                <p className="project-row-summary">{project.summary}</p>
+                <p
+                  className="project-row-stack"
+                  aria-label={`${project.title} 기술 스택`}
+                >
+                  {project.stack.join(" · ")}
+                </p>
+              </div>
+            </GlowingCard>
           ))}
         </div>
       </section>
