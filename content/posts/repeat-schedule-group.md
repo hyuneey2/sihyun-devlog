@@ -8,6 +8,7 @@ tags:
   - TypeORM
   - Database
   - API
+  - Dailog
 ---
 
 일정 기능을 처음 설계할 때는 반복 일정의 첫 번째 `scheduleId`를 `groupId`로 사용하는 방법을 생각했다. 별도 테이블 없이 일정끼리 묶을 수 있어 단순해 보였다.

@@ -20,6 +20,7 @@ type ProjectPreview =
 export type Project = {
   slug: string;
   title: string;
+  postTag: string;
   date: string;
   dateTime: string;
   status: string;
@@ -29,12 +30,6 @@ export type Project = {
   tools: readonly string[];
   links: readonly ProjectLink[];
   preview: ProjectPreview;
-  troubleshooting: {
-    title: string;
-    description: string;
-    href?: string;
-    linkLabel?: string;
-  };
   learnings: readonly string[];
 };
 
@@ -42,6 +37,7 @@ export const projects: readonly Project[] = [
   {
     slug: "dailog",
     title: "Dailog",
+    postTag: "Dailog",
     date: "2026.07",
     dateTime: "2026-07",
     status: "팀 프로젝트",
@@ -63,11 +59,6 @@ export const projects: readonly Project[] = [
       alt: "Dailog 모바일 앱의 일정 관리와 일기 작성 화면 목업",
       fit: "contain",
     },
-    troubleshooting: {
-      title: "반복 일정의 수정·삭제 범위를 어떻게 구분할 것인가",
-      description:
-        "첫 일정 ID를 반복 그룹의 기준으로 쓰면 첫 일정 삭제와 전체 수정 시 관계가 불명확해졌습니다. 반복 그룹 테이블을 분리하고 SINGLE·ALL 범위를 명시해 일정과 그룹의 생명주기를 구분했습니다.",
-    },
     learnings: [
       "API 구현 전에 데이터의 관계와 삭제 생명주기를 먼저 정의해야 이후의 예외 처리가 단순해진다는 점을 배웠습니다.",
       "프론트엔드가 예측할 수 있는 응답 구조를 만들기 위해 기획·디자인 요구사항을 API 명세와 지속적으로 맞췄습니다.",
@@ -76,6 +67,7 @@ export const projects: readonly Project[] = [
   {
     slug: "reading-marathon",
     title: "HUFS 독서마라톤",
+    postTag: "독서마라톤",
     date: "2026.06 — 진행 중",
     dateTime: "2026-06",
     status: "공식 웹서비스",
@@ -97,13 +89,6 @@ export const projects: readonly Project[] = [
       alt: "HUFS 독서마라톤 웹서비스 메인 화면",
       fit: "cover",
     },
-    troubleshooting: {
-      title: "로컬에서는 보이지만 배포 빌드에는 없던 파일",
-      description:
-        "독서 기록 관련 파일명이 ignore 규칙과 충돌해 로컬에서는 동작하지만 원격 빌드에는 포함되지 않는 문제를 확인했습니다. 추적 상태와 규칙을 점검하고 파일 구조를 정리해 환경 간 차이를 해소했습니다.",
-      href: "/posts/reading-marathon-frontend",
-      linkLabel: "자세한 해결 과정 보기",
-    },
     learnings: [
       "화면 구현뿐 아니라 디자인 기준, 데이터 구조, API 연결 순서를 함께 조율해야 단독 개발의 재작업을 줄일 수 있었습니다.",
       "운영될 서비스는 로컬 동작보다 재현 가능한 빌드와 명확한 상태 처리가 더 중요하다는 점을 배웠습니다.",
@@ -112,6 +97,7 @@ export const projects: readonly Project[] = [
   {
     slug: "withchurch",
     title: "withChurch",
+    postTag: "withchurch",
     date: "2026 · 운영 중",
     dateTime: "2026",
     status: "운영 서비스",
@@ -135,11 +121,6 @@ export const projects: readonly Project[] = [
       type: "live",
       src: "https://withchurch.site/",
       title: "withChurch 실제 운영 사이트 미리보기",
-    },
-    troubleshooting: {
-      title: "운영 중인 화면을 안정적으로 개선하는 방법",
-      description:
-        "새로운 요청을 반영할 때 기존 사용 흐름과 배포 환경에 미치는 영향을 함께 확인했습니다. 변경 범위를 작게 나누고 실제 화면을 반복 검수하며 운영 중인 서비스의 수정 과정을 경험했습니다.",
     },
     learnings: [
       "서비스는 배포로 끝나지 않으며, 실제 사용자의 요청을 빠르게 이해하고 기존 흐름을 지키며 반영하는 과정이 중요했습니다.",
