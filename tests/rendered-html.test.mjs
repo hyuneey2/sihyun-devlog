@@ -43,7 +43,7 @@ test("renders the breathing hero aurora without the home avatar", async () => {
 
   assert.equal(response.status, 200);
   assert.match(html, /class="hero-aurora-layer/);
-  assert.match(html, /from-emerald-300/);
+  assert.match(html, /from-green-200\/80/);
   assert.doesNotMatch(html, /class="home-avatar"/);
 });
 
@@ -53,7 +53,7 @@ test("renders three accessible glowing project cards", async () => {
 
   assert.equal(response.status, 200);
   assert.equal(html.match(/class="project-row glowing-card/g)?.length, 3);
-  assert.equal(html.match(/from-emerald-400/g)?.length, 3);
+  assert.equal(html.match(/from-emerald-200/g)?.length, 3);
   assert.match(html, /aria-label="HUFS 독서마라톤 프로젝트 보기"/);
   assert.match(html, /aria-label="Dailog 프로젝트 보기"/);
   assert.match(html, /aria-label="withChurch 프로젝트 보기"/);
@@ -139,7 +139,9 @@ test("shows up to three project-tagged posts instead of static troubleshooting c
   assert.equal(withchurchResponse.status, 200);
   assert.equal(readingResponse.status, 200);
   assert.equal(dailogResponse.status, 200);
-  assert.match(withchurchHtml, /href="\/posts\/frontend-before-api-integration"/);
+  assert.match(withchurchHtml, /href="\/posts\/post-202607311527"/);
+  assert.match(withchurchHtml, /href="\/posts\/post-202607311538"/);
+  assert.match(withchurchHtml, /href="\/posts\/post-202607311554"/);
   assert.match(readingHtml, /href="\/posts\/reading-marathon-frontend"/);
   assert.match(dailogHtml, /href="\/posts\/repeat-schedule-group"/);
   assert.match(withchurchHtml, /Frontend 3명/);
