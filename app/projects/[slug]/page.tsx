@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ProjectPostList } from "@/components/ProjectPostList";
+import { getPublishedPosts } from "@/lib/post-data";
+import { getProjectPosts } from "@/lib/project-posts";
 import { getProject } from "@/lib/projects";
+
+export const dynamic = "force-dynamic";
 
 type ProjectDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -32,6 +37,11 @@ export default async function ProjectDetailPage({
   if (!project) {
     notFound();
   }
+
+  const relatedPosts = getProjectPosts(
+    await getPublishedPosts(),
+    project.postTag,
+  );
 
   return (
     <main className="project-detail-page">
@@ -124,20 +134,11 @@ export default async function ProjectDetailPage({
         <div className="project-story">
           <section aria-labelledby="troubleshooting-title">
             <p className="projects-kicker">Troubleshooting</p>
-            <h2 id="troubleshooting-title">
-              {project.troubleshooting.title}
-            </h2>
-            <p>{project.troubleshooting.description}</p>
-
-            {project.troubleshooting.href ? (
-              <Link
-                className="project-story-link"
-                href={project.troubleshooting.href}
-              >
-                {project.troubleshooting.linkLabel}{" "}
-                <span aria-hidden="true">→</span>
-              </Link>
-            ) : null}
+            <h2 id="troubleshooting-title">관련 기록</h2>
+            <ProjectPostList
+              posts={relatedPosts}
+              projectTag={project.postTag}
+            />
           </section>
 
           <section aria-labelledby="learnings-title">

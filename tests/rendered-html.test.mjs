@@ -100,3 +100,32 @@ test("omits unavailable series directions and keeps regular posts unchanged", as
   assert.doesNotMatch(regularHtml, /class="article-series"/);
   assert.doesNotMatch(regularHtml, /class="series-navigation"/);
 });
+
+test("shows up to three project-tagged posts instead of static troubleshooting copy", async () => {
+  const [withchurchResponse, readingResponse, dailogResponse] =
+    await Promise.all([
+      renderPage("/projects/withchurch"),
+      renderPage("/projects/reading-marathon"),
+      renderPage("/projects/dailog"),
+    ]);
+  const [withchurchHtml, readingHtml, dailogHtml] = await Promise.all([
+    withchurchResponse.text(),
+    readingResponse.text(),
+    dailogResponse.text(),
+  ]);
+
+  assert.equal(withchurchResponse.status, 200);
+  assert.equal(readingResponse.status, 200);
+  assert.equal(dailogResponse.status, 200);
+  assert.match(withchurchHtml, /href="\/posts\/frontend-before-api-integration"/);
+  assert.match(readingHtml, /href="\/posts\/reading-marathon-frontend"/);
+  assert.match(dailogHtml, /href="\/posts\/repeat-schedule-group"/);
+  assert.match(withchurchHtml, /#(?:<!-- -->)?withchurch/);
+  assert.doesNotMatch(
+    withchurchHtml,
+    /운영 중인 화면을 안정적으로 개선하는 방법/,
+  );
+  assert.ok(
+    (withchurchHtml.match(/class="project-related-post"/g)?.length ?? 0) <= 3,
+  );
+});

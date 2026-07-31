@@ -335,24 +335,94 @@
   word-break: keep-all;
 }
 
-.project-story-link {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  margin-top: 30px;
-  padding-bottom: 3px;
-  border-bottom: 1px solid #8d938e;
-  color: #444944;
-  font-size: 12px;
-  font-weight: 550;
-  transition:
-    border-color 160ms ease,
-    color 160ms ease;
+.project-related-posts,
+.project-related-empty {
+  margin-top: 34px;
+  border-top: 1px solid #c8cbc8;
 }
 
-.project-story-link:hover {
-  border-color: var(--accent-dark);
-  color: var(--accent-dark);
+.project-related-post {
+  border-bottom: 1px solid var(--line);
+}
+
+.project-related-post > a {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr) 20px;
+  gap: 24px;
+  align-items: start;
+  padding: 27px 0 29px;
+}
+
+.project-related-post > a:focus-visible {
+  border-radius: 2px;
+  outline: 1px solid var(--accent);
+  outline-offset: 7px;
+}
+
+.project-related-post-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-top: 2px;
+  color: #858a85;
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+.project-related-post-meta span {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.project-related-post-content h3 {
+  margin: 0;
+  color: #292d29;
+  font-size: 18px;
+  font-weight: 530;
+  letter-spacing: -0.035em;
+  line-height: 1.42;
+  word-break: keep-all;
+  transition: color 160ms ease;
+}
+
+.project-story .project-related-post-content p {
+  max-width: 650px;
+  margin: 9px 0 0;
+  color: #747974;
+  font-size: 12.5px;
+  line-height: 1.72;
+  word-break: keep-all;
+}
+
+.project-related-post-arrow {
+  padding-top: 1px;
+  color: #a3a8a3;
+  font-size: 17px;
+  line-height: 1;
+  text-align: right;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.project-related-post > a:hover h3,
+.project-related-post > a:focus-visible h3,
+.project-related-post > a:hover .project-related-post-arrow,
+.project-related-post > a:focus-visible .project-related-post-arrow {
+  color: var(--accent);
+}
+
+.project-related-post > a:hover .project-related-post-arrow,
+.project-related-post > a:focus-visible .project-related-post-arrow {
+  transform: translateX(3px);
+}
+
+.project-story .project-related-empty {
+  margin-bottom: 0;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+  color: #858a85;
+  font-size: 12.5px;
 }
 
 @media (max-width: 820px) {
@@ -505,5 +575,34 @@
 
   .project-story h2 {
     font-size: 27px;
+  }
+
+  .project-related-post > a {
+    grid-template-columns: minmax(0, 1fr) 18px;
+    gap: 13px;
+    padding: 24px 0 26px;
+  }
+
+  .project-related-post-meta {
+    grid-column: 1;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding-top: 0;
+  }
+
+  .project-related-post-meta time::before {
+    margin-right: 8px;
+    color: #b5b8b4;
+    content: "·";
+  }
+
+  .project-related-post-content {
+    grid-column: 1;
+  }
+
+  .project-related-post-arrow {
+    grid-column: 2;
+    grid-row: 1 / span 2;
   }
 }
