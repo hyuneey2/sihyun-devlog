@@ -32,10 +32,6 @@ export function ProjectPostList({
               <h3>{post.title}</h3>
               <p>{post.description}</p>
             </div>
-
-            <span className="project-related-post-arrow" aria-hidden="true">
-              →
-            </span>
           </Link>
         </article>
       ))}
