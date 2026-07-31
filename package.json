@@ -14,7 +14,8 @@
     "validate:artifact": "bash scripts/validate-artifact.sh",
     "lint": "bash scripts/sites-env.sh -- eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "bash scripts/sites-env.sh -- drizzle-kit generate",
-    "db:setup": "wrangler d1 migrations apply DB --local --config wrangler.local.jsonc"
+    "db:setup": "wrangler d1 migrations apply DB --local --config wrangler.local.jsonc",
+    "posts:export": "node scripts/export-posts.mjs"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",
