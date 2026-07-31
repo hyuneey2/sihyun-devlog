@@ -156,7 +156,7 @@ export default function AboutPage() {
     <main className="about-page">
       <section className="about-hero shell">
         <h1>
-          박시현 <span aria-hidden="true">/</span> <em>#개발자</em>
+          박시현 <em>#개발자</em>
         </h1>
         <p className="about-hero-intro">화면의 경험과 데이터의 흐름을 함께 만듭니다.</p>
       </section>

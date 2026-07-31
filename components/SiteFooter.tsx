@@ -6,7 +6,7 @@ export function SiteFooter() {
       <div className="footer-inner shell">
         <div>
           <p className="footer-name">박시현의 개발 기록</p>
-          <p className="footer-note">작게 배우고, 분명하게 기록합니다.</p>
+          <p className="footer-note">경험을 구조화하고, 과정을 기록합니다.</p>
         </div>
         <div className="footer-links">
           <Link href="/posts">기록</Link>
