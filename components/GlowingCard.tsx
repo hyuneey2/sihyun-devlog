@@ -34,8 +34,9 @@ export function GlowingCard({
         ease: [0.22, 1, 0.36, 1],
       }}
     >
+      {/* 👇 수정한 은은한 네온 글로우 효과 부분 👇 */}
       <div
-        className="pointer-events-none absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-300 opacity-0 blur-md transition duration-500 group-hover:opacity-100 group-focus-within:opacity-100"
+        className="pointer-events-none absolute -inset-1 rounded-2xl bg-gradient-to-r from-emerald-200 to-teal-100 opacity-0 blur-2xl transition duration-700 group-hover:opacity-40 group-focus-within:opacity-40"
         aria-hidden="true"
       />
 
