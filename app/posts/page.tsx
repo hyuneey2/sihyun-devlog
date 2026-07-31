@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PostCard } from "@/components/PostCard";
+import { SeriesPostCard } from "@/components/SeriesPostCard";
 import { getPublishedPosts } from "@/lib/post-data";
+import { groupPostsForPublicList } from "@/lib/post-series";
 import { POST_CATEGORIES, type PostCategory } from "@/lib/post-types";
 
 export const dynamic = "force-dynamic";
@@ -56,9 +58,10 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
   const filteredPosts = await getPublishedPosts(
     activeCategory === "all" ? undefined : (activeCategory as PostCategory),
   );
+  const groupedPosts = groupPostsForPublicList(filteredPosts);
   const totalPages = Math.max(
     1,
-    Math.ceil(filteredPosts.length / POSTS_PER_PAGE),
+    Math.ceil(groupedPosts.length / POSTS_PER_PAGE),
   );
   const parsedPage = Number.parseInt(requestedPage ?? "", 10);
   const currentPage =
@@ -66,7 +69,7 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
       ? Math.min(parsedPage, totalPages)
       : 1;
   const pageStart = (currentPage - 1) * POSTS_PER_PAGE;
-  const visiblePosts = filteredPosts.slice(
+  const visiblePosts = groupedPosts.slice(
     pageStart,
     pageStart + POSTS_PER_PAGE,
   );
@@ -101,9 +104,27 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
         </nav>
 
         <div className="post-list">
-          {visiblePosts.map((post) => (
-            <PostCard key={post.slug} post={post} />
-          ))}
+          {visiblePosts.map((item) => {
+            if (item.type === "post") {
+              return <PostCard key={item.post.slug} post={item.post} />;
+            }
+
+            if (item.posts.length === 1) {
+              return (
+                <PostCard
+                  key={item.representativePost.slug}
+                  post={item.representativePost}
+                />
+              );
+            }
+
+            return (
+              <SeriesPostCard
+                key={`${item.representativePost.category}-${item.seriesName}`}
+                item={item}
+              />
+            );
+          })}
         </div>
 
         <nav className="pagination" aria-label="게시글 페이지">

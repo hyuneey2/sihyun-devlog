@@ -37,13 +37,36 @@ test("renders development preview metadata", async () => {
   assert.match(await response.text(), developmentPreviewMeta);
 });
 
-test("renders series metadata in the posts list", async () => {
+test("groups a series in the public posts list", async () => {
   const response = await renderPage("/posts");
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /class="post-series"/);
+  assert.match(html, /class="series-post-card"/);
   assert.match(html, /Node\.js 스터디/);
+  assert.match(html, /9(?:<!-- -->)?개의 글/);
+  assert.match(html, /01(?:<!-- -->)?부터 읽기/);
+  assert.match(html, /aria-expanded="false"/);
+  assert.doesNotMatch(html, />SQL 조회와 페이지네이션</);
+  assert.doesNotMatch(html, />JWT 인증과 Google OAuth 로그인</);
+  assert.equal(html.match(/class="pagination-link"/g)?.length, 3);
+});
+
+test("keeps grouping after the category filter and out of the home list", async () => {
+  const [backendResponse, homeResponse] = await Promise.all([
+    renderPage("/posts?category=Backend"),
+    renderPage("/"),
+  ]);
+  const [backendHtml, homeHtml] = await Promise.all([
+    backendResponse.text(),
+    homeResponse.text(),
+  ]);
+
+  assert.equal(backendResponse.status, 200);
+  assert.equal(backendHtml.match(/class="series-post-card"/g)?.length, 1);
+  assert.match(backendHtml, /Node\.js 스터디/);
+  assert.doesNotMatch(backendHtml, />SQL 조회와 페이지네이션</);
+  assert.doesNotMatch(homeHtml, /class="series-post-card"/);
 });
 
 test("connects only the previous and next posts in the same series", async () => {
