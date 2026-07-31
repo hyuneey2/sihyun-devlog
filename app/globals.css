@@ -297,11 +297,28 @@ button {
   gap: 8px;
 }
 
+.post-taxonomy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+  font-size: 12px;
+}
+
 .post-category {
   color: var(--accent);
-  font-size: 12px;
   font-weight: 650;
   letter-spacing: 0.06em;
+}
+
+.post-taxonomy-separator {
+  color: #afb3ae;
+}
+
+.post-series {
+  color: #777c77;
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
 .post-date {
@@ -1050,6 +1067,22 @@ button {
   border-bottom: 1px solid var(--line);
 }
 
+.article-series {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0 0 17px;
+  color: #7b807b;
+  font-size: 12px;
+  font-weight: 520;
+  letter-spacing: -0.01em;
+}
+
+.article-series span:first-child {
+  color: var(--accent);
+  font-weight: 620;
+}
+
 .article-kicker {
   display: flex;
   flex-wrap: wrap;
@@ -1195,6 +1228,47 @@ button {
 .article-footer {
   padding: 32px 0 112px;
   border-top: 1px solid var(--line);
+}
+
+.series-navigation {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  padding: 30px 0;
+  border-top: 1px solid var(--line);
+}
+
+.series-navigation-link {
+  display: flex;
+  min-width: 0;
+  gap: 10px;
+  align-items: flex-start;
+  color: #4d524d;
+  font-size: 13px;
+  line-height: 1.6;
+  transition: color 160ms ease;
+}
+
+.series-navigation-link > span:not([aria-hidden="true"]) {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.series-navigation-next {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.series-navigation-link:hover,
+.series-navigation-link:focus-visible {
+  color: var(--accent-dark);
+}
+
+.series-navigation-link:focus-visible {
+  border-radius: 2px;
+  outline: 1px solid var(--accent);
+  outline-offset: 6px;
 }
 
 .button {
@@ -1943,6 +2017,28 @@ button {
 
   .article-title {
     font-size: 32px;
+  }
+
+  .series-navigation {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .series-navigation-placeholder {
+    display: none;
+  }
+
+  .series-navigation-next {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .series-navigation-next span:first-child {
+    order: 2;
+  }
+
+  .series-navigation-next span:last-child {
+    order: 1;
   }
 
   .prose {

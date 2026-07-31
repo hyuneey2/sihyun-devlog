@@ -31,6 +31,15 @@ export async function POST(request: Request) {
         { status: 409 },
       );
     }
+    if (
+      error instanceof Error &&
+      error.message === "SERIES_ORDER_ALREADY_EXISTS"
+    ) {
+      return Response.json(
+        { error: "같은 시리즈에서 이미 사용 중인 순서입니다." },
+        { status: 409 },
+      );
+    }
     throw error;
   }
 }

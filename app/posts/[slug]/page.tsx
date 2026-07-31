@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPublishedPostBySlug } from "@/lib/post-data";
+import {
+  getPublishedPostBySlug,
+  getPublishedPosts,
+} from "@/lib/post-data";
 import { renderPostMarkdown } from "@/lib/posts";
+import {
+  formatSeriesOrder,
+  getSeriesNavigation,
+  getSeriesPosition,
+} from "@/lib/post-series";
 import { formatPostDate } from "@/lib/post-types";
 
 export const dynamic = "force-dynamic";
@@ -36,11 +44,25 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   const contentHtml = await renderPostMarkdown(post.content);
+  const publishedPosts = post.series ? await getPublishedPosts() : [];
+  const seriesPosition = getSeriesPosition(publishedPosts, post);
+  const { previous, next } = getSeriesNavigation(publishedPosts, post);
+  const hasSeriesNavigation = Boolean(previous || next);
 
   return (
     <main className="article-shell">
       <article>
         <header className="article-header">
+          {post.series && seriesPosition ? (
+            <p className="article-series">
+              <span>{post.series}</span>
+              <span aria-hidden="true">·</span>
+              <span>
+                {formatSeriesOrder(seriesPosition.current)} /{" "}
+                {formatSeriesOrder(seriesPosition.total)}
+              </span>
+            </p>
+          ) : null}
           <div className="article-kicker">
             <span>{post.category}</span>
             <span aria-hidden="true">·</span>
@@ -59,6 +81,40 @@ export default async function PostPage({ params }: PostPageProps) {
           className="prose"
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
+
+        {hasSeriesNavigation ? (
+          <nav className="series-navigation" aria-label="시리즈 글 이동">
+            {previous ? (
+              <Link
+                className="series-navigation-link series-navigation-previous"
+                href={`/posts/${previous.slug}`}
+                scroll
+              >
+                <span aria-hidden="true">←</span>
+                <span>
+                  {formatSeriesOrder(previous.seriesOrder ?? 0)}.{" "}
+                  {previous.title}
+                </span>
+              </Link>
+            ) : (
+              <span className="series-navigation-placeholder" />
+            )}
+            {next ? (
+              <Link
+                className="series-navigation-link series-navigation-next"
+                href={`/posts/${next.slug}`}
+                scroll
+              >
+                <span>
+                  {formatSeriesOrder(next.seriesOrder ?? 0)}. {next.title}
+                </span>
+                <span aria-hidden="true">→</span>
+              </Link>
+            ) : (
+              <span className="series-navigation-placeholder" />
+            )}
+          </nav>
+        ) : null}
       </article>
 
       <div className="article-footer">

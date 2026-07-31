@@ -28,9 +28,27 @@ function parsePost(path: string, source: string): BundledPost {
   const data = parseYaml(frontmatter[1]) as Record<string, unknown>;
   const content = source.slice(frontmatter[0].length);
   const slug = path.split("/").pop()?.replace(/\.md$/, "");
+  const series =
+    typeof data.series === "string" && data.series.trim()
+      ? data.series.trim()
+      : undefined;
+  const hasSeriesOrder =
+    data.seriesOrder !== undefined && data.seriesOrder !== null;
+  const seriesOrder =
+    typeof data.seriesOrder === "number" &&
+    Number.isInteger(data.seriesOrder) &&
+    data.seriesOrder >= 1
+      ? data.seriesOrder
+      : undefined;
 
   if (!slug || !data.title || !data.description || !data.date || !data.category) {
     throw new Error(`게시글 메타데이터가 올바르지 않습니다: ${path}`);
+  }
+  if (hasSeriesOrder && seriesOrder === undefined) {
+    throw new Error(`게시글 시리즈 순서가 올바르지 않습니다: ${path}`);
+  }
+  if (Boolean(series) !== Boolean(seriesOrder)) {
+    throw new Error(`게시글 시리즈 메타데이터가 올바르지 않습니다: ${path}`);
   }
 
   return {
@@ -40,6 +58,8 @@ function parsePost(path: string, source: string): BundledPost {
     description: String(data.description),
     category: String(data.category) as PostCategory,
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
+    series,
+    seriesOrder,
     content,
     status: "published",
     publishedAt: `${String(data.date)}T00:00:00.000Z`,

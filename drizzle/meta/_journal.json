@@ -8,6 +8,13 @@
       "when": 1785293716130,
       "tag": "0000_grey_marvel_zombies",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1785485178372,
+      "tag": "0001_cute_vindicator",
+      "breakpoints": true
     }
   ]
 }

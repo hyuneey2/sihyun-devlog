@@ -1,4 +1,4 @@
-import { index, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const posts = sqliteTable(
   "posts",
@@ -10,6 +10,8 @@ export const posts = sqliteTable(
     content: text("content").notNull().default(""),
     category: text("category").notNull(),
     tags: text("tags").notNull().default("[]"),
+    series: text("series"),
+    seriesOrder: integer("series_order"),
     status: text("status").notNull().default("draft"),
     publishedAt: text("published_at"),
     createdAt: text("created_at").notNull(),
@@ -22,6 +24,7 @@ export const posts = sqliteTable(
       table.publishedAt,
     ),
     index("posts_category_idx").on(table.category),
+    index("posts_series_order_idx").on(table.series, table.seriesOrder),
   ],
 );
 
