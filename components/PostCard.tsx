@@ -31,9 +31,6 @@ export function PostCard({ post }: PostCardProps) {
         <h3 className="post-title">{post.title}</h3>
         <p className="post-description">{post.description}</p>
       </div>
-      <span className="post-arrow" aria-hidden="true">
-        →
-      </span>
     </Link>
   );
 }

@@ -61,7 +61,7 @@ export default async function AdminPage() {
           <div className="admin-empty">
             <p>아직 작성한 글이 없습니다.</p>
             <Link className="text-link" href="/admin/new">
-              첫 글 작성하기 <span aria-hidden="true">→</span>
+              첫 글 작성하기
             </Link>
           </div>
         )}

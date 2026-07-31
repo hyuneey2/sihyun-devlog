@@ -34,7 +34,7 @@ export default async function Home() {
               <h2>최근 기록</h2>
             </div>
             <Link className="text-link" href="/posts">
-              전체 글 보기 <span aria-hidden="true">→</span>
+              전체 글 보기
             </Link>
           </div>
 
@@ -58,7 +58,7 @@ export default async function Home() {
                 React·Node.js를 공부하며 세운 기준도 글로 남깁니다.
               </p>
               <Link className="project-note-link" href="/projects">
-                프로젝트 보기 <span aria-hidden="true">→</span>
+                프로젝트 보기
               </Link>
             </div>
           </div>

@@ -41,9 +41,6 @@ export default function ProjectsPage() {
                   </p>
                 </div>
 
-                <span className="project-row-arrow" aria-hidden="true">
-                  ↗
-                </span>
               </Link>
             </article>
           ))}

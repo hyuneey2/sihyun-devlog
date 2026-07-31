@@ -184,7 +184,6 @@ export default function AboutPage() {
                         rel={item.external ? "noreferrer" : undefined}
                       >
                         {item.title}
-                        <span aria-hidden="true"> ↗</span>
                       </a>
                     ) : (
                       item.title
@@ -202,7 +201,7 @@ export default function AboutPage() {
                 <h2 id="projects-title">Projects</h2>
               </div>
               <Link className="about-section-link" href="/projects">
-                전체 보기 <span aria-hidden="true">↗</span>
+                전체 보기
               </Link>
             </div>
 
@@ -219,9 +218,6 @@ export default function AboutPage() {
                     </span>
                     <p>{project.role}</p>
                     <h3>{project.name}</h3>
-                    <span className="about-project-arrow" aria-hidden="true">
-                      ↗
-                    </span>
                   </a>
                 </article>
               ))}
