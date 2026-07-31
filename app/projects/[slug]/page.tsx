@@ -121,6 +121,14 @@ export default async function ProjectDetailPage({
               <dd>{project.role}</dd>
             </div>
             <div>
+              <dt>Team</dt>
+              <dd>{project.team.join(" · ")}</dd>
+            </div>
+            <div>
+              <dt>Contribution</dt>
+              <dd>{project.contribution}</dd>
+            </div>
+            <div>
               <dt>Stack</dt>
               <dd>{project.stack.join(" · ")}</dd>
             </div>
