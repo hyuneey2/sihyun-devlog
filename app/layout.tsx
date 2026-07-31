@@ -39,6 +39,28 @@ export default function RootLayout({
         <SiteHeader />
         {children}
         <SiteFooter />
+        <a
+          className="floating-contact"
+          href="mailto:tlgus0929@hufs.ac.kr"
+          aria-label="박시현에게 메일 보내기"
+          title="메일 보내기"
+        >
+          <span className="floating-contact-label" aria-hidden="true">
+            메일 보내기
+          </span>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="m4 7 8 6 8-6" />
+          </svg>
+        </a>
       </body>
     </html>
   );
