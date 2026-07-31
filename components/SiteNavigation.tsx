@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 type SiteNavigationProps = {
   isAdmin: boolean;
@@ -21,32 +22,54 @@ function isCurrentPath(pathname: string, href: string) {
 
 export function SiteNavigation({ isAdmin }: SiteNavigationProps) {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="site-nav" aria-label="주요 메뉴">
-      {navigation.map((item) => {
-        const isCurrent = isCurrentPath(pathname, item.href);
+    <div className="navigation-wrap">
+      <button
+        className="mobile-menu-toggle"
+        type="button"
+        aria-expanded={isOpen}
+        aria-controls="site-navigation"
+        onClick={() => setIsOpen((open) => !open)}
+      >
+        Menu
+        <svg aria-hidden="true" viewBox="0 0 12 8" fill="none">
+          <path d="m1 1 5 5 5-5" stroke="currentColor" strokeWidth="1.5" />
+        </svg>
+      </button>
 
-        return (
+      <nav
+        className={`site-nav${isOpen ? " is-open" : ""}`}
+        id="site-navigation"
+        aria-label="주요 메뉴"
+      >
+        {navigation.map((item) => {
+          const isCurrent = isCurrentPath(pathname, item.href);
+
+          return (
+            <Link
+              className="nav-link"
+              href={item.href}
+              aria-current={isCurrent ? "page" : undefined}
+              onClick={() => setIsOpen(false)}
+              key={item.href}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
+        {isAdmin ? (
           <Link
-            className="nav-link"
-            href={item.href}
-            aria-current={isCurrent ? "page" : undefined}
-            key={item.href}
+            className="nav-link admin-nav-link"
+            href="/admin"
+            aria-current={pathname.startsWith("/admin") ? "page" : undefined}
+            onClick={() => setIsOpen(false)}
           >
-            {item.label}
+            글 관리
           </Link>
-        );
-      })}
-      {isAdmin ? (
-        <Link
-          className="nav-link admin-nav-link"
-          href="/admin"
-          aria-current={pathname.startsWith("/admin") ? "page" : undefined}
-        >
-          글 관리
-        </Link>
-      ) : null}
-    </nav>
+        ) : null}
+      </nav>
+    </div>
   );
 }
