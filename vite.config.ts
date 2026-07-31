@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 import vinext from "vinext";
 import { nitro } from "nitro/vite";
 import { defineConfig, loadEnv } from "vite";
@@ -33,22 +34,24 @@ export default defineConfig(async ({ mode }) => {
   };
 
   /**
-   * Vercel 배포
+   * Vercel 배포 환경
    *
-   * Cloudflare 전용 플러그인은 제외하고 Nitro를 사용합니다.
-   * Vercel CI에서 Nitro가 플랫폼을 감지해 .output을 생성합니다.
+   * Tailwind는 Vite 플러그인으로 처리하고,
+   * Nitro가 Vercel용 .output 디렉터리를 생성합니다.
    */
   if (isVercel) {
     return {
       server,
-      plugins: [vinext(), nitro()],
+      plugins: [
+        tailwindcss(),
+        vinext(),
+        nitro(),
+      ],
     };
   }
 
   /**
-   * 기존 ChatGPT Sites / Cloudflare 개발·배포 환경
-   *
-   * D1, R2, Worker 바인딩과 Sites 메타데이터 구성을 유지합니다.
+   * 기존 Cloudflare 개발·배포 환경
    */
   const localBindingConfig = {
     main: "./worker/index.ts",
@@ -76,17 +79,16 @@ export default defineConfig(async ({ mode }) => {
       : [],
   };
 
-  // Wrangler와 Miniflare 상태를 프로젝트 내부에서 관리합니다.
   process.env.WRANGLER_WRITE_LOGS ??= "false";
   process.env.WRANGLER_LOG_PATH ??= ".wrangler/logs";
   process.env.MINIFLARE_REGISTRY_PATH ??= ".wrangler/registry";
 
-  // Cloudflare 플러그인은 Cloudflare 환경에서만 불러옵니다.
   const { cloudflare } = await import("@cloudflare/vite-plugin");
 
   return {
     server,
     plugins: [
+      tailwindcss(),
       vinext(),
       sites(),
       cloudflare({
