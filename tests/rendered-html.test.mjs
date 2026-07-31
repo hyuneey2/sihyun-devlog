@@ -120,6 +120,12 @@ test("shows up to three project-tagged posts instead of static troubleshooting c
   assert.match(withchurchHtml, /href="\/posts\/frontend-before-api-integration"/);
   assert.match(readingHtml, /href="\/posts\/reading-marathon-frontend"/);
   assert.match(dailogHtml, /href="\/posts\/repeat-schedule-group"/);
+  assert.match(withchurchHtml, /Frontend 3명/);
+  assert.match(withchurchHtml, /Frontend(?:<!-- -->)? ·(?:<!-- -->)? 90%/);
+  assert.match(readingHtml, /Frontend 1명/);
+  assert.match(readingHtml, /Frontend(?:<!-- -->)? ·(?:<!-- -->)? 100%/);
+  assert.match(dailogHtml, /Frontend 4명/);
+  assert.match(dailogHtml, /Backend(?:<!-- -->)? ·(?:<!-- -->)? 60%/);
   assert.match(withchurchHtml, /#(?:<!-- -->)?withchurch/);
   assert.doesNotMatch(
     withchurchHtml,

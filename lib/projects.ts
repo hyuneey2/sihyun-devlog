@@ -25,6 +25,8 @@ export type Project = {
   dateTime: string;
   status: string;
   role: string;
+  team: readonly string[];
+  contribution: string;
   summary: string;
   stack: readonly string[];
   tools: readonly string[];
@@ -42,6 +44,8 @@ export const projects: readonly Project[] = [
     dateTime: "2026-07",
     status: "팀 프로젝트",
     role: "Backend · 일정 도메인 설계 및 구현",
+    team: ["Frontend 4명", "Backend 4명", "PM 1명", "Designer 1명"],
+    contribution: "Backend · 60%",
     summary:
       "일정 관리와 일기 작성을 하나로 연결한 앱입니다. 일정 도메인과 반복 일정 API의 구조를 설계하고 구현했습니다.",
     stack: ["NestJS", "TypeScript", "TypeORM", "PostgreSQL", "Swagger"],
@@ -72,6 +76,8 @@ export const projects: readonly Project[] = [
     dateTime: "2026-06",
     status: "공식 웹서비스",
     role: "Frontend · 단독 개발",
+    team: ["Frontend 1명", "Backend 1명"],
+    contribution: "Frontend · 100%",
     summary:
       "한국외국어대학교 글로벌캠퍼스 도서관의 독서 기록 프로그램을 위한 공식 웹서비스입니다. 사용자와 관리자 화면의 설계·구현을 맡았습니다.",
     stack: ["React", "TypeScript", "Vite", "React Router"],
@@ -102,6 +108,8 @@ export const projects: readonly Project[] = [
     dateTime: "2026",
     status: "운영 서비스",
     role: "Frontend · 개발 및 API 연동",
+    team: ["Frontend 3명", "Backend 1명"],
+    contribution: "Frontend · 90%",
     summary:
       "교회 소식과 기록을 온라인에서 공유할 수 있는 커뮤니티형 웹페이지입니다. 실제 사용 환경에 배포한 뒤 운영 요청을 반영하고 있습니다.",
     stack: ["React", "JavaScript", "REST API"],
