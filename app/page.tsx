@@ -51,9 +51,9 @@ export default async function Home() {
             </div>
             <div className="project-note-copy">
               <p>
-                Dailog의 반복 일정 설계, HUFS 독서마라톤 프론트엔드 개발,
-                withChurch 운영 과정에서 만난 문제뿐 아니라 알고리즘,
-                React·Node.js를 공부하며 세운 기준도 글로 남깁니다.
+                실제 서비스를 개발하며 마주한 고민과 해결 방법을 정리합니다. 
+                Dailog, HUFS 독서마라톤 등의 프로젝트 경험과 React, Node.js, 
+                알고리즘을 공부하며 다진 기술적 기준을 공유합니다.
               </p>
               <Link className="project-note-link" href="/projects">
                 프로젝트 보기

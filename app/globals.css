@@ -981,6 +981,12 @@ iframe {
   letter-spacing: -0.06em;
   line-height: 1.15;
 }
+.about-hero h1 em {
+  font-size: 0.6em;
+  font-weight: 500;
+  font-style: normal;
+  margin-left: 12px;
+}
 
 .about-hero h1 span {
   color: var(--line-strong);
