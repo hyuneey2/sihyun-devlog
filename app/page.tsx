@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HeroAurora } from "@/components/HeroAurora";
 import { PostCard } from "@/components/PostCard";
 import { TypingText } from "@/components/TypingText";
 import { getPublishedPosts } from "@/lib/post-data";
@@ -12,11 +13,8 @@ export default async function Home() {
   return (
     <main>
       <section className="hero shell">
+        <HeroAurora />
         <div className="hero-copy">
-          <div className="home-avatar" aria-hidden="true">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/sihyun-profile.png" alt="" width="72" height="72" />
-          </div>
           <h1>
             <span className="hero-lead">
               더 나은 화면과 구조를 고민하는
