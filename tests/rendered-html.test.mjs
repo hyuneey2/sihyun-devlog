@@ -69,6 +69,22 @@ test("keeps grouping after the category filter and out of the home list", async 
   assert.doesNotMatch(homeHtml, /class="series-post-card"/);
 });
 
+test("renders the warm green portfolio system without coffee branding", async () => {
+  const response = await renderPage("/");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /더 나은 화면과 구조를 고민하는/);
+  assert.match(html, /class="hero-highlight"/);
+  assert.equal(html.match(/class="home-project-card"/g)?.length, 3);
+  assert.match(html, />Bronze</);
+  assert.match(html, />Gold</);
+  assert.match(html, />Silver</);
+  assert.match(html, /class="technology-pills"/);
+  assert.match(html, /href="mailto:tlgus0929@hufs\.ac\.kr"/);
+  assert.doesNotMatch(html, /Starbucks|스타벅스|커피|사이렌/);
+});
+
 test("connects only the previous and next posts in the same series", async () => {
   const response = await renderPage("/posts/node-study-03-rest-api");
   const html = await response.text();
