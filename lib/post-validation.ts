@@ -21,6 +21,12 @@ export function validatePostInput(value: unknown): ValidationResult {
   const content = typeof body.content === "string" ? body.content : "";
   const category = body.category;
   const status = body.status;
+  const series =
+    typeof body.series === "string" && body.series.trim()
+      ? body.series.trim()
+      : undefined;
+  const seriesOrder =
+    typeof body.seriesOrder === "number" ? body.seriesOrder : undefined;
   const tags = Array.isArray(body.tags)
     ? body.tags
         .filter((tag): tag is string => typeof tag === "string")
@@ -54,6 +60,24 @@ export function validatePostInput(value: unknown): ValidationResult {
   if (!isPostStatus(status)) {
     return { data: null, error: "저장 상태를 확인해 주세요." };
   }
+  if (series && series.length > 80) {
+    return { data: null, error: "시리즈명은 80자 이하로 입력해 주세요." };
+  }
+  if (Boolean(series) !== (seriesOrder !== undefined)) {
+    return {
+      data: null,
+      error: "시리즈명과 시리즈 순서를 함께 입력해 주세요.",
+    };
+  }
+  if (
+    seriesOrder !== undefined &&
+    (!Number.isInteger(seriesOrder) || seriesOrder < 1)
+  ) {
+    return {
+      data: null,
+      error: "시리즈 순서는 1 이상의 정수로 입력해 주세요.",
+    };
+  }
   if (content.length > 150_000) {
     return { data: null, error: "본문은 15만 자 이하로 입력해 주세요." };
   }
@@ -69,6 +93,8 @@ export function validatePostInput(value: unknown): ValidationResult {
       content,
       category,
       tags: [...new Set(tags)],
+      series,
+      seriesOrder,
       status,
     },
     error: null,

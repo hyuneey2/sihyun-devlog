@@ -42,6 +42,10 @@ export function PostEditor({ post, notice }: PostEditorProps) {
   const [description, setDescription] = useState(post?.description ?? "");
   const [category, setCategory] = useState(post?.category ?? "Frontend");
   const [tags, setTags] = useState(post?.tags.join(", ") ?? "");
+  const [series, setSeries] = useState(post?.series ?? "");
+  const [seriesOrder, setSeriesOrder] = useState(
+    post?.seriesOrder ? String(post.seriesOrder) : "",
+  );
   const [content, setContent] = useState(post?.content ?? "");
   const [previewHtml, setPreviewHtml] = useState("");
   const [activeTab, setActiveTab] = useState<"write" | "preview">("write");
@@ -101,6 +105,25 @@ export function PostEditor({ post, notice }: PostEditorProps) {
 
   async function save(status: PostStatus) {
     setMessage("");
+    const normalizedSeries = series.trim();
+    const normalizedSeriesOrder = seriesOrder.trim();
+
+    if (Boolean(normalizedSeries) !== Boolean(normalizedSeriesOrder)) {
+      setMessage("시리즈명과 시리즈 순서를 함께 입력해 주세요.");
+      return;
+    }
+
+    const parsedSeriesOrder = normalizedSeriesOrder
+      ? Number(normalizedSeriesOrder)
+      : undefined;
+    if (
+      parsedSeriesOrder !== undefined &&
+      (!Number.isInteger(parsedSeriesOrder) || parsedSeriesOrder < 1)
+    ) {
+      setMessage("시리즈 순서는 1 이상의 정수로 입력해 주세요.");
+      return;
+    }
+
     setIsSaving(true);
     try {
       const response = await fetch(endpoint, {
@@ -112,6 +135,8 @@ export function PostEditor({ post, notice }: PostEditorProps) {
           description,
           category,
           tags: tagList,
+          series: normalizedSeries || undefined,
+          seriesOrder: parsedSeriesOrder,
           content,
           status,
         }),
@@ -263,6 +288,31 @@ export function PostEditor({ post, notice }: PostEditorProps) {
             placeholder="React, TypeScript, 회고"
           />
           <small>쉼표로 구분해 주세요.</small>
+        </label>
+
+        <label className="field">
+          <span>시리즈명</span>
+          <input
+            value={series}
+            onChange={(event) => setSeries(event.target.value)}
+            placeholder="Node.js 스터디"
+            maxLength={80}
+          />
+          <small>시리즈 글에만 입력해 주세요.</small>
+        </label>
+
+        <label className="field">
+          <span>시리즈 순서</span>
+          <input
+            type="number"
+            value={seriesOrder}
+            onChange={(event) => setSeriesOrder(event.target.value)}
+            placeholder="1"
+            min={1}
+            step={1}
+            inputMode="numeric"
+          />
+          <small>1 이상의 정수만 사용할 수 있습니다.</small>
         </label>
 
         <label className="field field-wide">

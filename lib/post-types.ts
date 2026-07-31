@@ -17,6 +17,8 @@ export type PostSummary = {
   date: string;
   category: PostCategory;
   tags: string[];
+  series?: string;
+  seriesOrder?: number;
   status: PostStatus;
   createdAt: string;
   updatedAt: string;
@@ -33,6 +35,8 @@ export type PostInput = {
   content: string;
   category: PostCategory;
   tags: string[];
+  series?: string;
+  seriesOrder?: number;
   status: PostStatus;
 };
 

@@ -16,6 +16,8 @@ type D1PostRow = {
   content: string;
   category: string;
   tags: string;
+  series: string | null;
+  series_order: number | null;
   status: string;
   published_at: string | null;
   created_at: string;
@@ -23,7 +25,7 @@ type D1PostRow = {
   author_email: string;
 };
 
-const INITIAL_SEED_KEY = "initial_markdown_seed_v1";
+const INITIAL_SEED_KEY = "initial_markdown_seed_v2";
 let storageReady: Promise<void> | null = null;
 
 function getD1() {
@@ -43,8 +45,8 @@ async function ensureBlogStorage() {
   if (storageReady) return storageReady;
 
   const d1 = requireD1();
-  storageReady = d1
-    .batch([
+  storageReady = (async () => {
+    await d1.batch([
       d1.prepare(`
         CREATE TABLE IF NOT EXISTS blog_settings (
           key TEXT PRIMARY KEY NOT NULL,
@@ -61,6 +63,8 @@ async function ensureBlogStorage() {
           content TEXT NOT NULL DEFAULT '',
           category TEXT NOT NULL,
           tags TEXT NOT NULL DEFAULT '[]',
+          series TEXT,
+          series_order INTEGER,
           status TEXT NOT NULL DEFAULT 'draft',
           published_at TEXT,
           created_at TEXT NOT NULL,
@@ -76,12 +80,36 @@ async function ensureBlogStorage() {
         CREATE INDEX IF NOT EXISTS posts_category_idx
         ON posts (category)
       `),
-    ])
-    .then(() => undefined)
-    .catch((error) => {
-      storageReady = null;
-      throw error;
-    });
+    ]);
+
+    const columnResult = await d1
+      .prepare("PRAGMA table_info(posts)")
+      .all<{ name: string }>();
+    const columnNames = new Set(columnResult.results.map(({ name }) => name));
+    const migrations = [];
+
+    if (!columnNames.has("series")) {
+      migrations.push(d1.prepare("ALTER TABLE posts ADD COLUMN series TEXT"));
+    }
+    if (!columnNames.has("series_order")) {
+      migrations.push(
+        d1.prepare("ALTER TABLE posts ADD COLUMN series_order INTEGER"),
+      );
+    }
+    if (migrations.length) {
+      await d1.batch(migrations);
+    }
+
+    await d1
+      .prepare(
+        `CREATE INDEX IF NOT EXISTS posts_series_order_idx
+         ON posts (series, series_order)`,
+      )
+      .run();
+  })().catch((error) => {
+    storageReady = null;
+    throw error;
+  });
 
   return storageReady;
 }
@@ -104,6 +132,8 @@ function rowToPost(row: D1PostRow): Post {
     content: row.content,
     category: row.category as PostCategory,
     tags: parseTags(row.tags),
+    series: row.series ?? undefined,
+    seriesOrder: row.series_order ?? undefined,
     status: row.status as PostStatus,
     date: row.published_at ?? row.created_at,
     createdAt: row.created_at,
@@ -120,6 +150,8 @@ function postToSummary(post: Post): PostSummary {
     date: post.date,
     category: post.category,
     tags: post.tags,
+    series: post.series,
+    seriesOrder: post.seriesOrder,
     status: post.status,
     createdAt: post.createdAt,
     updatedAt: post.updatedAt,
@@ -141,9 +173,10 @@ async function ensureInitialPosts() {
     d1
       .prepare(
         `INSERT OR IGNORE INTO posts (
-          id, slug, title, description, content, category, tags, status,
-          published_at, created_at, updated_at, author_email
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          id, slug, title, description, content, category, tags, series,
+          series_order, status, published_at, created_at, updated_at,
+          author_email
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       )
       .bind(
         post.id,
@@ -153,6 +186,8 @@ async function ensureInitialPosts() {
         post.content,
         post.category,
         JSON.stringify(post.tags),
+        post.series ?? null,
+        post.seriesOrder ?? null,
         post.status,
         post.publishedAt,
         post.publishedAt,
@@ -186,6 +221,8 @@ export async function getPublishedPosts(
         date: post.publishedAt,
         category: post.category,
         tags: post.tags,
+        series: post.series,
+        seriesOrder: post.seriesOrder,
         status: post.status,
         createdAt: post.publishedAt,
         updatedAt: post.publishedAt,
@@ -225,6 +262,8 @@ export async function getPublishedPostBySlug(
           content: post.content,
           category: post.category,
           tags: post.tags,
+          series: post.series,
+          seriesOrder: post.seriesOrder,
           status: post.status,
           date: post.publishedAt,
           createdAt: post.publishedAt,
@@ -263,6 +302,32 @@ export async function getAdminPostById(id: string): Promise<Post | undefined> {
   return row ? rowToPost(row) : undefined;
 }
 
+async function getSeriesOrderOwner(
+  series: string | undefined,
+  seriesOrder: number | undefined,
+  excludedId?: string,
+) {
+  if (!series || seriesOrder === undefined) return undefined;
+
+  const d1 = requireD1();
+  const query = excludedId
+    ? d1.prepare(
+        `SELECT id FROM posts
+         WHERE series = ? AND series_order = ? AND id != ?
+         LIMIT 1`,
+      )
+    : d1.prepare(
+        `SELECT id FROM posts
+         WHERE series = ? AND series_order = ?
+         LIMIT 1`,
+      );
+  const values = excludedId
+    ? [series, seriesOrder, excludedId]
+    : [series, seriesOrder];
+
+  return query.bind(...values).first<{ id: string }>();
+}
+
 export async function createPost(input: PostInput, authorEmail: string) {
   await ensureInitialPosts();
   const d1 = requireD1();
@@ -273,6 +338,13 @@ export async function createPost(input: PostInput, authorEmail: string) {
   if (existing) {
     throw new Error("SLUG_ALREADY_EXISTS");
   }
+  const seriesOrderOwner = await getSeriesOrderOwner(
+    input.series,
+    input.seriesOrder,
+  );
+  if (seriesOrderOwner) {
+    throw new Error("SERIES_ORDER_ALREADY_EXISTS");
+  }
 
   const id = crypto.randomUUID();
   const now = new Date().toISOString();
@@ -281,9 +353,10 @@ export async function createPost(input: PostInput, authorEmail: string) {
   await d1
     .prepare(
       `INSERT INTO posts (
-        id, slug, title, description, content, category, tags, status,
-        published_at, created_at, updated_at, author_email
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        id, slug, title, description, content, category, tags, series,
+        series_order, status, published_at, created_at, updated_at,
+        author_email
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
     .bind(
       id,
@@ -293,6 +366,8 @@ export async function createPost(input: PostInput, authorEmail: string) {
       input.content,
       input.category,
       JSON.stringify(input.tags),
+      input.series ?? null,
+      input.seriesOrder ?? null,
       input.status,
       publishedAt,
       now,
@@ -324,6 +399,14 @@ export async function updatePost(
   if (slugOwner) {
     throw new Error("SLUG_ALREADY_EXISTS");
   }
+  const seriesOrderOwner = await getSeriesOrderOwner(
+    input.series,
+    input.seriesOrder,
+    id,
+  );
+  if (seriesOrderOwner) {
+    throw new Error("SERIES_ORDER_ALREADY_EXISTS");
+  }
 
   const now = new Date().toISOString();
   const publishedAt =
@@ -335,8 +418,8 @@ export async function updatePost(
     .prepare(
       `UPDATE posts
        SET slug = ?, title = ?, description = ?, content = ?, category = ?,
-           tags = ?, status = ?, published_at = ?, updated_at = ?,
-           author_email = ?
+           tags = ?, series = ?, series_order = ?, status = ?,
+           published_at = ?, updated_at = ?, author_email = ?
        WHERE id = ?`,
     )
     .bind(
@@ -346,6 +429,8 @@ export async function updatePost(
       input.content,
       input.category,
       JSON.stringify(input.tags),
+      input.series ?? null,
+      input.seriesOrder ?? null,
       input.status,
       publishedAt,
       now,
