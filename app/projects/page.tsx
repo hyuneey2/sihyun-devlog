@@ -21,6 +21,9 @@ export default function ProjectsPage() {
           {projects.map((project) => (
             <article className="project-row" key={project.slug}>
               <Link href={`/projects/${project.slug}`}>
+                <span className="project-row-mark" aria-hidden="true">
+                  {project.title.slice(0, 2)}
+                </span>
                 <div className="project-row-meta">
                   <time dateTime={project.dateTime}>{project.date}</time>
                   <span>{project.status}</span>
