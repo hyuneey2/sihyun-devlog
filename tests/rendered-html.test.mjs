@@ -72,7 +72,7 @@ test("groups a series in the public posts list", async () => {
   assert.match(html, /aria-expanded="false"/);
   assert.doesNotMatch(html, />SQL 조회와 페이지네이션</);
   assert.doesNotMatch(html, />JWT 인증과 Google OAuth 로그인</);
-  assert.equal(html.match(/class="pagination-link"/g)?.length, 3);
+  assert.equal(html.match(/class="pagination-link"/g)?.length, 4);
 });
 
 test("keeps grouping after the category filter and out of the home list", async () => {
