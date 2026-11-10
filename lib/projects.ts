@@ -37,6 +37,42 @@ export type Project = {
 
 export const projects: readonly Project[] = [
   {
+    slug: "locallens",
+    title: "LocalLens — 농어촌 공공서비스 접근성 분석 및 예산 시뮬레이션",
+    postTag: "LocalLens",
+    date: "2026.10 — 2026.11",
+    dateTime: "2026-10",
+    status: "2026 AI 라이프 솔루션 챌린지",
+    role: "Frontend · 요구사항 정리 및 UI·API 검증",
+    team: ["AI 라이프 솔루션 챌린지 팀 프로젝트", "프론트엔드 · 서버 협업"],
+    contribution: "진단 UI · 시뮬레이션 상태 · 장애 대응 및 테스트",
+    summary:
+      "공공데이터로 전국 72개 지역의 의료·교통 접근성을 진단하고 예산과 정책 목표에 따른 공급 대안을 비교하는 의사결정 지원 웹 서비스입니다. AI 데이터 질의응답과 정책 보고서를 지원하며, 백엔드 전체 장애 시 공개 정적 자료가 있는 59개 지역에서 브라우저 추정 계산을 제공합니다. 나머지 13개 지역은 서버 정상 시 지원합니다.",
+    stack: [
+      "React", "TypeScript", "Vite", "Zustand", "MapLibre GL", "deck.gl",
+      "React Router", "TipTap", "Vitest", "Cloudflare Workers",
+    ],
+    tools: ["GitHub", "REST API", "브라우저 개발자 도구", "Wrangler"],
+    links: [
+      {
+        label: "GitHub",
+        href: "https://github.com/ai-life-challenge/ai-life-FE",
+        primary: true,
+      },
+    ],
+    preview: {
+      type: "image",
+      src: "/projects/locallens-introduction.svg",
+      alt: "LocalLens 공식 위치 핀을 활용한 소개 그래픽: 진단·예산 비교·보고서, 실제 화면 캡처 아님",
+      fit: "cover",
+    },
+    learnings: [
+      "계산식과 지도 범례, 시설 필터, 기준 인구의 설명을 맞추고 공공 기준과 팀 가정값을 구분했습니다. 화면 설명도 정책 판단에 영향을 주는 데이터 계약이었습니다.",
+      "서버 CP-SAT 최적화와 브라우저 추정의 출처를 구분하고, 장애·복구 중에도 예산과 What-if 입력을 유지하도록 상태 흐름을 검토했습니다. 서버 최적화 알고리즘 구현은 담당 범위가 아닙니다.",
+      "공개 자료 59곳과 미지원 13곳을 분리하고 OSM 파생값을 별도 파일로 제공했습니다. SHA-256·구조 검사와 장애 시나리오 테스트를 통해 잘못된 값으로 결과를 채우지 않도록 했습니다.",
+    ],
+  },
+  {
     slug: "unstiff",
     title: "찌뿌두둥 (Unstiff)",
     postTag: "Unstiff",

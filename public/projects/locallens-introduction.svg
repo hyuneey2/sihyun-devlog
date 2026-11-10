@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="660" viewBox="0 0 1200 660" role="img" aria-labelledby="title desc">
+  <title id="title">LocalLens 프로젝트 소개</title>
+  <desc id="desc">공공데이터 진단, 예산 대안 비교, 정책 보고서. 실제 화면 캡처가 아닌 소개 그래픽.</desc>
+  <defs>
+    <radialGradient id="glow"><stop stop-color="#512779" stop-opacity=".6"/><stop offset="1" stop-color="#15121d" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="660" fill="#15121d"/>
+  <ellipse cx="1040" cy="220" rx="600" ry="450" fill="url(#glow)"/>
+  <g fill="none" stroke="#b98ed5" stroke-opacity=".15">
+    <circle cx="1030" cy="290" r="155"/><circle cx="1030" cy="290" r="230"/><circle cx="1030" cy="290" r="310"/>
+  </g>
+  <g transform="translate(858 130) scale(11)" fill="#b97df0">
+    <path fill-rule="evenodd" d="M4.7 9.03c0 4.03 4.78 13.16 7.3 13.16s7.3-9.13 7.3-13.16a7.3 7.3 0 0 0-14.6 0m7.3 2.93a3.43 3.43 0 1 1 0-6.86a3.43 3.43 0 0 1 0 6.86"/>
+  </g>
+  <g font-family="Pretendard, Apple SD Gothic Neo, sans-serif">
+    <text x="76" y="96" fill="#c8b6da" font-size="18" letter-spacing="3">2026 AI LIFE SOLUTION CHALLENGE</text>
+    <text x="72" y="210" fill="#faf7ff" font-size="86" font-weight="750" letter-spacing="-4">LocalLens</text>
+    <text x="76" y="275" fill="#e1d5ed" font-size="30">우리 군의 공공서비스, 어디에 닿아야 할까?</text>
+    <text x="76" y="335" fill="#b4a6c3" font-size="21">의료·교통 접근성 진단과 예산 시뮬레이션</text>
+    <path d="M76 394H1124" stroke="#46364f"/>
+    <text x="76" y="452" fill="#d7b3f5" font-size="16">01 / DIAGNOSE</text>
+    <text x="76" y="495" fill="#faf7ff" font-size="26">공백을 확인하고</text>
+    <text x="440" y="452" fill="#d7b3f5" font-size="16">02 / SIMULATE</text>
+    <text x="440" y="495" fill="#faf7ff" font-size="26">예산 안에서 비교하고</text>
+    <text x="845" y="452" fill="#d7b3f5" font-size="16">03 / REPORT</text>
+    <text x="845" y="495" fill="#faf7ff" font-size="26">판단 근거를 남기다</text>
+    <text x="76" y="610" fill="#94859f" font-size="17">PROJECT INTRODUCTION · 소개 그래픽 / 실제 화면 캡처 아님</text>
+  </g>
+</svg>
