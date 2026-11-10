@@ -3,7 +3,7 @@ title: "BottomSheet가 가려질 때 높이·inset·소유권을 나눠 봤다"
 description: "스크롤 viewport와 키보드, NativeTabs의 하단 inset, FlatList 안 모달의 생명주기를 구분해 해결한 기록입니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","React Native","Android","Safe Area","BottomSheet"]
+tags: ["Unstiff", "React Native", "Android", "Safe Area", "BottomSheet"]
 series: "Unstiff 개발기"
 seriesOrder: 9
 ---
@@ -53,4 +53,4 @@ reportingMessageId를 ChatScreen으로 올리고 FlatList 밖에서 단일 신�
 - [PR #198](https://github.com/swyp6/unstiff-app/pull/198)
 - [PR #204](https://github.com/swyp6/unstiff-app/pull/204)
 - [공통 BottomSheet](https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/components/ui/bottom-sheet.tsx)
-- [채팅 화면의 신고 UI 소유권](https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/app/(tabs)/chat.tsx)
+- [채팅 화면의 신고 UI 소유권](<https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/app/(tabs)/chat.tsx>)

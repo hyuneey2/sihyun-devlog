@@ -3,7 +3,7 @@ title: "자동 저장의 '저장됨'은 서버가 받아 준 뒤에만 표시하
 description: "TipTap 문서 편집, 직렬 저장, 로컬 초안과 서버 수락 상태, PDF·추정 요약의 경계를 다룹니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["LocalLens","TipTap","ProseMirror","Autosave","React"]
+tags: ["LocalLens", "TipTap", "ProseMirror", "Autosave", "React"]
 series: "LocalLens 개발기"
 seriesOrder: 9
 ---

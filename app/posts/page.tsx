@@ -50,11 +50,9 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
   const requestedPage = Array.isArray(params.page)
     ? params.page[0]
     : params.page;
-  const activeCategory = categoryFilters.some(
-    ({ value }) => value === requestedCategory,
-  )
-    ? requestedCategory
-    : "all";
+  const activeCategory =
+    categoryFilters.find(({ value }) => value === requestedCategory)?.value ??
+    "all";
   const filteredPosts = await getPublishedPosts(
     activeCategory === "all" ? undefined : (activeCategory as PostCategory),
   );
@@ -80,8 +78,8 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
         <p className="eyebrow">All posts</p>
         <h1 className="page-title">개발 기록</h1>
         <p className="page-description">
-          프로젝트를 진행하며 마주친 문제, 선택한 구조, 해결 과정과 배운
-          점을 정리합니다.
+          프로젝트를 진행하며 마주친 문제, 선택한 구조, 해결 과정과 배운 점을
+          정리합니다.
         </p>
       </section>
 

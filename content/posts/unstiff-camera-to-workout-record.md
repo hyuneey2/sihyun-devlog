@@ -3,7 +3,7 @@ title: "촬영부터 운동 기록 완료까지, 비동기 작업의 경계를 �
 description: "시스템 카메라 전환, 사진 업로드, 기록 대상 선택과 refId 매칭을 하나의 데이터 흐름으로 연결했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","React Native","Camera","API","Async"]
+tags: ["Unstiff", "React Native", "Camera", "API", "Async"]
 series: "Unstiff 개발기"
 seriesOrder: 5
 ---
@@ -41,7 +41,7 @@ UI의 MANUAL이라는 모드 이름을 서버 refType으로 만들어 보내거�
 서버 응답에 refId가 추가된 뒤, PLAN은 daily-plan id, MISSION은 mission id로 비교했다.
 
 ```ts
-entry.refType === "PLAN" && String(entry.refId) === instanceId
+entry.refType === "PLAN" && String(entry.refId) === instanceId;
 ```
 
 기록 자체의 id와 기록 대상의 refId도 다르다. 전자는 기록 수정 API에, 후자는 홈 항목과 기록의 연결에 쓴다. 상세 라우트의 기존 date/index 구조는 유지하면서 매칭 조건만 바꿨다. 정확한 대상을 찾지 못하면 오류 안내를 유지했다.

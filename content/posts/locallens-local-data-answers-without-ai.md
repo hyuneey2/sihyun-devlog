@@ -3,7 +3,7 @@ title: "AI 질문을 쓸 수 없을 때 자료 조회로 전환한 범위"
 description: "생성형 답변을 흉내 내지 않고 현재 자료·대안에서 답할 수 있는 질문만 처리한 fallback을 정리했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["LocalLens","Fallback","Chat","Public Data","TypeScript"]
+tags: ["LocalLens", "Fallback", "Chat", "Public Data", "TypeScript"]
 series: "LocalLens 개발기"
 seriesOrder: 6
 ---

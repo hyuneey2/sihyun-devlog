@@ -3,7 +3,7 @@ title: "What-if 예산을 바꿔도 기준 결과를 잃지 않게 하기"
 description: "계산 입력 key, 미확정 예산, 응답 취소와 출처별 캐시를 분리해 대안을 비교했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["LocalLens","Zustand","React","Simulation","Async"]
+tags: ["LocalLens", "Zustand", "React", "Simulation", "Async"]
 series: "LocalLens 개발기"
 seriesOrder: 3
 ---

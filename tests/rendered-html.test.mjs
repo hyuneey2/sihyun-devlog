@@ -1,13 +1,23 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { projects } from "../lib/projects.ts";
+import { readFile } from "node:fs/promises";
+
+const newArticles = JSON.parse(
+  await readFile(
+    new URL("../docs/new-article-sources.json", import.meta.url),
+    "utf8",
+  ),
+);
 
 const developmentPreviewMeta =
   /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
 
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
 workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-const workerPromise = import(workerUrl.href).then(({ default: worker }) => worker);
+const workerPromise = import(workerUrl.href).then(
+  ({ default: worker }) => worker,
+);
 
 async function renderPage(path) {
   const worker = await workerPromise;
@@ -31,11 +41,58 @@ test("renders development preview metadata", async () => {
   const response = await renderPage("/");
 
   assert.equal(response.status, 200);
-  assert.match(
-    response.headers.get("content-type") ?? "",
-    /^text\/html\b/i,
-  );
+  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   assert.match(await response.text(), developmentPreviewMeta);
+});
+
+test("new project pages expose all series posts, preview alt and metadata", async () => {
+  for (const slug of ["unstiff", "locallens"]) {
+    const response = await renderPage(`/projects/${slug}`);
+    const html = await response.text();
+    const articles = newArticles.filter((p) => p.project === slug);
+    assert.equal(response.status, 200);
+    assert.equal(
+      html.match(/class="project-related-post"/g)?.length,
+      articles.length,
+    );
+    assert.match(html, /<meta name="description" content="/);
+    assert.match(html, /<img[^>]+alt="[^"]+"/);
+    for (const article of articles)
+      assert.ok(html.includes(`href="/posts/${article.slug}"`));
+  }
+});
+
+test("all new articles render content, sources, tags, metadata and series neighbors", async () => {
+  for (const article of newArticles) {
+    const response = await renderPage(`/posts/${article.slug}`);
+    const html = await response.text();
+    const series = newArticles
+      .filter((p) => p.project === article.project)
+      .sort((a, b) => a.order - b.order);
+    const previous = series[article.order - 2];
+    const next = series[article.order];
+    assert.equal(response.status, 200, article.slug);
+    assert.ok(html.includes(article.title), article.slug);
+    assert.ok(html.includes(article.description), article.slug);
+    assert.match(html, /class="article-series"/);
+    assert.match(html, /참고한 변경과 코드/);
+    assert.match(html, /<meta name="description"/);
+    for (const neighbor of [previous, next].filter(Boolean)) {
+      assert.ok(html.includes(`href="/posts/${neighbor.slug}"`), article.slug);
+    }
+    if (!previous) assert.doesNotMatch(html, /series-navigation-previous"/);
+    if (!next) assert.doesNotMatch(html, /series-navigation-next"/);
+    for (const [, url] of article.refs)
+      assert.ok(
+        html.includes(url.replaceAll("&", "&amp;")),
+        `${article.slug}: ${url}`,
+      );
+  }
+});
+
+test("unknown project and post return 404", async () => {
+  assert.equal((await renderPage("/projects/not-a-real-project")).status, 404);
+  assert.equal((await renderPage("/posts/not-a-real-post")).status, 404);
 });
 
 test("renders the breathing hero aurora without the home avatar", async () => {
@@ -53,7 +110,10 @@ test("renders accessible glowing cards for every registered project", async () =
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.equal(html.match(/class="project-row glowing-card/g)?.length, projects.length);
+  assert.equal(
+    html.match(/class="project-row glowing-card/g)?.length,
+    projects.length,
+  );
   assert.equal(html.match(/from-emerald-200/g)?.length, projects.length);
   assert.match(html, /aria-label="HUFS 독서마라톤 프로젝트 보기"/);
   assert.match(html, /aria-label="Dailog 프로젝트 보기"/);

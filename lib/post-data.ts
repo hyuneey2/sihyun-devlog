@@ -169,7 +169,10 @@ async function ensureInitialPosts() {
   const pending = seedBundledPosts(d1, getBundledPosts())
     .then(({ conflicts }) => {
       if (conflicts.length) {
-        console.warn("Skipped bundled posts with occupied series orders:", conflicts);
+        console.warn(
+          "Skipped bundled posts with occupied series orders:",
+          conflicts,
+        );
       }
     })
     .catch((error) => {

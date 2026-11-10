@@ -3,7 +3,7 @@ title: "router.replace 뒤에 잠금을 풀면 운동 기록이 두 번 저장�
 description: "같은 프레임의 연타와 화면 전환 완료 전 재진입을 나눠 보고, 성공 시 제출 잠금을 유지한 이유를 정리했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","Expo Router","Race Condition","React","API"]
+tags: ["Unstiff", "Expo Router", "Race Condition", "React", "API"]
 series: "Unstiff 개발기"
 seriesOrder: 6
 ---
@@ -66,5 +66,5 @@ ref는 다음 렌더를 기다리지 않고 두 번째 핸들러를 막는다. i
 ## 참고한 변경과 코드
 
 - [PR #106 · finally 제거와 제출 잠금](https://github.com/swyp6/unstiff-app/pull/106)
-- [신규 기록 제출](https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/app/(tabs)/capture/manual-record.tsx)
+- [신규 기록 제출](<https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/app/(tabs)/capture/manual-record.tsx>)
 - [연결 기록 제출](https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/features/workout-record/components/record-editor-screen.tsx)

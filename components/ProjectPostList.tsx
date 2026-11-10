@@ -6,10 +6,7 @@ type ProjectPostListProps = {
   projectTag: string;
 };
 
-export function ProjectPostList({
-  posts,
-  projectTag,
-}: ProjectPostListProps) {
+export function ProjectPostList({ posts, projectTag }: ProjectPostListProps) {
   if (!posts.length) {
     return (
       <p className="project-related-empty">
@@ -28,7 +25,9 @@ export function ProjectPostList({
               {post.series && (
                 <span>
                   {post.series}
-                  {post.seriesOrder ? ` · ${String(post.seriesOrder).padStart(2, "0")}` : ""}
+                  {post.seriesOrder
+                    ? ` · ${String(post.seriesOrder).padStart(2, "0")}`
+                    : ""}
                 </span>
               )}
               <time dateTime={post.date}>{formatPostDate(post.date)}</time>

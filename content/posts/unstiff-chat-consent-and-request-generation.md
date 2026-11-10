@@ -3,7 +3,7 @@ title: "AI 동의와 채팅 요청을 하나의 세대로 관리하기"
 description: "동의 완료 뒤 서버 재확인, 메시지 재전송과 히스토리 로딩의 늦은 응답을 구분했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","Zustand","Async","Chat","Consent"]
+tags: ["Unstiff", "Zustand", "Async", "Chat", "Consent"]
 series: "Unstiff 개발기"
 seriesOrder: 12
 ---
@@ -56,4 +56,4 @@ store는 오래된 순으로 메시지를 유지하고 inverted FlatList로 최�
 - [PR #127 · 외부 AI 동의](https://github.com/swyp6/unstiff-app/pull/127)
 - [PR #131 · 비동기 상태와 재시도](https://github.com/swyp6/unstiff-app/pull/131)
 - [채팅 store](https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/features/chat/chat-store.ts)
-- [채팅 화면](https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/app/(tabs)/chat.tsx)
+- [채팅 화면](<https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/app/(tabs)/chat.tsx>)

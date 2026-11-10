@@ -3,7 +3,7 @@ title: "운동 기록 입력을 서버 DTO와 맞추며 발견한 경계값 문�
 description: "분·km 입력과 초·m DTO, 생성·수정 범위, Picker 재진입의 가상화 문제를 함께 정리했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","Validation","TypeScript","React Native","FlatList"]
+tags: ["Unstiff", "Validation", "TypeScript", "React Native", "FlatList"]
 series: "Unstiff 개발기"
 seriesOrder: 7
 ---
@@ -39,9 +39,7 @@ number-pad를 써도 붙여넣기나 코드 경로로 소수·음수·문자가 
 
 ```ts
 if (value == null) return true; // 선택하지 않은 항목
-return Number.isInteger(value)
-  && value >= minimum
-  && value <= maximum;
+return Number.isInteger(value) && value >= minimum && value <= maximum;
 ```
 
 UI의 + 버튼과 picker 범위는 사용자의 실수를 줄이고, DTO 검증은 다른 진입 경로까지 보호한다. 둘 중 하나를 없애는 문제가 아니다.

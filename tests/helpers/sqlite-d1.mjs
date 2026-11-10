@@ -18,13 +18,26 @@ export function createLocalD1() {
     prepare(sql) {
       let params = [];
       const statement = {
-        bind(...values) { params = values; return statement; },
-        async all() { return { results: db.prepare(sql).all(...params), success: true }; },
-        async first() { return db.prepare(sql).get(...params) ?? null; },
-        async run() { return statement.execute(); },
+        bind(...values) {
+          params = values;
+          return statement;
+        },
+        async all() {
+          return { results: db.prepare(sql).all(...params), success: true };
+        },
+        async first() {
+          return db.prepare(sql).get(...params) ?? null;
+        },
+        async run() {
+          return statement.execute();
+        },
         execute() {
           const result = db.prepare(sql).run(...params);
-          return { success: true, results: [], meta: { changes: Number(result.changes) } };
+          return {
+            success: true,
+            results: [],
+            meta: { changes: Number(result.changes) },
+          };
         },
       };
       return statement;
@@ -48,5 +61,11 @@ export function createLocalD1() {
       }
     },
   };
-  return { db, d1, failBatch() { failNextBatch = true; } };
+  return {
+    db,
+    d1,
+    failBatch() {
+      failNextBatch = true;
+    },
+  };
 }

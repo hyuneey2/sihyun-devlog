@@ -3,7 +3,7 @@ title: "데이터 이용 조건이 Snapshot 파일 구조를 바꿨다"
 description: "공개를 보류한 13곳과 OSM 파생값 분리, 출처 판정표·생성 중단·테스트로 이어진 설계입니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["LocalLens","OpenStreetMap","ODbL","Public Data","Snapshot"]
+tags: ["LocalLens", "OpenStreetMap", "ODbL", "Public Data", "Snapshot"]
 series: "LocalLens 개발기"
 seriesOrder: 7
 ---

@@ -3,7 +3,7 @@ title: "Figma Variables를 앱 토큰으로 옮길 때 값보다 먼저 정한 �
 description: "파일 export와 REST 입력, 컬렉션별 mode·alias 해석, NativeWind와 React Native 스타일 출력의 경계를 정리했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","Figma","Design Tokens","NativeWind"]
+tags: ["Unstiff", "Figma", "Design Tokens", "NativeWind"]
 series: "Unstiff 개발기"
 seriesOrder: 15
 ---

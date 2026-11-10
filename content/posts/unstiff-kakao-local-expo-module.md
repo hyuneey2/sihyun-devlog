@@ -3,7 +3,7 @@ title: "KakaoMapsSDK를 로컬 Expo Module로 연결하며 나눈 책임"
 description: "Config Plugin, Swift Native View, JS props를 분리하고 지도 엔진을 뷰 생명주기에 맞춰 관리한 초기 iOS 연동입니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","Expo","Swift","KakaoMapsSDK","Native Module"]
+tags: ["Unstiff", "Expo", "Swift", "KakaoMapsSDK", "Native Module"]
 series: "Unstiff 개발기"
 seriesOrder: 2
 ---

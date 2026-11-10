@@ -3,7 +3,7 @@ title: "읽은 알림이 다시 안 읽음으로 돌아오지 않게 하기"
 description: "FCM 토큰의 계정 수명, 목록 조회와 전체 읽음의 응답 순서, cold start 랜딩을 분리했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","Firebase","FCM","Zustand","Race Condition"]
+tags: ["Unstiff", "Firebase", "FCM", "Zustand", "Race Condition"]
 series: "Unstiff 개발기"
 seriesOrder: 8
 ---

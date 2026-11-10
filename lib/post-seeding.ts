@@ -44,21 +44,29 @@ export async function seedBundledPosts(
   d1: D1Database,
   posts: readonly SeedPost[],
 ) {
-  await d1.prepare(`
+  await d1
+    .prepare(
+      `
     INSERT OR IGNORE INTO blog_settings (key, value, updated_at)
     SELECT ?, CASE WHEN EXISTS (
       SELECT 1 FROM blog_settings WHERE key = ?
     ) THEN 'legacy-v2' ELSE 'fresh' END, ?
-  `).bind(LEDGER_KEY, INITIAL_SEED_KEY, new Date().toISOString()).run();
-  const settings = await d1.prepare(
-    "SELECT key, value FROM blog_settings WHERE key = ? OR key LIKE ?",
-  ).bind(LEDGER_KEY, `${POST_SEED_PREFIX}%`).all<{ key: string; value: string }>();
+  `,
+    )
+    .bind(LEDGER_KEY, INITIAL_SEED_KEY, new Date().toISOString())
+    .run();
+  const settings = await d1
+    .prepare("SELECT key, value FROM blog_settings WHERE key = ? OR key LIKE ?")
+    .bind(LEDGER_KEY, `${POST_SEED_PREFIX}%`)
+    .all<{ key: string; value: string }>();
   const imported = new Set(settings.results.map(({ key }) => key));
   const legacyCompleted = settings.results.some(
     ({ key, value }) => key === LEDGER_KEY && value === "legacy-v2",
   );
   const now = new Date().toISOString();
-  const pending = posts.filter((post) => !imported.has(POST_SEED_PREFIX + post.slug));
+  const pending = posts.filter(
+    (post) => !imported.has(POST_SEED_PREFIX + post.slug),
+  );
   const conflicts: string[] = [];
 
   // D1 batches are atomic; keep batches bounded as the archive grows.
@@ -67,13 +75,19 @@ export async function seedBundledPosts(
     const statements = chunk.flatMap((post) => {
       const key = POST_SEED_PREFIX + post.slug;
       if (legacyCompleted && LEGACY_SLUGS.has(post.slug)) {
-        return [d1.prepare(
-          "INSERT OR IGNORE INTO blog_settings (key, value, updated_at) VALUES (?, ?, ?)",
-        ).bind(key, "legacy-v2", now)];
+        return [
+          d1
+            .prepare(
+              "INSERT OR IGNORE INTO blog_settings (key, value, updated_at) VALUES (?, ?, ?)",
+            )
+            .bind(key, "legacy-v2", now),
+        ];
       }
 
       return [
-        d1.prepare(`
+        d1
+          .prepare(
+            `
           INSERT OR IGNORE INTO posts (
             id, slug, title, description, content, category, tags, series,
             series_order, status, published_at, created_at, updated_at, author_email
@@ -82,38 +96,61 @@ export async function seedBundledPosts(
           AND NOT EXISTS (
             SELECT 1 FROM posts WHERE series = ? AND series_order = ?
           )
-        `).bind(
-          post.id, post.slug, post.title, post.description, post.content,
-          post.category, JSON.stringify(post.tags), post.series ?? null,
-          post.seriesOrder ?? null, post.status, post.publishedAt,
-          post.publishedAt, post.publishedAt, "imported", key,
-          post.series ?? null, post.seriesOrder ?? null,
-        ),
+        `,
+          )
+          .bind(
+            post.id,
+            post.slug,
+            post.title,
+            post.description,
+            post.content,
+            post.category,
+            JSON.stringify(post.tags),
+            post.series ?? null,
+            post.seriesOrder ?? null,
+            post.status,
+            post.publishedAt,
+            post.publishedAt,
+            post.publishedAt,
+            "imported",
+            key,
+            post.series ?? null,
+            post.seriesOrder ?? null,
+          ),
         // Record imports and slug/id collisions, including administrator drafts.
         // A series-only conflict stays pending so a later cold start can retry.
-        d1.prepare(`
+        d1
+          .prepare(
+            `
           INSERT OR IGNORE INTO blog_settings (key, value, updated_at)
           SELECT ?, ?, ? WHERE EXISTS (
             SELECT 1 FROM posts WHERE id = ? OR slug = ?
           )
-        `).bind(key, "completed", now, post.id, post.slug),
+        `,
+          )
+          .bind(key, "completed", now, post.id, post.slug),
       ];
     });
     await d1.batch(statements);
   }
 
-  const completed = await d1.prepare(
-    "SELECT key FROM blog_settings WHERE key LIKE ?",
-  ).bind(`${POST_SEED_PREFIX}%`).all<{ key: string }>();
+  const completed = await d1
+    .prepare("SELECT key FROM blog_settings WHERE key LIKE ?")
+    .bind(`${POST_SEED_PREFIX}%`)
+    .all<{ key: string }>();
   const completedKeys = new Set(completed.results.map(({ key }) => key));
   for (const post of pending) {
-    if (!completedKeys.has(POST_SEED_PREFIX + post.slug)) conflicts.push(post.slug);
+    if (!completedKeys.has(POST_SEED_PREFIX + post.slug))
+      conflicts.push(post.slug);
   }
 
   // Retain compatibility with the old initializer. This marker no longer blocks
   // new slugs, and is written only after every batch has succeeded.
-  await d1.prepare(
-    "INSERT OR IGNORE INTO blog_settings (key, value, updated_at) VALUES (?, ?, ?)",
-  ).bind(INITIAL_SEED_KEY, "completed", now).run();
+  await d1
+    .prepare(
+      "INSERT OR IGNORE INTO blog_settings (key, value, updated_at) VALUES (?, ?, ?)",
+    )
+    .bind(INITIAL_SEED_KEY, "completed", now)
+    .run();
   return { conflicts };
 }

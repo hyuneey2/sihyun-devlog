@@ -3,7 +3,7 @@ title: "지역별 계산·파일·장애 테스트가 각각 증명하는 것"
 description: "전 지역 불변식, 서버 대조, 손상·복구 시나리오를 분리하고 과거 테스트 수의 조건과 한계를 기록했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["LocalLens","Vitest","Testing","Simulation","Snapshot"]
+tags: ["LocalLens", "Vitest", "Testing", "Simulation", "Snapshot"]
 series: "LocalLens 개발기"
 seriesOrder: 8
 ---

@@ -3,7 +3,7 @@ title: "Photo Picker로 바꾸고도 최종 Manifest를 확인한 이유"
 description: "라이브러리가 추가하는 미디어 권한을 줄이고, 사진 선택 요구사항과 빌드 결과·심사 확인을 분리했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","Android","Expo","Photo Picker","Permissions"]
+tags: ["Unstiff", "Android", "Expo", "Photo Picker", "Permissions"]
 series: "Unstiff 개발기"
 seriesOrder: 10
 ---

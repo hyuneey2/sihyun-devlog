@@ -3,7 +3,7 @@ title: "HealthKit과 Health Connect: 같은 걸음 수를 읽는 서로 다른 �
 description: "읽기 권한, 로컬 날짜 범위, 빈 데이터와 실패를 구분하며 iOS·Android 건강 데이터 연동을 비교했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","React Native","HealthKit","Health Connect","Expo"]
+tags: ["Unstiff", "React Native", "HealthKit", "Health Connect", "Expo"]
 series: "Unstiff 개발기"
 seriesOrder: 1
 ---
@@ -20,12 +20,12 @@ iOS에서는 HealthKit 패키지와 Nitro Modules, 권한 설명 설정을 함�
 
 iOS API는 플랫폼 검사 뒤 `isHealthDataAvailableAsync()`를 확인했다. 지원되지 않는 환경과 실제 조회 실패를 서로 다른 오류 코드로 분리했다. Android는 `getSdkStatus()`가 사용 가능 상태인지 확인하고 `initialize()`가 성공한 뒤에만 다음 단계로 갔다. 초기화 성공은 메모리에 보관했다.
 
-| 경계 | iOS | Android |
-| --- | --- | --- |
-| 읽을 종류 | HKQuantityTypeIdentifierStepCount | Steps / read |
-| 권한 요청 | toRead 배열 | 이미 부여된 권한 검사 후 requestPermission |
-| 집계 | cumulativeSum | aggregateRecord의 COUNT_TOTAL |
-| 실패 구분 | 미지원·사용 불가·권한 요청 실패·조회 실패 | 여기에 초기화 실패 추가 |
+| 경계      | iOS                                       | Android                                    |
+| --------- | ----------------------------------------- | ------------------------------------------ |
+| 읽을 종류 | HKQuantityTypeIdentifierStepCount         | Steps / read                               |
+| 권한 요청 | toRead 배열                               | 이미 부여된 권한 검사 후 requestPermission |
+| 집계      | cumulativeSum                             | aggregateRecord의 COUNT_TOTAL              |
+| 실패 구분 | 미지원·사용 불가·권한 요청 실패·조회 실패 | 여기에 초기화 실패 추가                    |
 
 가장 조심한 부분은 iOS 권한 요청의 반환값이다. 코드 주석에도 남겼듯 요청 완료 여부가 읽기 허용 여부를 뜻하지 않는다. 읽을 데이터가 없다는 이유만으로 사용자가 거부했다고 단정할 수 없다. Android에서는 요청 결과 배열에 Steps 읽기 권한이 실제로 있는지 다시 검사했다.
 

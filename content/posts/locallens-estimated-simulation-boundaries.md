@@ -3,7 +3,7 @@ title: "서버 최적화가 멈췄을 때 브라우저는 어디까지 추정할
 description: "복구 가능한 장애 분류, 결정적 근사와 도로 시간 상한, 서버 대조의 오차를 구분했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["LocalLens","Fallback","Simulation","TypeScript","Testing"]
+tags: ["LocalLens", "Fallback", "Simulation", "TypeScript", "Testing"]
 series: "LocalLens 개발기"
 seriesOrder: 4
 ---

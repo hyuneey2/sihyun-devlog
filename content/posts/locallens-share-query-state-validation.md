@@ -3,7 +3,7 @@ title: "공유 링크에는 결과 대신 계산 조건을 담았다"
 description: "쿼리의 숫자·공급수단·단가 검증, 기본값과의 병합, 편집 문단을 제외한 복원 범위를 정리했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["LocalLens","URLSearchParams","React Router","Validation"]
+tags: ["LocalLens", "URLSearchParams", "React Router", "Validation"]
 series: "LocalLens 개발기"
 seriesOrder: 10
 ---

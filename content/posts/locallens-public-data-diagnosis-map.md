@@ -3,7 +3,7 @@ title: "공공데이터를 지도에 올리기 전에 판정의 기준을 나눴
 description: "서버 지표, 브라우저 판정, 시설 필터와 지도 격자의 의미를 구분해 접근성 진단을 설명했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["LocalLens","Public Data","MapLibre","deck.gl","React"]
+tags: ["LocalLens", "Public Data", "MapLibre", "deck.gl", "React"]
 series: "LocalLens 개발기"
 seriesOrder: 1
 ---

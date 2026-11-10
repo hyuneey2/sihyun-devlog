@@ -3,7 +3,7 @@ title: "서버 전체 장애에서 Snapshot을 읽고 입력을 지킨 채 복�
 description: "59개 공개 지역의 두 파일 검증, SPA HTML 응답, 무응답 유예와 상태 유지 복구를 다룹니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["LocalLens","Snapshot","SHA-256","Fallback","Zustand"]
+tags: ["LocalLens", "Snapshot", "SHA-256", "Fallback", "Zustand"]
 series: "LocalLens 개발기"
 seriesOrder: 5
 ---

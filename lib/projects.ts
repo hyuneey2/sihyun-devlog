@@ -49,8 +49,16 @@ export const projects: readonly Project[] = [
     summary:
       "공공데이터로 전국 72개 지역의 의료·교통 접근성을 진단하고 예산과 정책 목표에 따른 공급 대안을 비교하는 의사결정 지원 웹 서비스입니다. AI 데이터 질의응답과 정책 보고서를 지원하며, 백엔드 전체 장애 시 공개 정적 자료가 있는 59개 지역에서 브라우저 추정 계산을 제공합니다. 나머지 13개 지역은 서버 정상 시 지원합니다.",
     stack: [
-      "React", "TypeScript", "Vite", "Zustand", "MapLibre GL", "deck.gl",
-      "React Router", "TipTap", "Vitest", "Cloudflare Workers",
+      "React",
+      "TypeScript",
+      "Vite",
+      "Zustand",
+      "MapLibre GL",
+      "deck.gl",
+      "React Router",
+      "TipTap",
+      "Vitest",
+      "Cloudflare Workers",
     ],
     tools: ["GitHub", "REST API", "브라우저 개발자 도구", "Wrangler"],
     links: [
@@ -85,11 +93,21 @@ export const projects: readonly Project[] = [
     summary:
       "일상 속 운동 기록과 개인화된 운동 미션을 연결하는 React Native 기반 iOS·Android 앱입니다. 온보딩, 운동 계획·기록 API, 사진 촬영·업로드, 알림 연동과 플랫폼별 UI 개선에 참여했습니다.",
     stack: [
-      "React Native", "Expo Router", "TypeScript", "NativeWind",
-      "Zustand", "Axios", "Firebase",
+      "React Native",
+      "Expo Router",
+      "TypeScript",
+      "NativeWind",
+      "Zustand",
+      "Axios",
+      "Firebase",
     ],
     tools: [
-      "GitHub", "Figma", "Xcode", "CocoaPods", "Android Studio", "Cloudflare",
+      "GitHub",
+      "Figma",
+      "Xcode",
+      "CocoaPods",
+      "Android Studio",
+      "Cloudflare",
     ],
     links: [
       {

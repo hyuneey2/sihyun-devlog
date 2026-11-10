@@ -3,7 +3,7 @@ title: "앱 안의 약관을 정적 사이트로 분리하고 URL 계약을 다�
 description: "초기 Cloudflare 정적 약관 배포에서 팀 공용 리소스·서버 contentUrl·앱 WebView로 이어진 변경을 구분해 정리했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","Cloudflare","WebView","Static Assets"]
+tags: ["Unstiff", "Cloudflare", "WebView", "Static Assets"]
 series: "Unstiff 개발기"
 seriesOrder: 4
 ---
@@ -24,11 +24,11 @@ legal Markdown → 정적 HTML/CSS → Workers Static Assets
 
 ## 팀 공용 리소스로 옮긴 뒤 무엇이 기준인가
 
-#114에서는 중복 legal 소스를 제거하고 unstiff-static의 팀 공용 리소스를 기준으로 정리했다. 개인 계정의 초기 주소와 팀 계정 주소가 다르므로 배포 권한과 URL 변경을 같이 관리해야 했다. 현재 계정의 실제 관리자 권한까지 확인한 것은 아니며, PR과 코드로 확인한 범위는 관리 위치와 주소의 전환이다.
+#114에서는 중복 legal 소스를 제거하고 unstiff-static의 팀 공용 리소스를 기준으로 정리했다. 초기 배포 주소와 팀 공용 주소가 다르므로 배포 권한과 URL 변경을 같이 관리해야 했다. 현재 계정의 실제 관리자 권한까지 확인한 것은 아니며, PR과 코드로 확인한 범위는 관리 위치와 주소의 전환이다.
 
-| 시점 | 코드에 기록된 문서 주소 |
-| --- | --- |
-| #41 초기 | unstiff-legal.unstiff.workers.dev/terms/ 등 |
+| 시점      | 코드에 기록된 문서 주소                      |
+| --------- | -------------------------------------------- |
+| #41 초기  | unstiff-legal.unstiff.workers.dev/terms/ 등  |
 | #165 이후 | terms.swyp-8team.workers.dev/service.html 등 |
 
 2026-11-10 읽기 전용 요청으로 현재 service.html과 privacy-policy.html이 문서 HTML을 반환하는 것을 확인했다. 이것이 서버 GET /terms의 현재 응답 URL까지 확인했다는 뜻은 아니다. 서버 약관 URL의 실제 운영 설정은 별도 계약이다.

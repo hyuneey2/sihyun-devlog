@@ -3,7 +3,7 @@ title: "스톱워치 재개와 종료 확인을 toggle 하나로 처리하지 �
 description: "음수 시간 차이의 원인과 모달이 열린 시간을 제외하는 정산·재개 흐름을 정리했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","React Native","Timer","State"]
+tags: ["Unstiff", "React Native", "Timer", "State"]
 series: "Unstiff 개발기"
 seriesOrder: 13
 ---
@@ -24,7 +24,7 @@ seriesOrder: 13
 #176은 누적 시간을 임의로 늘리는 대신 현재 구간의 경과만 0 이상으로 제한했다.
 
 ```ts
-elapsedSeconds + Math.max(0, now - startedAt) / 1000
+elapsedSeconds + Math.max(0, now - startedAt) / 1000;
 ```
 
 새 구간에서 아직 관측된 시간이 없다면 경과 0이 맞다. interval 생성/cleanup과 pause/resume 구조는 이 PR에서 바꾸지 않았다.
@@ -56,4 +56,4 @@ elapsedSeconds + Math.max(0, now - startedAt) / 1000
 - [PR #176 · 음수 경과 보정](https://github.com/swyp6/unstiff-app/pull/176)
 - [PR #207 · 완료 정산·취소·중복 방지](https://github.com/swyp6/unstiff-app/pull/207)
 - [스톱워치 표시와 확인 모달](https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/features/workout-plan/components/home-workout-cards.tsx)
-- [정산·재개 상태 갱신](https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/app/(tabs)/home.tsx)
+- [정산·재개 상태 갱신](<https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/app/(tabs)/home.tsx>)

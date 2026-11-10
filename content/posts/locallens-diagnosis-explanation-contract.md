@@ -3,7 +3,7 @@ title: "계산이 맞아도 설명이 다르면 다른 정책을 판단하게 �
 description: "시설 필터, 기준 인구, 원격진료 단위와 첫차 경계를 실제 수정 전후로 비교했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["LocalLens","Data Validation","UX","TypeScript"]
+tags: ["LocalLens", "Data Validation", "UX", "TypeScript"]
 series: "LocalLens 개발기"
 seriesOrder: 2
 ---
@@ -40,7 +40,7 @@ seriesOrder: 2
 첫차 판정은 '정오 전'이다. #13은 정확히 720분인 12:00을 통과시키던 경계를 서버의 미만 조건과 맞췄다. 현재 코드의 조건은 다음과 같다.
 
 ```ts
-b.firstToTownMin != null && b.firstToTownMin < FIRST_BUS_LIMIT
+b.firstToTownMin != null && b.firstToTownMin < FIRST_BUS_LIMIT;
 // FIRST_BUS_LIMIT = 720
 ```
 

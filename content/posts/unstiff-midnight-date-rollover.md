@@ -3,7 +3,7 @@ title: "자정이 지나도 오늘의 미션이 어제에 머물렀던 이유"
 description: "KST 서버 날짜와 로컬 캘린더 날짜를 분리하고, 타이머·foreground 복귀·늦은 응답까지 함께 처리했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","React Native","Date","Timezone","AppState"]
+tags: ["Unstiff", "React Native", "Date", "Timezone", "AppState"]
 series: "Unstiff 개발기"
 seriesOrder: 11
 ---
@@ -27,8 +27,7 @@ use-current-date-key는 YYYY-MM-DD 문자열을 상태로 보관한다. KST는 �
 
 ```ts
 const SERVER_UTC_OFFSET_MS = 9 * 60 * 60 * 1000;
-return new Date(Date.now() + SERVER_UTC_OFFSET_MS)
-  .toISOString().slice(0, 10);
+return new Date(Date.now() + SERVER_UTC_OFFSET_MS).toISOString().slice(0, 10);
 ```
 
 다음 자정까지 timer를 걸고, 실행 후 다시 다음 자정을 예약한다. background에서 JS timer가 제때 실행된다고 가정하지 않고 AppState active에서도 실제 날짜를 다시 읽는다. 같은 날이면 문자열이 같아 날짜 의존 effect의 불필요한 재실행을 줄인다. listener와 timer는 cleanup에서 해제한다.
@@ -54,4 +53,4 @@ return new Date(Date.now() + SERVER_UTC_OFFSET_MS)
 - [PR #65 · 캘린더 API](https://github.com/swyp6/unstiff-app/pull/65)
 - [PR #239 · 날짜 rollover와 검증 한계](https://github.com/swyp6/unstiff-app/pull/239)
 - [날짜 key 훅](https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/hooks/use-current-date-key.ts)
-- [미션 응답·캘린더 선택 처리](https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/app/(tabs)/home.tsx)
+- [미션 응답·캘린더 선택 처리](<https://github.com/swyp6/unstiff-app/blob/265c574ad0762df0489ae550c9c9ef6803db2b1a/src/app/(tabs)/home.tsx>)

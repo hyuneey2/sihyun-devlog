@@ -41,84 +41,84 @@
 
 ## 후보별 발행·통합·제외 결정
 
-| 후보 | 결정 및 근거 |
-| --- | --- |
-| SWYP-01 네이티브 빌드 오류 | Expo Go/개발 바이너리 경계는 HealthKit·Kakao 글에 통합. RNGoogleSignin/NativeRNFBTurboApp/ExpoModulesJSI/Pod 충돌·코드 서명의 최종 해결 로그가 없어 독립 성공담 제외 |
-| SWYP-02 건강 데이터 | #16/#33 비교 글. 읽기 권한, 로컬 날짜, 빈 데이터와 거부의 차이, 검증 한계 |
-| SWYP-03 Kakao Native SDK | #10 iOS 초기 구현. props/뷰 생명주기/Config Plugin 및 현재 제거 상태 |
-| SWYP-04 온보딩 | #56/#71/#114/#120. 임시 UI 상태와 서버 상태, 재진입·제출·가드 |
-| SWYP-05 약관 분리 | #41/#114/#120/#165. 최초 Eleventy 정적 사이트와 팀 static 이전, WebView·URL 계약 |
-| SWYP-06 카메라·기록 | #80/#106/#190/#229. 촬영/업로드/저장/식별 통합, 실제 완료 후 중복 POST 근거를 확인해 경쟁 상태 별도 분리 여부 결정 |
-| SWYP-07 기록 입력 | #219/#227/#233. 서버 DTO 경계·UI 단위·공통 컴포넌트와 picker |
-| SWYP-08 푸시 | #82/#136/#174. 토큰/읽음/계정별 stale 상태/landing, 실제 테스트만 기재 |
-| SWYP-09 BottomSheet | #180/#184/#186/#196/#198/#204. 키보드·inset·스크롤·가상화 생명주기 통합 |
-| SWYP-10 Photo Picker | #202. 최종 manifest·권한 최소화. 당시 대응과 현행 정책을 구분 |
-| SWYP-11 자정 | #65/#239. 서버 KST 날짜와 로컬 캘린더 날짜, 늦은 응답·복귀 |
-| SWYP-12 AI 동의·채팅 | #127/#131. 동의·전송 상태·재시도·남은 경쟁 상태 구분 |
-| 추가: 스톱워치 | #176/#207. 누적 구간·재개·확인 모달·중복 종료를 묶어 발행 |
-| 추가: Analytics | #224. 사용자 식별 lifecycle과 실패 격리, 의미 있는 범위로 발행 |
-| 추가: Figma 토큰 | 저장소 sync 스크립트·token-export 문서 확인. 실제 값 변환과 운영 제약이 충분하면 발행 |
-| 추가: TestFlight/코드 서명 | 재현 로그·최종 해결 근거 없어 제외 |
-| 추가: 시스템 카메라/OS UI | 각각 카메라·BottomSheet 글에 통합 |
-| 추가: 공통 오류 모달/Remote Config | 논의와 구현 근거 구분. 확인되지 않은 완료 주장 제외 |
-| LocalLens-01 데이터·지도 | README/data-audit/judge/hooks/MapView. 지표와 프론트 표현의 책임 |
-| LocalLens-02 설명 일관성 | #10/#13/#14. 계산 단위·시설·나이대·범례·출처 |
-| LocalLens-03 예산/What-if | store/WhatIf, #13/#15. 입력 기준과 실험값, k 식별자 |
-| LocalLens-04 브라우저 추정 | #15/estimatePlans/fallback. 결정적 근사·상한·오차와 비교 조건 |
-| LocalLens-05 Snapshot | #16/#17/snapshot/store. manifest·두 파일·hash·4초 유예·복구·59/13 |
-| LocalLens-06 이용 조건 | #17/data-licenses. OSM 값 분리·공개 생성 중단 조건, 법적 판단 미확정 |
-| LocalLens-07 테스트 | public-snapshot/snapshot-all/store/compare 테스트. 과거 결과와 미검증 영역 명시 |
-| LocalLens-08 보고서 | Report/autosave/reportSaver/RichText. 서버 수락·로컬 초안·저장 경합·PDF |
-| 추가: 리브랜딩/정보 페이지 | #11/#12/#14, 별도 글 대신 프로젝트·데이터 기준 글에 통합 |
-| 추가: 공유 링크 | #13/share.ts 및 테스트. 범위 검증·복원 시점이 충분해 별도 발행 |
-| 추가: 지도 비동기 | 데이터·What-if·fallback 글에 통합 |
-| 추가: 로컬 자료 조회 | localAnswer/ChatDock 및 #16. 생성형 AI와 구분해 별도 발행 |
+| 후보                               | 결정 및 근거                                                                                                                                                         |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SWYP-01 네이티브 빌드 오류         | Expo Go/개발 바이너리 경계는 HealthKit·Kakao 글에 통합. RNGoogleSignin/NativeRNFBTurboApp/ExpoModulesJSI/Pod 충돌·코드 서명의 최종 해결 로그가 없어 독립 성공담 제외 |
+| SWYP-02 건강 데이터                | #16/#33 비교 글. 읽기 권한, 로컬 날짜, 빈 데이터와 거부의 차이, 검증 한계                                                                                            |
+| SWYP-03 Kakao Native SDK           | #10 iOS 초기 구현. props/뷰 생명주기/Config Plugin 및 현재 제거 상태                                                                                                 |
+| SWYP-04 온보딩                     | #56/#71/#114/#120. 임시 UI 상태와 서버 상태, 재진입·제출·가드                                                                                                        |
+| SWYP-05 약관 분리                  | #41/#114/#120/#165. 최초 Eleventy 정적 사이트와 팀 static 이전, WebView·URL 계약                                                                                     |
+| SWYP-06 카메라·기록                | #80/#106/#190/#229. 촬영/업로드/저장/식별 통합, 실제 완료 후 중복 POST 근거를 확인해 경쟁 상태 별도 분리 여부 결정                                                   |
+| SWYP-07 기록 입력                  | #219/#227/#233. 서버 DTO 경계·UI 단위·공통 컴포넌트와 picker                                                                                                         |
+| SWYP-08 푸시                       | #82/#136/#174. 토큰/읽음/계정별 stale 상태/landing, 실제 테스트만 기재                                                                                               |
+| SWYP-09 BottomSheet                | #180/#184/#186/#196/#198/#204. 키보드·inset·스크롤·가상화 생명주기 통합                                                                                              |
+| SWYP-10 Photo Picker               | #202. 최종 manifest·권한 최소화. 당시 대응과 현행 정책을 구분                                                                                                        |
+| SWYP-11 자정                       | #65/#239. 서버 KST 날짜와 로컬 캘린더 날짜, 늦은 응답·복귀                                                                                                           |
+| SWYP-12 AI 동의·채팅               | #127/#131. 동의·전송 상태·재시도·남은 경쟁 상태 구분                                                                                                                 |
+| 추가: 스톱워치                     | #176/#207. 누적 구간·재개·확인 모달·중복 종료를 묶어 발행                                                                                                            |
+| 추가: Analytics                    | #224. 사용자 식별 lifecycle과 실패 격리, 의미 있는 범위로 발행                                                                                                       |
+| 추가: Figma 토큰                   | 저장소 sync 스크립트·token-export 문서 확인. 실제 값 변환과 운영 제약이 충분하면 발행                                                                                |
+| 추가: TestFlight/코드 서명         | 재현 로그·최종 해결 근거 없어 제외                                                                                                                                   |
+| 추가: 시스템 카메라/OS UI          | 각각 카메라·BottomSheet 글에 통합                                                                                                                                    |
+| 추가: 공통 오류 모달/Remote Config | 논의와 구현 근거 구분. 확인되지 않은 완료 주장 제외                                                                                                                  |
+| LocalLens-01 데이터·지도           | README/data-audit/judge/hooks/MapView. 지표와 프론트 표현의 책임                                                                                                     |
+| LocalLens-02 설명 일관성           | #10/#13/#14. 계산 단위·시설·나이대·범례·출처                                                                                                                         |
+| LocalLens-03 예산/What-if          | store/WhatIf, #13/#15. 입력 기준과 실험값, k 식별자                                                                                                                  |
+| LocalLens-04 브라우저 추정         | #15/estimatePlans/fallback. 결정적 근사·상한·오차와 비교 조건                                                                                                        |
+| LocalLens-05 Snapshot              | #16/#17/snapshot/store. manifest·두 파일·hash·4초 유예·복구·59/13                                                                                                    |
+| LocalLens-06 이용 조건             | #17/data-licenses. OSM 값 분리·공개 생성 중단 조건, 법적 판단 미확정                                                                                                 |
+| LocalLens-07 테스트                | public-snapshot/snapshot-all/store/compare 테스트. 과거 결과와 미검증 영역 명시                                                                                      |
+| LocalLens-08 보고서                | Report/autosave/reportSaver/RichText. 서버 수락·로컬 초안·저장 경합·PDF                                                                                              |
+| 추가: 리브랜딩/정보 페이지         | #11/#12/#14, 별도 글 대신 프로젝트·데이터 기준 글에 통합                                                                                                             |
+| 추가: 공유 링크                    | #13/share.ts 및 테스트. 범위 검증·복원 시점이 충분해 별도 발행                                                                                                       |
+| 추가: 지도 비동기                  | 데이터·What-if·fallback 글에 통합                                                                                                                                    |
+| 추가: 로컬 자료 조회               | localAnswer/ChatDock 및 #16. 생성형 AI와 구분해 별도 발행                                                                                                            |
 
 ## PR 근거 목록
 
-| 프로젝트 | PR | 변경 | 작성자 | 머지일(UTC) |
-| --- | --- | --- | --- | --- |
-| Unstiff | [#10](https://github.com/swyp6/unstiff-app/pull/10) | [Feature] 카카오맵 iOS 초기 연동 | hyuneey2 | 2026-08-27 |
-| Unstiff | [#16](https://github.com/swyp6/unstiff-app/pull/16) | [Feat] iOS HealthKit 걸음 수 조회 연동 | hyuneey2 | 2026-08-28 |
-| Unstiff | [#33](https://github.com/swyp6/unstiff-app/pull/33) | [Feature] Android Health Connect 걸음 수 연동 | hyuneey2 | 2026-08-31 |
-| Unstiff | [#41](https://github.com/swyp6/unstiff-app/pull/41) | [Feat] 약관 웹페이지 호스팅 및 앱 연동 | hyuneey2 | 2026-09-03 |
-| Unstiff | [#56](https://github.com/swyp6/unstiff-app/pull/56) | [Feature] 회원가입 온보딩 및 프로필 설정 플로우 구현 | hyuneey2 | 2026-09-06 |
-| Unstiff | [#65](https://github.com/swyp6/unstiff-app/pull/65) | [Feature] 홈 캘린더 API 연동 | hyuneey2 | 2026-09-06 |
-| Unstiff | [#71](https://github.com/swyp6/unstiff-app/pull/71) | [Feature] 유저 프로필 조회 저장 및 회원 탈퇴 API 연동 | hyuneey2 | 2026-09-07 |
-| Unstiff | [#80](https://github.com/swyp6/unstiff-app/pull/80) | [Feature] 운동 기록 및 카메라 기록 플로우 연동 | hyuneey2 | 2026-09-10 |
-| Unstiff | [#82](https://github.com/swyp6/unstiff-app/pull/82) | [Feature] 알림 목록 및 읽음 상태 연동 | hyuneey2 | 2026-09-08 |
-| Unstiff | [#106](https://github.com/swyp6/unstiff-app/pull/106) | [Fix] 미션 운동 기록 및 신규 기록 저장 API 수정 | hyuneey2 | 2026-09-12 |
-| Unstiff | [#114](https://github.com/swyp6/unstiff-app/pull/114) | [Feature] 약관 관리 구조 및 온보딩 동의 항목 정리 | hyuneey2 | 2026-09-14 |
-| Unstiff | [#120](https://github.com/swyp6/unstiff-app/pull/120) | [Feature] 온보딩 약관 WebView 통일 및 재진입 가드 추가 | hyuneey2 | 2026-09-14 |
-| Unstiff | [#127](https://github.com/swyp6/unstiff-app/pull/127) | [Feature] 외부 AI 동의 기반 채팅 진입 플로우 구현 | hyuneey2 | 2026-09-15 |
-| Unstiff | [#131](https://github.com/swyp6/unstiff-app/pull/131) | [Fix] 채팅 UI 및 대화 상태 처리 개선 | hyuneey2 | 2026-09-15 |
-| Unstiff | [#136](https://github.com/swyp6/unstiff-app/pull/136) | [Fix] 알림 읽음 처리 및 알림 설정 네비게이션 오류 수정 | hyuneey2 | 2026-09-16 |
-| Unstiff | [#165](https://github.com/swyp6/unstiff-app/pull/165) | [Fix] 약관 URL 최신화 및 개인정보 처리방침·고객 지원 연결 | hyuneey2 | 2026-09-19 |
-| Unstiff | [#174](https://github.com/swyp6/unstiff-app/pull/174) | [Feat] 푸시 알림 타입별 랜딩 처리 | hyuneey2 | 2026-09-20 |
-| Unstiff | [#176](https://github.com/swyp6/unstiff-app/pull/176) | [Fix] 스톱워치 재개 시 시간 표시 오류 수정 | hyuneey2 | 2026-09-20 |
-| Unstiff | [#180](https://github.com/swyp6/unstiff-app/pull/180) | [Fix] 바텀시트 하단 CTA 스크롤 접근성 수정 | hyuneey2 | 2026-09-20 |
-| Unstiff | [#184](https://github.com/swyp6/unstiff-app/pull/184) | [Fix] Android 운동 완료 CTA 하단 여백 보정 | hyuneey2 | 2026-09-20 |
-| Unstiff | [#186](https://github.com/swyp6/unstiff-app/pull/186) | [Fix] 키보드 활성화 시 운동 바텀시트 최대 높이로 확장 | hyuneey2 | 2026-09-20 |
-| Unstiff | [#190](https://github.com/swyp6/unstiff-app/pull/190) | [Fix] 운동 기록 상세 조회 refId 기반 매칭 | hyuneey2 | 2026-09-20 |
-| Unstiff | [#196](https://github.com/swyp6/unstiff-app/pull/196) | [Fix] 신고 바텀시트 키보드 활성화 시 레이아웃 잘림 수정 | hyuneey2 | 2026-09-20 |
-| Unstiff | [#198](https://github.com/swyp6/unstiff-app/pull/198) | [Fix] 채팅 신고 시트 생명주기 및 상태바 가독성 개선 | hyuneey2 | 2026-09-20 |
-| Unstiff | [#202](https://github.com/swyp6/unstiff-app/pull/202) | [Fix] Android 불필요 미디어 권한 제거 및 시스템 Photo Picker 적용 | hyuneey2 | 2026-09-20 |
-| Unstiff | [#204](https://github.com/swyp6/unstiff-app/pull/204) | [Fix] Android 운동 기록 BottomSheet 하단 CTA 노출 수정 | hyuneey2 | 2026-09-20 |
-| Unstiff | [#207](https://github.com/swyp6/unstiff-app/pull/207) | [Feat] 스톱워치 완료 플로우 개선 | hyuneey2 | 2026-09-26 |
-| Unstiff | [#219](https://github.com/swyp6/unstiff-app/pull/219) | [Fix] 운동 기록 입력값 범위 제한 및 picker 렌더링 오류 수정 | hyuneey2 | 2026-09-29 |
-| Unstiff | [#224](https://github.com/swyp6/unstiff-app/pull/224) | [Feature] GA 사용자 ID 연동 | hyuneey2 | 2026-09-30 |
-| Unstiff | [#227](https://github.com/swyp6/unstiff-app/pull/227) | [Feature] 운동 기록 수정 항목 추가 및 바텀시트 스크롤 개선 | hyuneey2 | 2026-10-01 |
-| Unstiff | [#229](https://github.com/swyp6/unstiff-app/pull/229) | [feature] 시스템 카메라 촬영 플로우로 변경 | hyuneey2 | 2026-10-02 |
-| Unstiff | [#233](https://github.com/swyp6/unstiff-app/pull/233) | [Feature] 오늘의 운동 목표값 직접 입력 기능 추가 | hyuneey2 | 2026-10-02 |
-| Unstiff | [#239](https://github.com/swyp6/unstiff-app/pull/239) | [Fix] 자정 이후 오늘의 미션이 전날 기준으로 유지되는 문제 수정 | hyuneey2 | 2026-10-05 |
-| LocalLens | [#10](https://github.com/ai-life-challenge/ai-life-FE/pull/10) | fix: 의료 접근성 진단 및 결과 표시 오류 수정 | hyuneey2 | 2026-10-26 |
-| LocalLens | [#11](https://github.com/ai-life-challenge/ai-life-FE/pull/11) | feat: LocalLens 리브랜딩 및 파비콘 적용 | hyuneey2 | 2026-10-26 |
-| LocalLens | [#12](https://github.com/ai-life-challenge/ai-life-FE/pull/12) | feat: 푸터 리디자인 및 프로젝트 정보 페이지 추가 | hyuneey2 | 2026-10-26 |
-| LocalLens | [#13](https://github.com/ai-life-challenge/ai-life-FE/pull/13) | fix: 진단 판정 및 결과 표시 일관성 개선 | hyuneey2 | 2026-10-27 |
-| LocalLens | [#14](https://github.com/ai-life-challenge/ai-life-FE/pull/14) | feat: 공공데이터 활용 안내 및 분석 기준 연결 개선 | hyuneey2 | 2026-10-27 |
-| LocalLens | [#15](https://github.com/ai-life-challenge/ai-life-FE/pull/15) | feat: 서버 장애 대응 추정 시뮬레이션 및 지도 안정성 개선 | hyuneey2 | 2026-11-05 |
-| LocalLens | [#16](https://github.com/ai-life-challenge/ai-life-FE/pull/16) | 백엔드 전체 장애 대응: 72개 지역 정적 자료 기반 독립 시뮬레이션 (자료 공개는 승인 대기) | hyuneey2 | 2026-11-06 |
-| LocalLens | [#17](https://github.com/ai-life-challenge/ai-life-FE/pull/17) | feat: 59개 지역 정적 자료 공개와 OSM 파생값 ODbL 분리 | hyuneey2 | 2026-11-07 |
+| 프로젝트  | PR                                                             | 변경                                                                                    | 작성자   | 머지일(UTC) |
+| --------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------- | -------- | ----------- |
+| Unstiff   | [#10](https://github.com/swyp6/unstiff-app/pull/10)            | [Feature] 카카오맵 iOS 초기 연동                                                        | hyuneey2 | 2026-08-27  |
+| Unstiff   | [#16](https://github.com/swyp6/unstiff-app/pull/16)            | [Feat] iOS HealthKit 걸음 수 조회 연동                                                  | hyuneey2 | 2026-08-28  |
+| Unstiff   | [#33](https://github.com/swyp6/unstiff-app/pull/33)            | [Feature] Android Health Connect 걸음 수 연동                                           | hyuneey2 | 2026-08-31  |
+| Unstiff   | [#41](https://github.com/swyp6/unstiff-app/pull/41)            | [Feat] 약관 웹페이지 호스팅 및 앱 연동                                                  | hyuneey2 | 2026-09-03  |
+| Unstiff   | [#56](https://github.com/swyp6/unstiff-app/pull/56)            | [Feature] 회원가입 온보딩 및 프로필 설정 플로우 구현                                    | hyuneey2 | 2026-09-06  |
+| Unstiff   | [#65](https://github.com/swyp6/unstiff-app/pull/65)            | [Feature] 홈 캘린더 API 연동                                                            | hyuneey2 | 2026-09-06  |
+| Unstiff   | [#71](https://github.com/swyp6/unstiff-app/pull/71)            | [Feature] 유저 프로필 조회 저장 및 회원 탈퇴 API 연동                                   | hyuneey2 | 2026-09-07  |
+| Unstiff   | [#80](https://github.com/swyp6/unstiff-app/pull/80)            | [Feature] 운동 기록 및 카메라 기록 플로우 연동                                          | hyuneey2 | 2026-09-10  |
+| Unstiff   | [#82](https://github.com/swyp6/unstiff-app/pull/82)            | [Feature] 알림 목록 및 읽음 상태 연동                                                   | hyuneey2 | 2026-09-08  |
+| Unstiff   | [#106](https://github.com/swyp6/unstiff-app/pull/106)          | [Fix] 미션 운동 기록 및 신규 기록 저장 API 수정                                         | hyuneey2 | 2026-09-12  |
+| Unstiff   | [#114](https://github.com/swyp6/unstiff-app/pull/114)          | [Feature] 약관 관리 구조 및 온보딩 동의 항목 정리                                       | hyuneey2 | 2026-09-14  |
+| Unstiff   | [#120](https://github.com/swyp6/unstiff-app/pull/120)          | [Feature] 온보딩 약관 WebView 통일 및 재진입 가드 추가                                  | hyuneey2 | 2026-09-14  |
+| Unstiff   | [#127](https://github.com/swyp6/unstiff-app/pull/127)          | [Feature] 외부 AI 동의 기반 채팅 진입 플로우 구현                                       | hyuneey2 | 2026-09-15  |
+| Unstiff   | [#131](https://github.com/swyp6/unstiff-app/pull/131)          | [Fix] 채팅 UI 및 대화 상태 처리 개선                                                    | hyuneey2 | 2026-09-15  |
+| Unstiff   | [#136](https://github.com/swyp6/unstiff-app/pull/136)          | [Fix] 알림 읽음 처리 및 알림 설정 네비게이션 오류 수정                                  | hyuneey2 | 2026-09-16  |
+| Unstiff   | [#165](https://github.com/swyp6/unstiff-app/pull/165)          | [Fix] 약관 URL 최신화 및 개인정보 처리방침·고객 지원 연결                               | hyuneey2 | 2026-09-19  |
+| Unstiff   | [#174](https://github.com/swyp6/unstiff-app/pull/174)          | [Feat] 푸시 알림 타입별 랜딩 처리                                                       | hyuneey2 | 2026-09-20  |
+| Unstiff   | [#176](https://github.com/swyp6/unstiff-app/pull/176)          | [Fix] 스톱워치 재개 시 시간 표시 오류 수정                                              | hyuneey2 | 2026-09-20  |
+| Unstiff   | [#180](https://github.com/swyp6/unstiff-app/pull/180)          | [Fix] 바텀시트 하단 CTA 스크롤 접근성 수정                                              | hyuneey2 | 2026-09-20  |
+| Unstiff   | [#184](https://github.com/swyp6/unstiff-app/pull/184)          | [Fix] Android 운동 완료 CTA 하단 여백 보정                                              | hyuneey2 | 2026-09-20  |
+| Unstiff   | [#186](https://github.com/swyp6/unstiff-app/pull/186)          | [Fix] 키보드 활성화 시 운동 바텀시트 최대 높이로 확장                                   | hyuneey2 | 2026-09-20  |
+| Unstiff   | [#190](https://github.com/swyp6/unstiff-app/pull/190)          | [Fix] 운동 기록 상세 조회 refId 기반 매칭                                               | hyuneey2 | 2026-09-20  |
+| Unstiff   | [#196](https://github.com/swyp6/unstiff-app/pull/196)          | [Fix] 신고 바텀시트 키보드 활성화 시 레이아웃 잘림 수정                                 | hyuneey2 | 2026-09-20  |
+| Unstiff   | [#198](https://github.com/swyp6/unstiff-app/pull/198)          | [Fix] 채팅 신고 시트 생명주기 및 상태바 가독성 개선                                     | hyuneey2 | 2026-09-20  |
+| Unstiff   | [#202](https://github.com/swyp6/unstiff-app/pull/202)          | [Fix] Android 불필요 미디어 권한 제거 및 시스템 Photo Picker 적용                       | hyuneey2 | 2026-09-20  |
+| Unstiff   | [#204](https://github.com/swyp6/unstiff-app/pull/204)          | [Fix] Android 운동 기록 BottomSheet 하단 CTA 노출 수정                                  | hyuneey2 | 2026-09-20  |
+| Unstiff   | [#207](https://github.com/swyp6/unstiff-app/pull/207)          | [Feat] 스톱워치 완료 플로우 개선                                                        | hyuneey2 | 2026-09-26  |
+| Unstiff   | [#219](https://github.com/swyp6/unstiff-app/pull/219)          | [Fix] 운동 기록 입력값 범위 제한 및 picker 렌더링 오류 수정                             | hyuneey2 | 2026-09-29  |
+| Unstiff   | [#224](https://github.com/swyp6/unstiff-app/pull/224)          | [Feature] GA 사용자 ID 연동                                                             | hyuneey2 | 2026-09-30  |
+| Unstiff   | [#227](https://github.com/swyp6/unstiff-app/pull/227)          | [Feature] 운동 기록 수정 항목 추가 및 바텀시트 스크롤 개선                              | hyuneey2 | 2026-10-01  |
+| Unstiff   | [#229](https://github.com/swyp6/unstiff-app/pull/229)          | [feature] 시스템 카메라 촬영 플로우로 변경                                              | hyuneey2 | 2026-10-02  |
+| Unstiff   | [#233](https://github.com/swyp6/unstiff-app/pull/233)          | [Feature] 오늘의 운동 목표값 직접 입력 기능 추가                                        | hyuneey2 | 2026-10-02  |
+| Unstiff   | [#239](https://github.com/swyp6/unstiff-app/pull/239)          | [Fix] 자정 이후 오늘의 미션이 전날 기준으로 유지되는 문제 수정                          | hyuneey2 | 2026-10-05  |
+| LocalLens | [#10](https://github.com/ai-life-challenge/ai-life-FE/pull/10) | fix: 의료 접근성 진단 및 결과 표시 오류 수정                                            | hyuneey2 | 2026-10-26  |
+| LocalLens | [#11](https://github.com/ai-life-challenge/ai-life-FE/pull/11) | feat: LocalLens 리브랜딩 및 파비콘 적용                                                 | hyuneey2 | 2026-10-26  |
+| LocalLens | [#12](https://github.com/ai-life-challenge/ai-life-FE/pull/12) | feat: 푸터 리디자인 및 프로젝트 정보 페이지 추가                                        | hyuneey2 | 2026-10-26  |
+| LocalLens | [#13](https://github.com/ai-life-challenge/ai-life-FE/pull/13) | fix: 진단 판정 및 결과 표시 일관성 개선                                                 | hyuneey2 | 2026-10-27  |
+| LocalLens | [#14](https://github.com/ai-life-challenge/ai-life-FE/pull/14) | feat: 공공데이터 활용 안내 및 분석 기준 연결 개선                                       | hyuneey2 | 2026-10-27  |
+| LocalLens | [#15](https://github.com/ai-life-challenge/ai-life-FE/pull/15) | feat: 서버 장애 대응 추정 시뮬레이션 및 지도 안정성 개선                                | hyuneey2 | 2026-11-05  |
+| LocalLens | [#16](https://github.com/ai-life-challenge/ai-life-FE/pull/16) | 백엔드 전체 장애 대응: 72개 지역 정적 자료 기반 독립 시뮬레이션 (자료 공개는 승인 대기) | hyuneey2 | 2026-11-06  |
+| LocalLens | [#17](https://github.com/ai-life-challenge/ai-life-FE/pull/17) | feat: 59개 지역 정적 자료 공개와 OSM 파생값 ODbL 분리                                   | hyuneey2 | 2026-11-07  |
 
 ## 시작 상태 검사
 

@@ -3,7 +3,7 @@ title: "Analytics 사용자 식별을 로그인 이벤트보다 먼저 연결하
 description: "수동·자동 로그인과 로그아웃의 사용자 ID 수명을 맞추고, 분석 실패가 인증을 막지 않게 분리했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","Firebase Analytics","Authentication","Async"]
+tags: ["Unstiff", "Firebase Analytics", "Authentication", "Async"]
 series: "Unstiff 개발기"
 seriesOrder: 14
 ---

@@ -3,7 +3,7 @@ title: "온보딩 상태를 초기화했더니 로그인 화면으로 돌아갔�
 description: "신규 회원 분기, 닉네임 검증, 프로필 저장과 화면 가드의 생명주기를 연결하며 임시 상태와 서버 상태를 구분했습니다."
 date: "2026-11-10"
 category: "Frontend"
-tags: ["Unstiff","Zustand","Expo Router","Authentication"]
+tags: ["Unstiff", "Zustand", "Expo Router", "Authentication"]
 series: "Unstiff 개발기"
 seriesOrder: 3
 ---
