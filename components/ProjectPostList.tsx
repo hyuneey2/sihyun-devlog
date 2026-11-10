@@ -25,6 +25,12 @@ export function ProjectPostList({
           <Link href={`/posts/${post.slug}`}>
             <div className="project-related-post-meta">
               <span>#{projectTag}</span>
+              {post.series && (
+                <span>
+                  {post.series}
+                  {post.seriesOrder ? ` · ${String(post.seriesOrder).padStart(2, "0")}` : ""}
+                </span>
+              )}
               <time dateTime={post.date}>{formatPostDate(post.date)}</time>
             </div>
 

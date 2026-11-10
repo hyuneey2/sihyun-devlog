@@ -124,7 +124,7 @@ test("omits unavailable series directions and keeps regular posts unchanged", as
   assert.doesNotMatch(regularHtml, /class="series-navigation"/);
 });
 
-test("shows up to three project-tagged posts instead of static troubleshooting copy", async () => {
+test("shows every project-tagged post and preserves existing project metadata", async () => {
   const [withchurchResponse, readingResponse, dailogResponse] =
     await Promise.all([
       renderPage("/projects/withchurch"),
@@ -143,6 +143,7 @@ test("shows up to three project-tagged posts instead of static troubleshooting c
   assert.match(withchurchHtml, /href="\/posts\/post-202607311527"/);
   assert.match(withchurchHtml, /href="\/posts\/post-202607311538"/);
   assert.match(withchurchHtml, /href="\/posts\/post-202607311554"/);
+  assert.match(withchurchHtml, /href="\/posts\/post-202607311619"/);
   assert.match(readingHtml, /href="\/posts\/reading-marathon-frontend"/);
   assert.match(dailogHtml, /href="\/posts\/repeat-schedule-group"/);
   assert.match(withchurchHtml, /Frontend 3명/);
@@ -157,6 +158,6 @@ test("shows up to three project-tagged posts instead of static troubleshooting c
     /운영 중인 화면을 안정적으로 개선하는 방법/,
   );
   assert.ok(
-    (withchurchHtml.match(/class="project-related-post"/g)?.length ?? 0) <= 3,
+    (withchurchHtml.match(/class="project-related-post"/g)?.length ?? 0) === 4,
   );
 });

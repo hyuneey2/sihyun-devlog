@@ -143,6 +143,9 @@ export default async function ProjectDetailPage({
           <section aria-labelledby="troubleshooting-title">
             <p className="projects-kicker">Troubleshooting</p>
             <h2 id="troubleshooting-title">관련 기록</h2>
+            {relatedPosts.length > 0 && (
+              <p className="projects-kicker">전체 {relatedPosts.length}편</p>
+            )}
             <ProjectPostList
               posts={relatedPosts}
               projectTag={project.postTag}

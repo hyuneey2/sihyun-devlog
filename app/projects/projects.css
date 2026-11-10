@@ -419,6 +419,7 @@
   font-size: 10px;
   flex-direction: column;
   gap: 4px;
+  overflow-wrap: anywhere;
 }
 
 .project-related-post-meta span {
@@ -557,5 +558,6 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
+    flex-wrap: wrap;
   }
 }
