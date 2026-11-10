@@ -37,6 +37,44 @@ export type Project = {
 
 export const projects: readonly Project[] = [
   {
+    slug: "unstiff",
+    title: "찌뿌두둥 (Unstiff)",
+    postTag: "Unstiff",
+    date: "2026.08 — 2026.10",
+    dateTime: "2026-08",
+    status: "SWYP 6기 팀 프로젝트",
+    role: "Frontend · 모바일 앱 개발 및 API 연동",
+    team: ["SWYP 6기 8팀", "기획 · 디자인 · 프론트엔드 · 백엔드 협업"],
+    contribution: "온보딩 · 운동 기록 · 플랫폼 대응 및 QA",
+    summary:
+      "일상 속 운동 기록과 개인화된 운동 미션을 연결하는 React Native 기반 iOS·Android 앱입니다. 온보딩, 운동 계획·기록 API, 사진 촬영·업로드, 알림 연동과 플랫폼별 UI 개선에 참여했습니다.",
+    stack: [
+      "React Native", "Expo Router", "TypeScript", "NativeWind",
+      "Zustand", "Axios", "Firebase",
+    ],
+    tools: [
+      "GitHub", "Figma", "Xcode", "CocoaPods", "Android Studio", "Cloudflare",
+    ],
+    links: [
+      {
+        label: "GitHub",
+        href: "https://github.com/swyp6/unstiff-app",
+        primary: true,
+      },
+    ],
+    preview: {
+      type: "image",
+      src: "/projects/unstiff-onboarding.png",
+      alt: "Unstiff PR #56에 첨부된 회원가입 온보딩 실제 화면",
+      fit: "contain",
+    },
+    learnings: [
+      "HealthKit·Health Connect와 Kakao Native SDK의 초기 연동을 맡으며 JS 패키지와 네이티브 빌드의 경계를 확인했습니다. 이 초기 모듈들은 현재 develop에서 제거되어 있으며, 당시 구현과 검증 범위는 개발기에 구분해 기록했습니다.",
+      "촬영·업로드·기록 저장을 연결할 때 화면 이동과 비동기 작업의 완료 시점, 표시용 제목과 서버 식별자를 따로 관리해야 했습니다.",
+      "키보드·Safe Area·시스템 카메라처럼 OS에 의존하는 기능은 정적 검사와 실제 기기 확인을 구분해 검증했습니다.",
+    ],
+  },
+  {
     slug: "dailog",
     title: "Dailog",
     postTag: "Dailog",

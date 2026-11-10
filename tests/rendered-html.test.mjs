@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { projects } from "../lib/projects.ts";
 
 const developmentPreviewMeta =
   /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
@@ -47,13 +48,13 @@ test("renders the breathing hero aurora without the home avatar", async () => {
   assert.doesNotMatch(html, /class="home-avatar"/);
 });
 
-test("renders three accessible glowing project cards", async () => {
+test("renders accessible glowing cards for every registered project", async () => {
   const response = await renderPage("/projects");
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.equal(html.match(/class="project-row glowing-card/g)?.length, 3);
-  assert.equal(html.match(/from-emerald-200/g)?.length, 3);
+  assert.equal(html.match(/class="project-row glowing-card/g)?.length, projects.length);
+  assert.equal(html.match(/from-emerald-200/g)?.length, projects.length);
   assert.match(html, /aria-label="HUFS 독서마라톤 프로젝트 보기"/);
   assert.match(html, /aria-label="Dailog 프로젝트 보기"/);
   assert.match(html, /aria-label="withChurch 프로젝트 보기"/);
