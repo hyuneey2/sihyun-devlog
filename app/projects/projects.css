@@ -161,7 +161,9 @@
   color: var(--muted);
   font-size: 12px;
   font-weight: 590;
-  transition: color 150ms ease, transform 150ms ease;
+  transition:
+    color 150ms ease,
+    transform 150ms ease;
 }
 
 .project-back-link:hover {
@@ -208,7 +210,10 @@
   color: var(--muted-strong);
   font-size: 11px;
   font-weight: 630;
-  transition: color 150ms ease, border-color 150ms ease, transform 150ms ease;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
 }
 
 .project-action:hover {
@@ -304,6 +309,58 @@
   max-height: 760px;
   margin-inline: auto;
   object-fit: contain;
+}
+
+.project-preview > img.project-preview-wide {
+  display: block;
+  width: 100%;
+  max-height: none;
+}
+
+.project-live-preview-viewport {
+  height: min(64vw, 720px);
+  min-height: 520px;
+  background: var(--surface-soft);
+}
+
+.project-live-preview-viewport > iframe,
+.project-live-preview-viewport > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border: 0;
+}
+
+.project-live-preview-viewport > img {
+  object-fit: contain;
+}
+
+.project-preview-controls {
+  display: flex;
+  padding: 12px 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.project-preview-controls p {
+  flex: 1 1 280px;
+  margin: 0;
+}
+
+.project-preview-controls button,
+.project-preview-controls a {
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
 }
 
 .project-detail-body {
@@ -405,7 +462,9 @@
   grid-template-columns: 126px minmax(0, 1fr);
   gap: 18px;
   border-radius: 15px;
-  transition: background-color 170ms ease, transform 170ms ease;
+  transition:
+    background-color 170ms ease,
+    transform 170ms ease;
 }
 
 .project-related-post > a:hover {
@@ -419,6 +478,7 @@
   font-size: 10px;
   flex-direction: column;
   gap: 4px;
+  overflow-wrap: anywhere;
 }
 
 .project-related-post-meta span {
@@ -526,6 +586,16 @@
     min-height: 460px;
   }
 
+  .project-live-preview-viewport {
+    height: 72svh;
+    min-height: 460px;
+  }
+
+  .project-live-preview-viewport > iframe {
+    height: 100%;
+    min-height: 0;
+  }
+
   .project-preview-bar p {
     display: none;
   }
@@ -557,5 +627,6 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
+    flex-wrap: wrap;
   }
 }

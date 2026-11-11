@@ -1,12 +1,23 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { projects } from "../lib/projects.ts";
+import { readFile } from "node:fs/promises";
+
+const newArticles = JSON.parse(
+  await readFile(
+    new URL("../docs/new-article-sources.json", import.meta.url),
+    "utf8",
+  ),
+);
 
 const developmentPreviewMeta =
   /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
 
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
 workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-const workerPromise = import(workerUrl.href).then(({ default: worker }) => worker);
+const workerPromise = import(workerUrl.href).then(
+  ({ default: worker }) => worker,
+);
 
 async function renderPage(path) {
   const worker = await workerPromise;
@@ -30,11 +41,105 @@ test("renders development preview metadata", async () => {
   const response = await renderPage("/");
 
   assert.equal(response.status, 200);
-  assert.match(
-    response.headers.get("content-type") ?? "",
-    /^text\/html\b/i,
-  );
+  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   assert.match(await response.text(), developmentPreviewMeta);
+});
+
+test("new project pages expose all series posts, preview alt and metadata", async () => {
+  for (const slug of ["unstiff", "locallens"]) {
+    const response = await renderPage(`/projects/${slug}`);
+    const html = await response.text();
+    const articles = newArticles.filter((p) => p.project === slug);
+    assert.equal(response.status, 200);
+    assert.equal(
+      html.match(/class="project-related-post"/g)?.length,
+      articles.length,
+    );
+    assert.match(html, /<meta name="description" content="/);
+    if (slug === "locallens") {
+      assert.match(
+        html,
+        /<iframe[^>]+title="LocalLens 실제 웹사이트 미리보기"/,
+      );
+      assert.match(html, /이미지로 보기/);
+    } else {
+      assert.match(html, /<img[^>]+alt="[^"]+"/);
+      assert.match(html, /src="\/projects\/unstiff-project-preview.webp"/);
+      assert.match(html, /width="1920" height="1080"/);
+    }
+    for (const article of articles)
+      assert.ok(html.includes(`href="/posts/${article.slug}"`));
+  }
+});
+
+test("project previews expose live sites, store links and concise metadata", async () => {
+  const destinations = {
+    locallens: "https://villagecoverage-ai.pages.dev/",
+    "reading-marathon": "https://readmarathon.hufs.ac.kr/",
+    unstiff:
+      "https://apps.apple.com/kr/app/%EC%B0%8C%EB%BF%8C%EB%91%90%EB%91%A5/id6805492123",
+  };
+  const listing = await (await renderPage("/projects")).text();
+  for (const project of projects) {
+    const html = await (await renderPage(`/projects/${project.slug}`)).text();
+    assert.ok(listing.includes(project.summary), project.slug);
+    assert.ok(
+      html.includes(`<meta name="description" content="${project.summary}"`),
+      project.slug,
+    );
+    const destination = destinations[project.slug];
+    if (destination) {
+      assert.ok(
+        html.includes(
+          `class="project-action project-action-primary" href="${destination}" target="_blank" rel="noreferrer"`,
+        ),
+        project.slug,
+      );
+      assert.match(html, /class="project-action" href="https:\/\/github.com\//);
+    }
+    if (["locallens", "reading-marathon"].includes(project.slug)) {
+      assert.ok(html.includes(`src="${destination}"`));
+      assert.match(html, /<iframe[^>]+title="[^"]+" loading="lazy"/);
+      assert.match(html, /이미지로 보기/);
+      assert.match(html, /실제 사이트 방문/);
+    }
+    if (project.slug === "dailog") {
+      assert.ok(html.includes("UMC 10기 팀 프로젝트"));
+    }
+  }
+});
+
+test("all new articles render content, sources, tags, metadata and series neighbors", async () => {
+  for (const article of newArticles) {
+    const response = await renderPage(`/posts/${article.slug}`);
+    const html = await response.text();
+    const series = newArticles
+      .filter((p) => p.project === article.project)
+      .sort((a, b) => a.order - b.order);
+    const previous = series[article.order - 2];
+    const next = series[article.order];
+    assert.equal(response.status, 200, article.slug);
+    assert.ok(html.includes(article.title), article.slug);
+    assert.ok(html.includes(article.description), article.slug);
+    assert.match(html, /class="article-series"/);
+    assert.match(html, /참고한 변경과 코드/);
+    assert.match(html, /<meta name="description"/);
+    for (const neighbor of [previous, next].filter(Boolean)) {
+      assert.ok(html.includes(`href="/posts/${neighbor.slug}"`), article.slug);
+    }
+    if (!previous) assert.doesNotMatch(html, /series-navigation-previous"/);
+    if (!next) assert.doesNotMatch(html, /series-navigation-next"/);
+    for (const [, url] of article.refs)
+      assert.ok(
+        html.includes(url.replaceAll("&", "&amp;")),
+        `${article.slug}: ${url}`,
+      );
+  }
+});
+
+test("unknown project and post return 404", async () => {
+  assert.equal((await renderPage("/projects/not-a-real-project")).status, 404);
+  assert.equal((await renderPage("/posts/not-a-real-post")).status, 404);
 });
 
 test("renders the breathing hero aurora without the home avatar", async () => {
@@ -47,13 +152,16 @@ test("renders the breathing hero aurora without the home avatar", async () => {
   assert.doesNotMatch(html, /class="home-avatar"/);
 });
 
-test("renders three accessible glowing project cards", async () => {
+test("renders accessible glowing cards for every registered project", async () => {
   const response = await renderPage("/projects");
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.equal(html.match(/class="project-row glowing-card/g)?.length, 3);
-  assert.equal(html.match(/from-emerald-200/g)?.length, 3);
+  assert.equal(
+    html.match(/class="project-row glowing-card/g)?.length,
+    projects.length,
+  );
+  assert.equal(html.match(/from-emerald-200/g)?.length, projects.length);
   assert.match(html, /aria-label="HUFS 독서마라톤 프로젝트 보기"/);
   assert.match(html, /aria-label="Dailog 프로젝트 보기"/);
   assert.match(html, /aria-label="withChurch 프로젝트 보기"/);
@@ -71,7 +179,7 @@ test("groups a series in the public posts list", async () => {
   assert.match(html, /aria-expanded="false"/);
   assert.doesNotMatch(html, />SQL 조회와 페이지네이션</);
   assert.doesNotMatch(html, />JWT 인증과 Google OAuth 로그인</);
-  assert.equal(html.match(/class="pagination-link"/g)?.length, 3);
+  assert.equal(html.match(/class="pagination-link"/g)?.length, 4);
 });
 
 test("keeps grouping after the category filter and out of the home list", async () => {
@@ -123,7 +231,7 @@ test("omits unavailable series directions and keeps regular posts unchanged", as
   assert.doesNotMatch(regularHtml, /class="series-navigation"/);
 });
 
-test("shows up to three project-tagged posts instead of static troubleshooting copy", async () => {
+test("shows every project-tagged post and preserves existing project metadata", async () => {
   const [withchurchResponse, readingResponse, dailogResponse] =
     await Promise.all([
       renderPage("/projects/withchurch"),
@@ -142,6 +250,7 @@ test("shows up to three project-tagged posts instead of static troubleshooting c
   assert.match(withchurchHtml, /href="\/posts\/post-202607311527"/);
   assert.match(withchurchHtml, /href="\/posts\/post-202607311538"/);
   assert.match(withchurchHtml, /href="\/posts\/post-202607311554"/);
+  assert.match(withchurchHtml, /href="\/posts\/post-202607311619"/);
   assert.match(readingHtml, /href="\/posts\/reading-marathon-frontend"/);
   assert.match(dailogHtml, /href="\/posts\/repeat-schedule-group"/);
   assert.match(withchurchHtml, /Frontend 3명/);
@@ -156,6 +265,6 @@ test("shows up to three project-tagged posts instead of static troubleshooting c
     /운영 중인 화면을 안정적으로 개선하는 방법/,
   );
   assert.ok(
-    (withchurchHtml.match(/class="project-related-post"/g)?.length ?? 0) <= 3,
+    (withchurchHtml.match(/class="project-related-post"/g)?.length ?? 0) === 4,
   );
 });

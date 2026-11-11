@@ -1,3 +1,5 @@
+import type { D1Database } from "@cloudflare/workers-types";
+import { seedBundledPosts } from "./post-seeding";
 import { getBundledPosts } from "./posts";
 import { getBlogRuntimeEnv } from "./runtime-env";
 import type {
@@ -25,7 +27,6 @@ type D1PostRow = {
   author_email: string;
 };
 
-const INITIAL_SEED_KEY = "initial_markdown_seed_v2";
 let storageReady: Promise<void> | null = null;
 
 function getD1() {
@@ -158,53 +159,28 @@ function postToSummary(post: Post): PostSummary {
   };
 }
 
+const seedReady = new WeakMap<D1Database, Promise<void>>();
+
 async function ensureInitialPosts() {
   await ensureBlogStorage();
   const d1 = requireD1();
-  const marker = await d1
-    .prepare("SELECT value FROM blog_settings WHERE key = ?")
-    .bind(INITIAL_SEED_KEY)
-    .first<{ value: string }>();
-
-  if (marker) return;
-
-  const now = new Date().toISOString();
-  const statements = getBundledPosts().map((post) =>
-    d1
-      .prepare(
-        `INSERT OR IGNORE INTO posts (
-          id, slug, title, description, content, category, tags, series,
-          series_order, status, published_at, created_at, updated_at,
-          author_email
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      )
-      .bind(
-        post.id,
-        post.slug,
-        post.title,
-        post.description,
-        post.content,
-        post.category,
-        JSON.stringify(post.tags),
-        post.series ?? null,
-        post.seriesOrder ?? null,
-        post.status,
-        post.publishedAt,
-        post.publishedAt,
-        post.publishedAt,
-        "imported",
-      ),
-  );
-
-  statements.push(
-    d1
-      .prepare(
-        "INSERT OR IGNORE INTO blog_settings (key, value, updated_at) VALUES (?, ?, ?)",
-      )
-      .bind(INITIAL_SEED_KEY, "completed", now),
-  );
-
-  await d1.batch(statements);
+  const existing = seedReady.get(d1);
+  if (existing) return existing;
+  const pending = seedBundledPosts(d1, getBundledPosts())
+    .then(({ conflicts }) => {
+      if (conflicts.length) {
+        console.warn(
+          "Skipped bundled posts with occupied series orders:",
+          conflicts,
+        );
+      }
+    })
+    .catch((error) => {
+      seedReady.delete(d1);
+      throw error;
+    });
+  seedReady.set(d1, pending);
+  return pending;
 }
 
 export async function getPublishedPosts(

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProjectPostList } from "@/components/ProjectPostList";
+import { LiveProjectPreview } from "@/components/LiveProjectPreview";
 import { getPublishedPosts } from "@/lib/post-data";
 import { getProjectPosts } from "@/lib/project-posts";
 import { getProject } from "@/lib/projects";
@@ -89,22 +90,37 @@ export default async function ProjectDetailPage({
         </div>
 
         {project.preview.type === "live" ? (
-          <iframe
-            src={project.preview.src}
-            title={project.preview.title}
-            loading="lazy"
-            referrerPolicy="strict-origin-when-cross-origin"
-          />
+          project.preview.fallback ? (
+            <LiveProjectPreview
+              src={project.preview.src}
+              title={project.preview.title}
+              fallback={project.preview.fallback}
+            />
+          ) : (
+            <iframe
+              src={project.preview.src}
+              title={project.preview.title}
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+          )
         ) : (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={project.preview.src}
             alt={project.preview.alt}
-            className={
+            width={project.preview.width}
+            height={project.preview.height}
+            className={[
               project.preview.fit === "contain"
                 ? "project-preview-contain"
-                : undefined
-            }
+                : "",
+              project.preview.width && project.preview.height
+                ? "project-preview-wide"
+                : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
           />
         )}
       </section>
@@ -143,6 +159,9 @@ export default async function ProjectDetailPage({
           <section aria-labelledby="troubleshooting-title">
             <p className="projects-kicker">Troubleshooting</p>
             <h2 id="troubleshooting-title">관련 기록</h2>
+            {relatedPosts.length > 0 && (
+              <p className="projects-kicker">전체 {relatedPosts.length}편</p>
+            )}
             <ProjectPostList
               posts={relatedPosts}
               projectTag={project.postTag}

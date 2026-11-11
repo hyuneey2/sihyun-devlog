@@ -17,7 +17,7 @@ export async function POST(request: Request) {
   if (auth.response || !auth.user) return auth.response;
 
   const validation = validatePostInput(await request.json());
-  if (validation.error) {
+  if (validation.data === null) {
     return Response.json({ error: validation.error }, { status: 400 });
   }
 

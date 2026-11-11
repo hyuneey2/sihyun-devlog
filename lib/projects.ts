@@ -9,12 +9,15 @@ type ProjectPreview =
       type: "live";
       src: string;
       title: string;
+      fallback?: { src: string; alt: string };
     }
   | {
       type: "image";
       src: string;
       alt: string;
       fit?: "cover" | "contain";
+      width?: number;
+      height?: number;
     };
 
 export type Project = {
@@ -37,17 +40,122 @@ export type Project = {
 
 export const projects: readonly Project[] = [
   {
+    slug: "locallens",
+    title: "LocalLens — 농어촌 공공서비스 접근성 분석 및 예산 시뮬레이션",
+    postTag: "LocalLens",
+    date: "2026.10 — 2026.11",
+    dateTime: "2026-10",
+    status: "2026 AI 라이프 솔루션 챌린지",
+    role: "Frontend · 요구사항 정리 및 UI·API 검증",
+    team: ["AI 라이프 솔루션 챌린지 팀 프로젝트", "프론트엔드 · 서버 협업"],
+    contribution: "진단 UI · 시뮬레이션 상태 · 장애 대응 및 테스트",
+    summary:
+      "농어촌 72개 지역의 의료·교통 접근성을 진단하고, 예산에 따른 공공서비스 공급 대안을 비교하는 웹 서비스입니다.",
+    stack: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Zustand",
+      "MapLibre GL",
+      "deck.gl",
+      "React Router",
+      "TipTap",
+      "Vitest",
+      "Cloudflare Workers",
+    ],
+    tools: ["GitHub", "REST API", "브라우저 개발자 도구", "Wrangler"],
+    links: [
+      {
+        label: "사이트 방문",
+        href: "https://villagecoverage-ai.pages.dev/",
+        primary: true,
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/ai-life-challenge/ai-life-FE",
+      },
+    ],
+    preview: {
+      type: "live",
+      src: "https://villagecoverage-ai.pages.dev/",
+      title: "LocalLens 실제 웹사이트 미리보기",
+      fallback: {
+        src: "/projects/locallens-introduction.svg",
+        alt: "LocalLens 브랜드와 의료·교통 진단, 예산 비교를 소개하는 그래픽",
+      },
+    },
+    learnings: [
+      "계산식과 지도 범례, 시설 필터, 기준 인구의 설명을 맞추고 공공 기준과 팀 가정값을 구분했습니다. 화면 설명도 정책 판단에 영향을 주는 데이터 계약이었습니다.",
+      "서버 CP-SAT 최적화와 브라우저 추정의 출처를 구분하고, 장애·복구 중에도 예산과 What-if 입력을 유지하도록 상태 흐름을 검토했습니다. 서버 최적화 알고리즘 구현은 담당 범위가 아닙니다.",
+      "공개 자료 59곳과 미지원 13곳을 분리하고 OSM 파생값을 별도 파일로 제공했습니다. SHA-256·구조 검사와 장애 시나리오 테스트를 통해 잘못된 값으로 결과를 채우지 않도록 했습니다.",
+    ],
+  },
+  {
+    slug: "unstiff",
+    title: "찌뿌두둥 (Unstiff)",
+    postTag: "Unstiff",
+    date: "2026.08 — 2026.10",
+    dateTime: "2026-08",
+    status: "SWYP 6기 팀 프로젝트",
+    role: "Frontend · 모바일 앱 개발 및 API 연동",
+    team: ["SWYP 6기 8팀", "기획 · 디자인 · 프론트엔드 · 백엔드 협업"],
+    contribution: "온보딩 · 운동 기록 · 플랫폼 대응 및 QA",
+    summary:
+      "일상 속 운동 미션과 기록을 연결하는 iOS·Android 앱입니다. 온보딩, 운동 기록, 네이티브 기능 연동에 참여했습니다.",
+    stack: [
+      "React Native",
+      "Expo Router",
+      "TypeScript",
+      "NativeWind",
+      "Zustand",
+      "Axios",
+      "Firebase",
+    ],
+    tools: [
+      "GitHub",
+      "Figma",
+      "Xcode",
+      "CocoaPods",
+      "Android Studio",
+      "Cloudflare",
+    ],
+    links: [
+      {
+        label: "App Store에서 다운로드",
+        href: "https://apps.apple.com/kr/app/%EC%B0%8C%EB%BF%8C%EB%91%90%EB%91%A5/id6805492123",
+        primary: true,
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/swyp6/unstiff-app",
+      },
+    ],
+    preview: {
+      type: "image",
+      src: "/projects/unstiff-project-preview.webp",
+      alt: "찌뿌두둥 공식 프로젝트 소개 이미지: 로고, 운동 기록 앱 화면과 캐릭터",
+      fit: "contain",
+      width: 1920,
+      height: 1080,
+    },
+    learnings: [
+      "HealthKit·Health Connect와 Kakao Native SDK의 초기 연동을 맡으며 JS 패키지와 네이티브 빌드의 경계를 확인했습니다. 이 초기 모듈들은 현재 develop에서 제거되어 있으며, 당시 구현과 검증 범위는 개발기에 구분해 기록했습니다.",
+      "촬영·업로드·기록 저장을 연결할 때 화면 이동과 비동기 작업의 완료 시점, 표시용 제목과 서버 식별자를 따로 관리해야 했습니다.",
+      "키보드·Safe Area·시스템 카메라처럼 OS에 의존하는 기능은 정적 검사와 실제 기기 확인을 구분해 검증했습니다.",
+    ],
+  },
+  {
     slug: "dailog",
     title: "Dailog",
     postTag: "Dailog",
     date: "2026.07",
     dateTime: "2026-07",
-    status: "팀 프로젝트",
+    status: "UMC 10기 팀 프로젝트",
     role: "Backend · 일정 도메인 설계 및 구현",
     team: ["Frontend 4명", "Backend 4명", "PM 1명", "Designer 1명"],
     contribution: "Backend · 60%",
     summary:
-      "일정 관리와 일기 작성을 하나로 연결한 앱입니다. 일정 도메인과 반복 일정 API의 구조를 설계하고 구현했습니다.",
+      "일정 관리와 일기 작성을 연결하는 앱입니다. 반복 일정 도메인과 API를 설계하고 구현했습니다.",
     stack: ["NestJS", "TypeScript", "TypeORM", "PostgreSQL", "Swagger"],
     tools: ["GitHub", "Notion", "Swagger"],
     links: [
@@ -79,21 +187,28 @@ export const projects: readonly Project[] = [
     team: ["Frontend 1명", "Backend 1명"],
     contribution: "Frontend · 100%",
     summary:
-      "한국외국어대학교 글로벌캠퍼스 도서관의 독서 기록 프로그램을 위한 공식 웹서비스입니다. 사용자와 관리자 화면의 설계·구현을 맡았습니다.",
+      "한국외국어대학교 글로벌캠퍼스 도서관의 독서 참여·기록·집계를 지원하는 공식 웹서비스입니다. 프론트엔드를 단독 개발했습니다.",
     stack: ["React", "TypeScript", "Vite", "React Router"],
     tools: ["GitHub", "Figma", "Notion"],
     links: [
       {
+        label: "사이트 방문",
+        href: "https://readmarathon.hufs.ac.kr/",
+        primary: true,
+      },
+      {
         label: "GitHub",
         href: "https://github.com/HUFS-Reading-Marathon/pagepace-fe",
-        primary: true,
       },
     ],
     preview: {
-      type: "image",
-      src: "/projects/reading-marathon.png",
-      alt: "HUFS 독서마라톤 웹서비스 메인 화면",
-      fit: "cover",
+      type: "live",
+      src: "https://readmarathon.hufs.ac.kr/",
+      title: "HUFS 독서마라톤 실제 웹사이트 미리보기",
+      fallback: {
+        src: "/projects/reading-marathon.png",
+        alt: "HUFS 독서마라톤 웹서비스 메인 화면",
+      },
     },
     learnings: [
       "화면 구현뿐 아니라 디자인 기준, 데이터 구조, API 연결 순서를 함께 조율해야 단독 개발의 재작업을 줄일 수 있었습니다.",
@@ -111,7 +226,7 @@ export const projects: readonly Project[] = [
     team: ["Frontend 3명", "Backend 1명"],
     contribution: "Frontend · 90%",
     summary:
-      "교회 소식과 기록을 온라인에서 공유할 수 있는 커뮤니티형 웹페이지입니다. 실제 사용 환경에 배포한 뒤 운영 요청을 반영하고 있습니다.",
+      "교회 소식과 커뮤니티를 연결하는 웹서비스입니다. 프론트엔드 개발과 API 연동을 담당했습니다.",
     stack: ["React", "JavaScript", "REST API"],
     tools: ["GitHub", "Figma"],
     links: [
