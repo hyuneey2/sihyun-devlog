@@ -72,6 +72,43 @@ test("new project pages expose all series posts, preview alt and metadata", asyn
   }
 });
 
+test("project previews expose live sites, store links and concise metadata", async () => {
+  const destinations = {
+    locallens: "https://villagecoverage-ai.pages.dev/",
+    "reading-marathon": "https://readmarathon.hufs.ac.kr/",
+    unstiff:
+      "https://apps.apple.com/kr/app/%EC%B0%8C%EB%BF%8C%EB%91%90%EB%91%A5/id6805492123",
+  };
+  const listing = await (await renderPage("/projects")).text();
+  for (const project of projects) {
+    const html = await (await renderPage(`/projects/${project.slug}`)).text();
+    assert.ok(listing.includes(project.summary), project.slug);
+    assert.ok(
+      html.includes(`<meta name="description" content="${project.summary}"`),
+      project.slug,
+    );
+    const destination = destinations[project.slug];
+    if (destination) {
+      assert.ok(
+        html.includes(
+          `class="project-action project-action-primary" href="${destination}" target="_blank" rel="noreferrer"`,
+        ),
+        project.slug,
+      );
+      assert.match(html, /class="project-action" href="https:\/\/github.com\//);
+    }
+    if (["locallens", "reading-marathon"].includes(project.slug)) {
+      assert.ok(html.includes(`src="${destination}"`));
+      assert.match(html, /<iframe[^>]+title="[^"]+" loading="lazy"/);
+      assert.match(html, /이미지로 보기/);
+      assert.match(html, /실제 사이트 방문/);
+    }
+    if (project.slug === "dailog") {
+      assert.ok(html.includes("UMC 10기 팀 프로젝트"));
+    }
+  }
+});
+
 test("all new articles render content, sources, tags, metadata and series neighbors", async () => {
   for (const article of newArticles) {
     const response = await renderPage(`/posts/${article.slug}`);
