@@ -50,7 +50,7 @@ export const projects: readonly Project[] = [
     team: ["AI 라이프 솔루션 챌린지 팀 프로젝트", "프론트엔드 · 서버 협업"],
     contribution: "진단 UI · 시뮬레이션 상태 · 장애 대응 및 테스트",
     summary:
-      "공공데이터로 전국 72개 지역의 의료·교통 접근성을 진단하고 예산과 정책 목표에 따른 공급 대안을 비교하는 의사결정 지원 웹 서비스입니다. AI 데이터 질의응답과 정책 보고서를 지원하며, 백엔드 전체 장애 시 공개 정적 자료가 있는 59개 지역에서 브라우저 추정 계산을 제공합니다. 나머지 13개 지역은 서버 정상 시 지원합니다.",
+      "농어촌 72개 지역의 의료·교통 접근성을 진단하고, 예산에 따른 공공서비스 공급 대안을 비교하는 웹 서비스입니다.",
     stack: [
       "React",
       "TypeScript",
@@ -101,7 +101,7 @@ export const projects: readonly Project[] = [
     team: ["SWYP 6기 8팀", "기획 · 디자인 · 프론트엔드 · 백엔드 협업"],
     contribution: "온보딩 · 운동 기록 · 플랫폼 대응 및 QA",
     summary:
-      "일상 속 운동 기록과 개인화된 운동 미션을 연결하는 React Native 기반 iOS·Android 앱입니다. 온보딩, 운동 계획·기록 API, 사진 촬영·업로드, 알림 연동과 플랫폼별 UI 개선에 참여했습니다.",
+      "일상 속 운동 미션과 기록을 연결하는 iOS·Android 앱입니다. 온보딩, 운동 기록, 네이티브 기능 연동에 참여했습니다.",
     stack: [
       "React Native",
       "Expo Router",
@@ -150,12 +150,12 @@ export const projects: readonly Project[] = [
     postTag: "Dailog",
     date: "2026.07",
     dateTime: "2026-07",
-    status: "팀 프로젝트",
+    status: "UMC 10기 팀 프로젝트",
     role: "Backend · 일정 도메인 설계 및 구현",
     team: ["Frontend 4명", "Backend 4명", "PM 1명", "Designer 1명"],
     contribution: "Backend · 60%",
     summary:
-      "일정 관리와 일기 작성을 하나로 연결한 앱입니다. 일정 도메인과 반복 일정 API의 구조를 설계하고 구현했습니다.",
+      "일정 관리와 일기 작성을 연결하는 앱입니다. 반복 일정 도메인과 API를 설계하고 구현했습니다.",
     stack: ["NestJS", "TypeScript", "TypeORM", "PostgreSQL", "Swagger"],
     tools: ["GitHub", "Notion", "Swagger"],
     links: [
@@ -187,7 +187,7 @@ export const projects: readonly Project[] = [
     team: ["Frontend 1명", "Backend 1명"],
     contribution: "Frontend · 100%",
     summary:
-      "한국외국어대학교 글로벌캠퍼스 도서관의 독서 기록 프로그램을 위한 공식 웹서비스입니다. 사용자와 관리자 화면의 설계·구현을 맡았습니다.",
+      "한국외국어대학교 글로벌캠퍼스 도서관의 독서 참여·기록·집계를 지원하는 공식 웹서비스입니다. 프론트엔드를 단독 개발했습니다.",
     stack: ["React", "TypeScript", "Vite", "React Router"],
     tools: ["GitHub", "Figma", "Notion"],
     links: [
@@ -226,7 +226,7 @@ export const projects: readonly Project[] = [
     team: ["Frontend 3명", "Backend 1명"],
     contribution: "Frontend · 90%",
     summary:
-      "교회 소식과 기록을 온라인에서 공유할 수 있는 커뮤니티형 웹페이지입니다. 실제 사용 환경에 배포한 뒤 운영 요청을 반영하고 있습니다.",
+      "교회 소식과 커뮤니티를 연결하는 웹서비스입니다. 프론트엔드 개발과 API 연동을 담당했습니다.",
     stack: ["React", "JavaScript", "REST API"],
     tools: ["GitHub", "Figma"],
     links: [
