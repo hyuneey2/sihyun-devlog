@@ -56,7 +56,17 @@ test("new project pages expose all series posts, preview alt and metadata", asyn
       articles.length,
     );
     assert.match(html, /<meta name="description" content="/);
-    assert.match(html, /<img[^>]+alt="[^"]+"/);
+    if (slug === "locallens") {
+      assert.match(
+        html,
+        /<iframe[^>]+title="LocalLens 실제 웹사이트 미리보기"/,
+      );
+      assert.match(html, /이미지로 보기/);
+    } else {
+      assert.match(html, /<img[^>]+alt="[^"]+"/);
+      assert.match(html, /src="\/projects\/unstiff-project-preview.webp"/);
+      assert.match(html, /width="1920" height="1080"/);
+    }
     for (const article of articles)
       assert.ok(html.includes(`href="/posts/${article.slug}"`));
   }

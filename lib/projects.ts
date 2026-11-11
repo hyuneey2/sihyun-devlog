@@ -9,12 +9,15 @@ type ProjectPreview =
       type: "live";
       src: string;
       title: string;
+      fallback?: { src: string; alt: string };
     }
   | {
       type: "image";
       src: string;
       alt: string;
       fit?: "cover" | "contain";
+      width?: number;
+      height?: number;
     };
 
 export type Project = {
@@ -63,16 +66,23 @@ export const projects: readonly Project[] = [
     tools: ["GitHub", "REST API", "브라우저 개발자 도구", "Wrangler"],
     links: [
       {
+        label: "사이트 방문",
+        href: "https://villagecoverage-ai.pages.dev/",
+        primary: true,
+      },
+      {
         label: "GitHub",
         href: "https://github.com/ai-life-challenge/ai-life-FE",
-        primary: true,
       },
     ],
     preview: {
-      type: "image",
-      src: "/projects/locallens-introduction.svg",
-      alt: "LocalLens 공식 위치 핀을 활용한 소개 그래픽: 진단·예산 비교·보고서, 실제 화면 캡처 아님",
-      fit: "cover",
+      type: "live",
+      src: "https://villagecoverage-ai.pages.dev/",
+      title: "LocalLens 실제 웹사이트 미리보기",
+      fallback: {
+        src: "/projects/locallens-introduction.svg",
+        alt: "LocalLens 브랜드와 의료·교통 진단, 예산 비교를 소개하는 그래픽",
+      },
     },
     learnings: [
       "계산식과 지도 범례, 시설 필터, 기준 인구의 설명을 맞추고 공공 기준과 팀 가정값을 구분했습니다. 화면 설명도 정책 판단에 영향을 주는 데이터 계약이었습니다.",
@@ -111,16 +121,22 @@ export const projects: readonly Project[] = [
     ],
     links: [
       {
+        label: "App Store에서 다운로드",
+        href: "https://apps.apple.com/kr/app/%EC%B0%8C%EB%BF%8C%EB%91%90%EB%91%A5/id6805492123",
+        primary: true,
+      },
+      {
         label: "GitHub",
         href: "https://github.com/swyp6/unstiff-app",
-        primary: true,
       },
     ],
     preview: {
       type: "image",
-      src: "/projects/unstiff-onboarding.png",
-      alt: "Unstiff PR #56에 첨부된 회원가입 온보딩 실제 화면",
+      src: "/projects/unstiff-project-preview.webp",
+      alt: "찌뿌두둥 공식 프로젝트 소개 이미지: 로고, 운동 기록 앱 화면과 캐릭터",
       fit: "contain",
+      width: 1920,
+      height: 1080,
     },
     learnings: [
       "HealthKit·Health Connect와 Kakao Native SDK의 초기 연동을 맡으며 JS 패키지와 네이티브 빌드의 경계를 확인했습니다. 이 초기 모듈들은 현재 develop에서 제거되어 있으며, 당시 구현과 검증 범위는 개발기에 구분해 기록했습니다.",
@@ -176,16 +192,23 @@ export const projects: readonly Project[] = [
     tools: ["GitHub", "Figma", "Notion"],
     links: [
       {
+        label: "사이트 방문",
+        href: "https://readmarathon.hufs.ac.kr/",
+        primary: true,
+      },
+      {
         label: "GitHub",
         href: "https://github.com/HUFS-Reading-Marathon/pagepace-fe",
-        primary: true,
       },
     ],
     preview: {
-      type: "image",
-      src: "/projects/reading-marathon.png",
-      alt: "HUFS 독서마라톤 웹서비스 메인 화면",
-      fit: "cover",
+      type: "live",
+      src: "https://readmarathon.hufs.ac.kr/",
+      title: "HUFS 독서마라톤 실제 웹사이트 미리보기",
+      fallback: {
+        src: "/projects/reading-marathon.png",
+        alt: "HUFS 독서마라톤 웹서비스 메인 화면",
+      },
     },
     learnings: [
       "화면 구현뿐 아니라 디자인 기준, 데이터 구조, API 연결 순서를 함께 조율해야 단독 개발의 재작업을 줄일 수 있었습니다.",
